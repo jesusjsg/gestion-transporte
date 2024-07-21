@@ -1,0 +1,15 @@
+{
+    "name": "nomina/nomina",
+    "description": "Dependencias del sistema",
+    "autoload": {
+        "psr-4": {
+            "Nomina\\Nomina\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jesus",
+            "email": "jesusjsg03@gmail.com"
+        }
+    ]
+}
