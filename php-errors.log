@@ -1,0 +1,71 @@
+[21-Jul-2024 19:33:34 UTC] Inicio de aplicacion web
+[21-Jul-2024 19:55:00 UTC] Inicio de aplicacion web
+[21-Jul-2024 19:55:00 UTC] PHP Deprecated:  rtrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\laragon\www\nomina\config\app.php on line 5
+[21-Jul-2024 19:55:00 UTC] APP::construct-> no hay controlador app
+[21-Jul-2024 19:55:00 UTC] PHP Warning:  require_once(src/controllers/login.php): Failed to open stream: No such file or directory in C:\laragon\www\nomina\config\app.php on line 11
+[21-Jul-2024 19:55:00 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'src/controllers/login.php' (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\nomina\config\app.php:11
+Stack trace:
+#0 C:\laragon\www\nomina\index.php(11): App->__construct()
+#1 {main}
+  thrown in C:\laragon\www\nomina\config\app.php on line 11
+[21-Jul-2024 19:56:34 UTC] Inicio de aplicacion web
+[21-Jul-2024 19:56:34 UTC] PHP Deprecated:  rtrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\laragon\www\nomina\config\app.php on line 5
+[21-Jul-2024 19:56:34 UTC] APP::construct-> no hay controlador especificado
+[21-Jul-2024 19:56:34 UTC] PHP Warning:  require_once(src/controllers/login.php): Failed to open stream: No such file or directory in C:\laragon\www\nomina\config\app.php on line 11
+[21-Jul-2024 19:56:34 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'src/controllers/login.php' (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\nomina\config\app.php:11
+Stack trace:
+#0 C:\laragon\www\nomina\index.php(11): App->__construct()
+#1 {main}
+  thrown in C:\laragon\www\nomina\config\app.php on line 11
+[21-Jul-2024 20:02:27 UTC] Inicio de aplicacion web
+[21-Jul-2024 20:02:28 UTC] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in C:\laragon\www\nomina\config\app.php on line 6
+[21-Jul-2024 20:02:28 UTC] APP::construct-> no hay controlador especificado
+[21-Jul-2024 20:02:28 UTC] PHP Warning:  require_once(src/controllers/login.php): Failed to open stream: No such file or directory in C:\laragon\www\nomina\config\app.php on line 11
+[21-Jul-2024 20:02:28 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'src/controllers/login.php' (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\nomina\config\app.php:11
+Stack trace:
+#0 C:\laragon\www\nomina\index.php(11): App->__construct()
+#1 {main}
+  thrown in C:\laragon\www\nomina\config\app.php on line 11
+[21-Jul-2024 20:03:47 UTC] Inicio de aplicacion web
+[21-Jul-2024 20:03:47 UTC] APP::construct-> no hay controlador especificado
+[21-Jul-2024 20:03:47 UTC] PHP Warning:  require_once(src/controllers/login.php): Failed to open stream: No such file or directory in C:\laragon\www\nomina\config\app.php on line 11
+[21-Jul-2024 20:03:47 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'src/controllers/login.php' (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\nomina\config\app.php:11
+Stack trace:
+#0 C:\laragon\www\nomina\index.php(11): App->__construct()
+#1 {main}
+  thrown in C:\laragon\www\nomina\config\app.php on line 11
+[21-Jul-2024 20:07:15 UTC] Inicio de aplicacion web
+[21-Jul-2024 20:07:15 UTC] APP::construct-> no hay controlador especificado
+[21-Jul-2024 20:07:15 UTC] PHP Warning:  require_once(src/controllers/login.php): Failed to open stream: No such file or directory in C:\laragon\www\nomina\config\app.php on line 12
+[21-Jul-2024 20:07:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'src/controllers/login.php' (include_path='.;C:/laragon/etc/php/pear') in C:\laragon\www\nomina\config\app.php:12
+Stack trace:
+#0 C:\laragon\www\nomina\index.php(11): App->__construct()
+#1 {main}
+  thrown in C:\laragon\www\nomina\config\app.php on line 12
+[21-Jul-2024 20:10:28 UTC] Inicio de aplicacion web
+[21-Jul-2024 20:10:28 UTC] APP::construct-> no hay controlador especificado
+[21-Jul-2024 20:10:28 UTC] PHP Fatal error:  Uncaught Error: Class "Login" not found in C:\laragon\www\nomina\config\app.php:13
+Stack trace:
+#0 C:\laragon\www\nomina\index.php(11): App->__construct()
+#1 {main}
+  thrown in C:\laragon\www\nomina\config\app.php on line 13
+[21-Jul-2024 20:12:44 UTC] Inicio de aplicacion web
+[21-Jul-2024 20:12:44 UTC] APP::construct -> no hay controlador especificado
+[21-Jul-2024 20:12:44 UTC] Login::construct -> Inicio de sesion
+[21-Jul-2024 20:23:12 UTC] Inicio de aplicacion web
+[21-Jul-2024 20:23:12 UTC] APP::construct -> no hay controlador especificado
+[21-Jul-2024 20:23:12 UTC] Login::construct -> Inicio de sesion
+[21-Jul-2024 20:23:12 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Login::loadModel() in C:\laragon\www\nomina\config\app.php:14
+Stack trace:
+#0 C:\laragon\www\nomina\index.php(11): App->__construct()
+#1 {main}
+  thrown in C:\laragon\www\nomina\config\app.php on line 14
+[21-Jul-2024 20:26:38 UTC] Inicio de aplicacion web
+[21-Jul-2024 20:26:39 UTC] APP::construct -> no hay controlador especificado
+[21-Jul-2024 20:26:39 UTC] Login::construct -> Inicio de sesion
+[21-Jul-2024 20:26:39 UTC] PHP Fatal error:  Uncaught Error: Call to undefined method Login::loadModel() in C:\laragon\www\nomina\config\app.php:14
+Stack trace:
+#0 C:\laragon\www\nomina\index.php(11): App->__construct()
+#1 {main}
+  thrown in C:\laragon\www\nomina\config\app.php on line 14
+[21-Jul-2024 23:58:39 UTC] Inicio de aplicacion web
