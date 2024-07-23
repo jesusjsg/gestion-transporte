@@ -15,24 +15,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="<?= URL; ?>public/css/main.css">
-    <link rel="stylesheet" type="text/css" href="<?= URL; ?>public/css/libs/bootstrap-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css" href="<?= URL; ?>public/css/libs/bootstrap.min.css">
     <title><?= APP_NAME; ?></title>
 </head>
 <body>
-    <main class="d-flex flex-nowrap">
-        <div class="flex-shrink-0" style="width: 20%;">
-            <a href="<?= URL; ?>" class="d-flex align-items-center pb-3 mb-3 link-body-emphasis text-decoration-none border-bottom text-bg-dark" style="height: 3rem;">
-                <img class="bi pe-none me-3 ms-3 pt-1 logo-sidebar" src="<?= URL; ?>public/img/clover-logo-sidebar.png" alt="">
-                <span class="fs-5 fw-semibold text-white pt-1">Clover Internacional</span>
-            </a>
-        </div>
-    </main>
-<!--<div class="sidebar">
-        <div class="logo-sidebar">
-            <img class="logo-image" src="public/img/clover-logo-sidebar.png" alt="">
-            <span class="logo-name">Clover Internacional</span>
-        </div>
-    </div>-->
+    <header class="d-flex justify-content-between align-items-center py-2 px-4 bg-success-subtle"> 
+        <nav>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarCanvas" aria-controls="sidebarCanvas" aria-label="toggle for the sidebar">
+                <i class="bi bi-list fs-5"></i>
+            </button>
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarCanvas" aria-labelledby="sidebarCanvasLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="sidebarCanvasLabel">Menú principal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+            </div>
+        </nav>
+        <nav>
+            <ul class="nav nav-pills">
+                <li>
+                    <a href="<?= URL; ?>" class="navbar-brand ">
+                        <img src="<?= URL; ?>public/img/clover-logo-menu.png" alt="logo sidebar" style="width: 2rem; height: 2rem;">
+                        <span class="text-black">Gestión de Transporte</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <nav>
+            <ul class="nav nav-pills">
+                <li>
+                    <a href="<?= URL; ?>" class="navbar-brand ">
+                        <img src="<?= URL; ?>public/img/clover-logo-sidebar.png" alt="logo sidebar" style="width: 2rem; height: 2rem;">
+                        <span class="text-black">Configuración</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <script src="<?= URL; ?>public/js/libs/bootstrap.bundle.min.js"></script>
 </body>
 </html>
