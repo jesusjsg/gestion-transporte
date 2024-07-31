@@ -21,9 +21,9 @@
 <head>
     <?php require_once "./src/helpers/includes/header.php"; ?>
 </head>
-<body>
-
-
+<body class="app sidebar-mini">
+    
+    <?php require_once "./src/helpers/includes/nav.php"; ?>
 
     <?php require_once "./src/helpers/includes/script.php"; ?>
 </body>
