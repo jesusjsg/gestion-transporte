@@ -12,7 +12,7 @@
 
     use src\controllers\viewsController;
 
-    if(isset($_GET['views'])){
+    if (isset($_GET['views'])) {
         $url = explode("/", $_GET['views']);
     } else {
         $url = ['login'];
@@ -23,23 +23,25 @@
 
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <?php require_once "./src/helpers/includes/header.php"; ?>
-</head>
-<body class="app sidebar-mini">
-    <?php
+<?php
+    // Se incluye el header en los dashboard y formularios de las vistas
+    if ($view != "./src/views/login/login.php" && $view != "./src/views/errors/404.php") {
+        require_once "./src/helpers/includes/header.php";
+    }
+?>
 
-        if ($view == "./src/views/login/login.php" || $view == "./src/views/errors/404.php"){
-            require_once $view;
-        } else {
-            require_once $view;
-        }
+<?php
+    // Cargar vista correspondiente
+    if (is_file($view)) {
+        require_once $view;
+    } else {
+        require_once "./src/views/errors/404.php";
+    }
 
+    // Se incluye el nav y el footer en los dashboard y formularios de las vistas
+    if ($view != "./src/views/login/login.php" && $view != "./src/views/errors/404.php") {
         require_once "./src/helpers/includes/nav.php";
+        echo "Ruta: $view";
         require_once "./src/helpers/includes/script.php"; 
-    
-    ?>
-</body>
-</html>
+    }
+?>
