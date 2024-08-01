@@ -1,7 +1,5 @@
+<body class="app sidebar-mini">
     <header class="app-header">
-        <a class="app-header__logo" href="./">
-            <!--<img class="logo-sidebar" src="<?= URL; ?>" alt="logo sidebar clover">-->
-        </a>
         <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="hide sidebar"></a>
     </header>
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
@@ -28,10 +26,17 @@
             <li><a class="app-menu__item" href="<?= URL; ?>"><i class="app-menu__icon bi bi-file-text"></i>
                 <span class="app-menu__label">Nóminas</span></a></li>
 
+            <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-card-text"></i>
+                <span class="app-menu__label">Reportes</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a class="treeview-item" href="<?= URL; ?>"><i class="icon bi bi-"></i>Reporte de viajes</a></li>
+                </ul>
+            </li>
+
             <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-gear"></i>
                 <span class="app-menu__label">Configuración</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a class="treeview-item" href="<?= URL; ?>"><i class="icon bi bi-people"></i>Usuarios</a></li>
+                    <li><a class="treeview-item" href="<?= URL; ?>"><i class="icon bi bi-person"></i>Usuarios</a></li>
                 </ul>
             </li>
 
@@ -40,4 +45,3 @@
 
         </ul>
     </aside>
-</body>
