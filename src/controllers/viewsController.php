@@ -1,16 +1,15 @@
 <?php
-    namespace src\controllers;
 
+    namespace src\controllers;
     use src\models\viewsModel;
 
-    class viewsController extends viewsModel {
+    class viewsController extends viewsModel{
         
-        public function getViewsController($view){
-            if($view != ""){
-                $response = $this->getViewsModel($view);
+        public function getViewsController($folder,$view){
+            if(!empty($folder) && !empty($view)){
+                return $this->getViewsModel($folder, $view);
             } else {
-                $response = $this->getViewsModel("login");
+                return "./src/views/auth/login.php";
             }
-            return $response;
         }
     }
