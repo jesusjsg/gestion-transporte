@@ -1,46 +1,30 @@
 <?php
+
     namespace src\models;
 
-    class viewsModel {
+    class viewsModel{
 
-        protected $whiteList = [];
+        protected function getViewsModel($folder,$view){
 
-        public function __construct() {
-            $this->generateWhiteList("./src/views/");
-        }
+            $folderList = ["conductor","viaje","general","ruta","usuario","vehiculo"];
+            $viewList = ["dashboard","form"];
+            $authList = ["login"];
 
-        protected function generateWhiteList($directory, $prefix = "") {
-            $files = scandir($directory);
-            foreach ($files as $file) {
-                if ($file != "." && $file != "..") {
-                    $path = $directory . $file;
-                    if (is_dir($path)) {
-                        // Recursivamente procesar subdirectorios
-                        $this->generateWhiteList($path . "/", $prefix . $file . "/");
-                    } else if (is_file($path) && pathinfo($path, PATHINFO_EXTENSION) == "php") {
-                        // Agregar archivos PHP a la lista blanca con su ruta relativa
-                        $this->whiteList[] = $prefix . pathinfo($file, PATHINFO_FILENAME);
-                    }
-                }
-            }
-        }
+            $filePath = null;
 
-        public function getViewsModel($view) {
-            // Caso especial para "login" y "index"
-            if ($view == "login" || $view == "index") {
-                return "./src/views/login/login.php";
-            }
+            if (in_array($folder, $folderList) && in_array($view, $viewList)) {
+                $filePath = "./src/views/{$folder}/{$view}.php";
 
-            // Verificar si la vista está en la lista blanca
-            if (in_array($view, $this->whiteList)) {
-                $viewPath = "./src/views/" . $view . ".php";
-                if (is_file($viewPath)) {
-                    return $viewPath;
-                } else {
-                    return "./src/views/errors/404.php";
-                }
+                if(!is_file($filePath)){
+                    $filePath = "./src/views/errors/404.php";
+                } 
+
+            } elseif($folder === "auth"){
+                $filePath = "./src/views/auth/login.php";
             } else {
-                return "./src/views/errors/404.php";
+                $filePath = "./src/views/errors/404.php";
             }
+            return $filePath;
+
         }
     }
