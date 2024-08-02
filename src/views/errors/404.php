@@ -15,12 +15,12 @@
 
 <body class="d-flex justify-content-center align-items-center">
     <div class="col-md-12 text-center">
-        <h1>404</h1>
+        <h1 class="fw-bold">404</h1>
         <h2>Página no encontrada</h2>
         <p class="opacity-75">La página no se encuentra disponible.</p>
         <a class="btn btn-secondary" href="javascript:window.history.back();">Volver</a>
         <br>
-        <?= "View: $view" ;?>
+        <?= "Ruta: $viewPath" ;?>
     </div>
 </body>
 

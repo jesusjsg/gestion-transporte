@@ -10,7 +10,6 @@
     <link rel="stylesheet" type="text/css" href="<?= URL; ?>public/css/login.css">
 </head>
 <body>
-    <?= "Ruta: $view";?>
     <div class="container" id="container">
         <div class="form-container sign-in-container">
             <form action="" class="row gx-3 allign-items-center">
@@ -31,7 +30,7 @@
                     </div>
                 </div>
                 <div class="col-auto">
-                    <button type="button" class="btn btn-success" id="log">Ingresar</button>
+                    <button type="button" class="btn btn-success" id="login">Ingresar</button>
                 </div>
             </form>
         </div>
