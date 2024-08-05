@@ -1,6 +1,6 @@
 <?php
     error_reporting(E_ALL);
-    ini_set('ignore_repeated_errors', true);
+    ini_set('ignore_repeated_errors', false);
     ini_set('display_errors', true); // Cambiar a false cuando este en produccion
     ini_set('log_errors', true);
     ini_set('error_log', '/laragon/www/nomina/php-errors.log');
@@ -25,19 +25,22 @@
     
     $viewPath = $viewsController->getViewsController($folder, $view);
 
-    if (is_file($viewPath)) {
+    if ($viewPath != "./src/views/auth/login.php" && $viewPath != "./src/views/errors/404.php"){
+        require_once "./src/helpers/includes/header.php";
+        require_once "./src/helpers/includes/nav.php";
+    }
+
+    if (is_file($viewPath)){
         require_once $viewPath;
     } else {
         require_once "./src/views/errors/404.php";
     }
-    echo "Carpeta: $folder<br>";
-    echo "Ruta: $viewPath<br>";
-    echo "Vista: $view";
     
-    // Se incluye el header, nav y scripts en los dashboard y formularios de las vistas
-    if ($viewPath != "./src/views/auth/login.php" && $viewPath != "./src/views/errors/404.php") {
-        require_once "./src/helpers/includes/header.php";
-        require_once "./src/helpers/includes/nav.php";
+    if ($viewPath != "./src/views/auth/login.php" && $viewPath != "./src/views/errors/404.php"){
         require_once "./src/helpers/includes/script.php";
     }
+
+    echo "Ruta: " . $viewPath . "<br>";
+    echo "Carpeta: " . $folder . "<br>";
+    echo "Vista: " . $view;
 ?>

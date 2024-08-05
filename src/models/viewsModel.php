@@ -6,7 +6,7 @@
 
         protected function getViewsModel($folder,$view){
 
-            $folderList = ["conductor","viaje","general","ruta","usuario","vehiculo"];
+            $folderList = ["conductor","viaje","general","ruta","usuario","vehiculo","home"];
             $viewList = ["dashboard","form"];
             $authList = ["login"];
 
