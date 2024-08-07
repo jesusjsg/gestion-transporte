@@ -19,8 +19,6 @@
         <h2>Página no encontrada</h2>
         <p class="opacity-75">La página no se encuentra disponible.</p>
         <a class="btn btn-secondary" href="javascript:window.history.back();">Volver</a>
-        <br>
-        <?= "Ruta: $viewPath" ;?>
     </div>
 </body>
 
