@@ -15,13 +15,17 @@ use src\controllers\viewsController;
 
 $viewsController = new viewsController();
 
+//$folder = 'home';
+//$view = 'index';
+
 if (isset($_GET['views'])) {
     $url = explode("/", $_GET['views']);
     $folder = $url[0] ?? '';
     $view = $url[1] ?? 'index'; // Vista predeterminada "index"
 } else {
     $folder = 'auth';
-    $view = 'login';
+    $view = 'login'; 
+
 }
 
 $viewPath = $viewsController->getViewsController($folder, $view);
@@ -40,7 +44,3 @@ if (is_file($viewPath)){
 if ($viewPath != "./src/views/auth/login.php" && $viewPath != "./src/views/errors/404.php"){
     require_once "./src/helpers/includes/script.php";
 }
-
-
-
-?>

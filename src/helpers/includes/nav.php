@@ -37,6 +37,7 @@
                 <span class="app-menu__label">Configuración</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a class="treeview-item" href="<?= URL; ?>usuario/"><i class="icon bi bi-person"></i>Usuarios</a></li>
+                    <li><a class="treeview-item" href="<?= URL; ?>permisos/"><i class="icon bi bi-lock"></i>Permisos</a></li>
                 </ul>
             </li>
 

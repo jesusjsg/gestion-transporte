@@ -19,7 +19,7 @@ class viewsModel {
         } elseif ($folder == "auth" && $view == "login") {
             return "./src/views/{$folder}/{$view}.php";
         } else {
-            //return "./src/views/errors/404.php";
+            return "./src/views/errors/404.php";
         }
 
     }
