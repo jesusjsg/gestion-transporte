@@ -1,8 +1,10 @@
+#Deshabilitar el listado de directorios
 Options All -Indexes
+
+#Definir la página de error 403 personalizada
+
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l
 RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?views=$1 [L,QSA]
-
-#RewriteRule ^.*$ ./index.php
