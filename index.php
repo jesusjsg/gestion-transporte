@@ -4,7 +4,7 @@ error_reporting(E_ALL);
 ini_set('ignore_repeated_errors', false);
 ini_set('display_errors', true); // Cambiar a false en producción
 ini_set('log_errors', true);
-ini_set('error_log', '/laragon/www/nomina/php-errors.log');
+ini_set('error_log', '/laragon/www/gestion-transporte/php-errors.log');
 error_log('Inicio del sistema de gestión de transporte');
 
 require_once './autoload.php';
