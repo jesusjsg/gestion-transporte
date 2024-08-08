@@ -12,7 +12,7 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-in-container">
-            <form action="" class="row gx-3 allign-items-center">
+            <form class="row gx-3 allign-items-center" action="">
                 <div class="col-auto">
                     <h1>Iniciar sesión</h1>
                 </div>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="col-auto">
-                    <button type="button" class="btn btn-success" id="login">Ingresar</button>
+                    <button type="submit" class="btn btn-success" id="login">Ingresar</button>
                 </div>
             </form>
         </div>
@@ -42,9 +42,9 @@
             </div>
         </div>
     </div>
-</body>
-<footer>
+    <script src="<?= URL; ?>public/js/libs/sweetalert2@11.js"></script>
+    <script src="<?= URL; ?>public/js/ajax/conductorAjax.js"></script>
     <script src="<?= URL; ?>public/js/libs/jquery-3.7.1.min.js"></script>
     <script src="<?= URL; ?>public/js/libs/bootstrap.bundle.min.js"></script>
-</footer>
+</body>
 </html>
