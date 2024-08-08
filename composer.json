@@ -11,5 +11,15 @@
             "name": "jesus",
             "email": "jesusjsg03@gmail.com"
         }
-    ]
+    ],
+    "require": {
+        "components/jquery": "^3.7",
+        "realrashid/sweet-alert": "^3.2",
+        "twbs/bootstrap": "*"
+    },
+    "config": {
+        "allow-plugins": {
+            "kylekatarnls/update-helper": true
+        }
+    }
 }
