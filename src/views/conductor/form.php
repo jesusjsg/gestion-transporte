@@ -5,7 +5,7 @@
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="bi bi-people-fill"></i></li>
-            <li class="breadcrumb-item"><a href="<?= URL; ?>conductor/form">Conductores</a></li>
+            <li class="breadcrumb-item"><a href="<?= URL; ?>conductor/">Conductores</a></li>
         </ul>
     </div>
     <div class="tile">

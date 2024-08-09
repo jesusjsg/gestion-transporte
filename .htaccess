@@ -1,10 +1,17 @@
-#Deshabilitar el listado de directorios
+# Deshabilitar el listado de directorios
 Options All -Indexes
 
-#Definir la página de error 403 personalizada
+# Definir la página de error 403 personalizada
 
 RewriteEngine On
+
+# Excluir cualquier form.php en los subdirectorios de nomina
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-l
+
+# Redirigir las solicitudes de /nomina/{folder}/form a /nomina/{folder}
+RewriteRule ^nomina/([a-zA-Z0-9_-]+)/form/?$ /nomina/$1/form.php [L,QSA]
+
+# Redirigir cualquier otra solicitud a index.php
 RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?views=$1 [L,QSA]
