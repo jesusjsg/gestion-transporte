@@ -1,11 +1,5 @@
 const forms_ajax = document.querySelectorAll('.form-ajax')
-/*const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger"
-    },
-    buttonsStyling: false
-})*/
+
 
 forms_ajax.forEach(forms => {
     forms.addEventListener('submit', function(e){
