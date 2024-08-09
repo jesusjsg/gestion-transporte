@@ -43,7 +43,7 @@
         </div>
     </div>
     <script src="<?= URL; ?>public/js/libs/sweetalert2@11.js"></script>
-    <script src="<?= URL; ?>public/js/ajax/conductorAjax.js"></script>
+    <!-- <script src="<?= URL; ?>public/js/ajax/mainAjax.js"></script> -->
     <script src="<?= URL; ?>public/js/libs/jquery-3.7.1.min.js"></script>
     <script src="<?= URL; ?>public/js/libs/bootstrap.bundle.min.js"></script>
 </body>
