@@ -15,7 +15,7 @@
         private $pass = PASSWORD;
 
         protected function conection(){ //Funcion para la conexión a la base de datos
-            $connection = new PDO('mysql:host='.$this->host.'dbname='.$this->db, $this->user, $this->pass);
+            $connection = new PDO('mysql:host='.$this->host.';dbname='.$this->db, $this->user, $this->pass);
             $connection->exec("SET CHARACTER SET utf8");
             return $connection;
         }
