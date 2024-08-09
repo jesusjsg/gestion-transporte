@@ -3,7 +3,7 @@
         <div>
             <h1><i class="bi bi-people-fill"></i>Mantenimiento de los vehículos</h1>
             <br>
-            <a class="btn btn-success" href="#">Agregar vehículo</a>
+            <a class="btn btn-success" href="<?= URL; ?>vehiculo/form">Agregar vehículo</a>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="bi bi-house-door-fill fs-6"></i></li>
