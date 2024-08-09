@@ -41,7 +41,7 @@
                 </ul>
             </li>
 
-            <li><a class="app-menu__item" href="<?= URL; ?>"><i class="app-menu__icon bi bi-box-arrow-right"></i>
+            <li><a class="app-menu__item" href="<?= URL; ?>auth/"><i class="app-menu__icon bi bi-box-arrow-right"></i>
                 <span class="app-menu__label">Cerrar sesión</span></a></li>
 
         </ul>
