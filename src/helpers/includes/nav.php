@@ -1,6 +1,11 @@
 <body class="app sidebar-mini">
     <header class="app-header">
         <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="hide sidebar"></a>
+        <ul class="app-nav">
+            <div class="app-nav__item user-select-none">
+                <i class="bi bi-calendar me-2"></i><span id="date"></span>
+            </div>
+        </ul>
     </header>
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
@@ -40,9 +45,7 @@
                     <li><a class="treeview-item" href="<?= URL; ?>permisos/"><i class="icon bi bi-lock"></i>Permisos</a></li>
                 </ul>
             </li>
-
-            <li><a class="app-menu__item" href="<?= URL; ?>auth/"><i class="app-menu__icon bi bi-box-arrow-right"></i>
-                <span class="app-menu__label">Cerrar sesión</span></a></li>
-
         </ul>
+        <li><a class="app-menu__item" href="<?= URL; ?>auth/closeSesion"><i class="app-menu__icon bi bi-box-arrow-right"></i>
+        <span class="app-menu__label">Cerrar sesión</span></a></li>
     </aside>

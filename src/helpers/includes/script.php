@@ -5,5 +5,6 @@
         <script src="<?= URL; ?>public/js/libs/dayjs.min.js"></script>
         <script src="<?= URL; ?>public/js/libs/datatables.min.js"></script>
         <script src="<?= URL; ?>public/js/sidebar.js"></script>
+        <script src="<?= URL; ?>public/js/main.js"></script>
     </body>
 </html>
