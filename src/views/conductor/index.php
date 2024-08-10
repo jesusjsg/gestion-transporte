@@ -1,8 +1,7 @@
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="bi bi-people-fill"></i>Mantenimiento de los conductores</h1>
-            <br>
+            <h1 class="fw-light mb-4"><i class="bi bi-people-fill me-2"></i>Mantenimiento de los conductores</h1>
             <a class="btn btn-success" href="#">Agregar conductor</a>
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -14,9 +13,8 @@
         <div class="col-md-12">
             <div class="tile">
                 <div class="tile-body">
-                    <h6 class="fw-bold">Listado de los conductores registrados</h6>
+                    <h6 class="fw-bold mb-4">Listado de los conductores registrados</h6>
                 </div>
-                <br>
                 <div class="table-responsive">
                     <table class="table row-border display compact table-hover" id="table-conductor" style="width: 100%;">
                         <thead>

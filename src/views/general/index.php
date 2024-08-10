@@ -1,8 +1,7 @@
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="bi bi-person-fill"></i>Información general</h1>
-            <br>
+            <h1 class="fw-light mb-4"><i class="bi bi-file-text-fill me-2"></i>Mantenimiento registros generales</h1>
             <a class="btn btn-success" href="#">Agregar registro</a>
         </div>
         <ul class="app-breadcrumb breadcrumb">
@@ -14,9 +13,8 @@
         <div class="col-md-12">
             <div class="tile">
                 <div class="tile-body">
-                    <strong>Listado de las entidades registradas</strong>
+                    <h6 class="fw-bold mb-4">Listado de los registros generales</h6>
                 </div>
-                <br>
                 <div class="table-responsive">
                     <table class="table row-border display compact table-hover" id="table-general" style="width: 100%;">
                         <thead>

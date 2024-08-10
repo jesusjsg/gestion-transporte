@@ -1,15 +1,15 @@
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1 class="fw-semibold">
-                <i class="bi bi-house-fill"></i>
+            <h1 class="fw-light">
+                <i class="bi bi-house-fill me-2"></i>
                 Bienvenido <!--Aqui ira el nombre del usuario-->
             </h1>
         </div>
     </div>
     <div class="row">
         <div class="col-xl-3 col-md-6 mb-4">
-            <a href="#" class="text-decoration-none">
+            <a href="<?= URL; ?>viaje/" class="text-decoration-none">
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                            <div class="row no-gutters align-items-center">
@@ -30,7 +30,7 @@
             </a>
         </div>
         <div class="col-xl-3 col-md-6 mb-4">
-            <a href="#" class="text-decoration-none">
+            <a href="<?= URL; ?>conductor/" class="text-decoration-none">
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                            <div class="row no-gutters align-items-center">
@@ -51,7 +51,7 @@
             </a>
         </div>
         <div class="col-xl-3 col-md-6 mb-4">
-            <a href="#" class="text-decoration-none">
+            <a href="<?= URL; ?>vehiculo/" class="text-decoration-none">
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                            <div class="row no-gutters align-items-center">
@@ -72,7 +72,7 @@
             </a>
         </div>
         <div class="col-xl-3 col-md-6 mb-4">
-            <a href="#" class="text-decoration-none">
+            <a href="<?= URL; ?>ruta/" class="text-decoration-none">
                 <div class="card border-left-success shadow h-100 py-2">
                     <div class="card-body">
                            <div class="row no-gutters align-items-center">
@@ -91,6 +91,24 @@
                     </div>
                 </div>
             </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="tile">
+                <h3 class="tile-title">Prueba 1</h3>
+                <div class="ratio ratio-16x9">
+                    <div id="salesChart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="tile">
+                <h3 class="tile-title">Prueba 2</h3>
+                <div class="ratio ratio-16x9">
+                    <div id="salesChart"></div>
+                </div>
+            </div>
         </div>
     </div>
 </main>
