@@ -19,7 +19,7 @@
             <li><a class="app-menu__item" href="<?= URL; ?>conductor/"><i class="app-menu__icon bi bi-people"></i>
                 <span class="app-menu__label">Conductores</span></a></li>
 
-            <li><a class="app-menu__item" href="<?= URL; ?>ruta/"><i class="app-menu__icon bi bi-truck"></i>
+            <li><a class="app-menu__item" href="<?= URL; ?>ruta/"><i class="app-menu__icon bi bi-geo-alt"></i>
                 <span class="app-menu__label">Rutas</span></a></li>
 
             <li><a class="app-menu__item" href="<?= URL; ?>vehiculo/"><i class="app-menu__icon bi bi-car-front"></i>
@@ -28,7 +28,7 @@
             <li><a class="app-menu__item" href="<?= URL; ?>general/"><i class="app-menu__icon bi bi-info-circle"></i>
                 <span class="app-menu__label">General</span></a></li>
             
-            <li><a class="app-menu__item" href="<?= URL; ?>"><i class="app-menu__icon bi bi-file-text"></i>
+            <li><a class="app-menu__item" href="<?= URL; ?>nomina/"><i class="app-menu__icon bi bi-file-text"></i>
                 <span class="app-menu__label">Nóminas</span></a></li>
 
             <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-card-text"></i>
