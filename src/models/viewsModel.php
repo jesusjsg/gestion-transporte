@@ -6,7 +6,7 @@ class viewsModel {
 
     protected function getViewsModel($folder, $view) {
 
-        $folderList = ["conductor", "viaje", "general", "ruta", "usuario", "vehiculo", "home", "auth", "errors"];
+        $folderList = ["conductor", "viaje", "general", "ruta", "usuario", "vehiculo", "home", "auth", "errors", "nomina"];
         $viewList = ["dashboard", "form", "index", "edit", "closeSesion"]; // Se agrega el index para el inicio de las vistas
         
         if (in_array($folder, $folderList) && in_array($view, $viewList)) {
