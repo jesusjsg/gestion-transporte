@@ -1,6 +1,8 @@
 <?php
 
     namespace src\controllers;
+
+    use PDO;
     use src\models\uniqueModel;
 
     class usuarioController extends uniqueModel{
@@ -18,11 +20,10 @@
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
-                    'title' => 'Ocurrió un error',
+                    'title' => 'Ocurrio un error',
                     'text' => 'Todos los campos son obligatorios.',
                 ];
                 return json_encode($alert);
-                exit();
             }
 
             if($this->verifyData("[a-zA-Z0-9]{3,40}", $username)){
@@ -33,7 +34,6 @@
                     'text' => 'El usuario solo puede contener letras y números.',
                 ];
                 return json_encode($alert);
-                exit();
             }
 
             if($this->verifyData("[a-zA-Z0-9$@.\-]{6,100}", $passwordOne) /* || $this->verifyData("[a-zA-Z0-9$@.\-]{6,100}", $passwordTwo) */){
@@ -44,7 +44,6 @@
                     'text' => 'La contraseña debe tener entre 6 y 100 caracteres.',
                 ];
                 return json_encode($alert);
-                exit();
             }
 
             if($passwordOne != $passwordTwo){
@@ -55,9 +54,6 @@
                     'text' => 'Las contraseñas no coinciden.',
                 ];
                 return json_encode($alert);
-                exit();
-            } else{
-                $passwordHash = password_hash($passwordOne, PASSWORD_BCRYPT, ['cost' => 10]);
             }
 
             $checkUser = $this->executeQuery("SELECT nombre_usuario FROM usuario WHERE nombre_usuario = '$username'");
@@ -70,7 +66,6 @@
                     'text' => 'El usuario ya se encuentra registrado.',
                 ];
                 return json_encode($alert);
-                exit();
             }
 
             $userDataLog = [
@@ -78,7 +73,7 @@
                 [
                     'field_name_database' => 'nombre_apellido',
                     'field_name_form' => ':fullname',
-                    'field_value' => $fullName,
+                    'field_value' => ucwords($fullName),
                 ],
                 [
                     'field_name_database' => 'nombre_usuario',
@@ -88,7 +83,7 @@
                 [
                     'field_name_database' => 'contraseña',
                     'field_name_form' => ':password',
-                    'field_value' => $passwordHash,
+                    'field_value' => $passwordOne,
                 ],
                 [
                     'field_name_database' => 'id_rol',
@@ -117,4 +112,19 @@
             }
             return json_encode($alert);
         }
+
+        public function getRol(){
+            $getRol = $this->executeQuery('SELECT id_rol, nombre FROM rol ORDER BY nombre');
+            $roles = [];
+
+            if($getRol->rowCount()>0){
+                while($row = $getRol->fetch(PDO::FETCH_ASSOC)){
+                    $roles[] = $row;
+                }
+
+            }
+            return $roles;
+
+        }
+
     }
