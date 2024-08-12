@@ -15,7 +15,7 @@
                 if($count >= 1){
                     $query.=",";
                 }
-                $query.=$key["field_name"];
+                $query.=$key["field_name_database"];
                 $count++;
             }
 
@@ -26,14 +26,14 @@
                 if($count >= 1){
                     $query.=",";
                 }
-                $query.=$key["field_marker"];
+                $query.=$key["field_name_form"];
                 $count++;
             }
 
             $query.=")";
             $sql = $this->conection()->prepare($query);
             foreach($data as $key){
-                $sql->bindParam($key["field_marker"], $key["field_value"]);
+                $sql->bindParam($key["field_name_form"], $key["field_value"]);
             }
 
             $sql->execute();
@@ -66,7 +66,7 @@
                 if($count >= 1){
                     $query.=",";
                 }
-                $query.=$key["field_name"]."=".$key["field_marker"];
+                $query.=$key["field_name_database"]."=".$key["field_name_form"];
                 $count++;
             }
 
@@ -74,7 +74,7 @@
             $sql = $this->conection()->prepare($query);
 
             foreach($data as $key){
-                $sql->bindParam($key["field_marker"], $key["field_value"]);
+                $sql->bindParam($key["field_name_database"], $key["field_value"]);
             }
 
             $sql->bindParam($condition["condition_marker"], $condition["condition_value"]);
