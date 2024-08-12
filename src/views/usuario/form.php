@@ -5,38 +5,41 @@
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="bi bi-people-fill"></i></li>
-            <li class="breadcrumb-item"><a href="<?= URL; ?>usuario/form.php"></a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="<?= URL; ?>usuario/">Usuarios</a></li>
         </ul>
     </div>
     <div class="tile">
         <div class="tile-body">
-            <form class="row g-3" action="">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="button" class="btn btn-success" name="save-usuario">Guardar</button>
+            <form class="row g-3 form-ajax" action="<?= URL; ?>src/helpers/ajax/usuarioAjax.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+                <div class="d-grid gap-2 d-md-flex justify-content-end">
+                    <button type="reset" class="btn btn-primary">Limpiar <i class="bi bi-archive"></i></button>
+                    <button type="submit" class="btn btn-success">Guardar <i class="bi bi-floppy"></i></button>
                 </div>
-                <hr>
-                <div class="hidden-inputs">
-                    <input type="hidden" class="form-control" name="id-usuario">
-                </div>
+                <div class="tile-footer"></div>
+                <input type="hidden" class="form-control" name="model_user" value="register" />
                 <div class="col-md-3">
                     <label for="fullname" class="form-label">Nombre y apellido</label>
-                    <input type="text" class="form-control" name="fullname" />
+                    <input type="text" class="form-control" name="fullname" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,255}" maxlength="255"/>
                 </div>
                 <div class="col-md-3">
                     <label for="user" class="form-label">Usuario</label>
-                    <input type="text" class="form-control" name="user" />
+                    <input type="text" class="form-control" name="user" pattern="[a-zA-Z0-9]{3,40}" maxlength="40" />
                 </div>
                 <div class="col-md-2">
-                    <label for="username" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" />
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" name="password" pattern="[a-zA-Z0-9$@.\-]{7,100}" maxlength="100" />
                 </div>
                 <div class="col-md-2">
-                    <label for="" class="form-label">Rol del usuario</label>
-                    <select class="form-select" name="id-rol" id="id-rol">
+                    <label for="valid-password" class="form-label">Repetir contraseña</label>
+                    <input type="password" class="form-control" name="valid-password" pattern="[a-zA-Z0-9$@.\-]{7,100}" maxlength="100" />
+                </div>
+                <div class="col-md-2">
+                    <label for="id-rol" class="form-label">Rol del usuario</label>
+                    <select class="form-select" name="id-rol">
                         <option selected disabled>Rol del usuario</option>
                     </select>
                 </div>
-                <hr>
+                <div class="tile-footer"></div>
             </form>
         </div>
     </div>

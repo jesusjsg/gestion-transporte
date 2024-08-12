@@ -17,17 +17,17 @@
                 </div>
                 <hr>
                 <div class="col-md-2">
-                    <label for="placa" class="form-label"></label>
+                    <label for="placa" class="form-label">Placa</label>
                     <input type="text" class="form-control" name="placa" />
                 </div>
                 <div class="col-md-2">
-                    <label for="tipo-vehiculo" class="form-label"></label>
+                    <label for="tipo-vehiculo" class="form-label">Tipo</label>
                     <select class="form-select" name="tipo-vehiculo">
                         <option selected disabled>Tipo de vehículo</option>
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label for="propiedad" class="form-select">Propiedad</label>
+                    <label for="propiedad" class="form-label">Propiedad</label>
                     <select class="form-select" name="propiedad">
                         <option selected disabled>Propiedad</option>
                     </select>
