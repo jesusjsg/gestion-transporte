@@ -28,9 +28,9 @@
 
     }
 
-    error_log('Ruta procesada: carpeta: ' . $folder . ', vista: ' .$view);
+    //error_log('Ruta procesada: carpeta: ' . $folder . ', vista: ' .$view);
     $viewPath = $viewsController->getViewsController($folder, $view);
-    error_log('Ruta completa: ' . $viewPath);
+    //error_log('Ruta completa: ' . $viewPath);
 
     if ($viewPath != "./src/views/auth/login.php" && $viewPath != "./src/views/errors/404.php"){
         require_once "./src/helpers/includes/header.php";
