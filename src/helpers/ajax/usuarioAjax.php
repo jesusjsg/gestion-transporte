@@ -11,8 +11,9 @@
         $user = new usuarioController();
 
         if($_POST['model_user'] == 'register'){
-            $user->registerUser();
+            echo $user->registerUser();
         }
+        
     }else{
         session_destroy();
         header('Location: '. URL);
