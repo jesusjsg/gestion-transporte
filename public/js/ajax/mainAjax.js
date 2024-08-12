@@ -1,7 +1,7 @@
-const forms_ajax = document.querySelectorAll('.form-ajax')
+const formsAjax = document.querySelectorAll('.form-ajax')
 
 
-forms_ajax.forEach(forms => {
+formsAjax.forEach(forms => {
     forms.addEventListener('submit', function(e){
         e.preventDefault()
 
@@ -13,26 +13,29 @@ forms_ajax.forEach(forms => {
             confirmButtonText: "Sí, Guardar",
             cancelButtonText: "No, Cancelar",
         }).then((result) => {
+            if (result.isConfirmed){
 
-            let data = new FormData(this)
-            let method = this.getAttribute('method')
-            let action = this.getAttribute('action')
+                let data = new FormData(this)
+                let method = this.getAttribute('method')
+                let action = this.getAttribute('action')
+    
+                let headers = new Headers()
+    
+                let config = {
+                    method: method,
+                    headers: headers,
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    body: data,
+                }
 
-            let headers = new Headers()
-
-            let config = {
-                method: method,
-                headers: headers,
-                mode: 'cors',
-                cache: 'no-cache',
-                body: data,
+                fetch(action,config)
+                .then(response => response.json())
+                .then(response => {
+                    return alertsAjax(response)
+                })
             }
 
-            fetch(action,config)
-            .then(response => response.json())
-            .then(response => {
-                return alertsAjax(response)
-            })
         })
     })
 })
@@ -73,7 +76,7 @@ function alertsAjax(alert){
             }
         })
     } else if(alert.type === 'redirect'){
-        window.location.href=alert.url
+        window.location.href = alert.url
     }
 }
 
