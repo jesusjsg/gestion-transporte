@@ -1,4 +1,7 @@
+import { autocompleteField } from "../components/autocomplete.js"
+
 const formsAjax = document.querySelectorAll('.form-ajax')
+const fields = document.querySelectorAll('.autocomplete')
 
 
 formsAjax.forEach(forms => {
@@ -78,4 +81,5 @@ function alertsAjax(alert){
         window.location.href = alert.url
     }
 }
+
 
