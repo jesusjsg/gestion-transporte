@@ -1,12 +1,6 @@
 <main class="app-content">
-    <div class="app-title">
-        <div>
-            <h1 class="fw-light"><i class="bi bi-geo-alt-fill me-2"></i>Agregar ruta</h1>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item"><i class="bi bi-people-fill"></i></li>
-            <li class="breadcrumb-item"><a class="text-decoration-none" href="<?= URL; ?>ruta/">Rutas</a></li>
-        </ul>
+    <div class="app-title align-items-center">
+        <a class="text-decoration-none btn btn-secondary btn-sm" href="<?= URL; ?>ruta/"><i class="bi bi-box-arrow-left me-1"></i>Salir</a>
     </div>
     <div class="tile">
         <div class="tile-body">
@@ -16,6 +10,7 @@
                     <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                 </div>
                 <div class="tile-footer"></div>
+
                 <input type="hidden" name="model_ruta" value="register" hidden />
                 <input type="hidden" name="codigo-ruta" hidden/>
                 <input type="hidden" name="nombre-ruta" hidden/>

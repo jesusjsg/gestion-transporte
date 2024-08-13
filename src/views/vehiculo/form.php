@@ -8,7 +8,6 @@
         'unidadNegocio' => 11,
         'marcaVehiculo' => 12,
         'numeroEjes' => 13,
-        //'capacidadCarga' => '',
         'uso' => 14,
         'bolipuertos' => 15,
         'gps' => 16,
@@ -25,14 +24,8 @@
 ?>
 
 <main class="app-content">
-    <div class="app-title">
-        <div>
-            <h1 class="fw-light"><i class="bi bi-car-front-fill me-2"></i>Agregar vehículo</h1>
-        </div>
-        <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item"><i class="bi bi-car-fill"></i></li>
-            <li class="breadcrumb-item"><a class="text-decoration-none" href="<? URL; ?>vehiculo/">Vehículos</a></li>
-        </ul>
+    <div class="app-title align-items-center">
+        <a class="text-decoration-none btn btn-secondary btn-sm" href="<?= URL; ?>vehiculo/"><i class="bi bi-box-arrow-left me-1"></i>Salir</a>
     </div>
     <div class="tile">
         <div class="tile-body">
