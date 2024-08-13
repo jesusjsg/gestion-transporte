@@ -4,14 +4,14 @@
     require_once '../session_start.php';
     require_once '../../../autoload.php';
 
-    use src\controllers\vehiculoController;
+    use src\controllers\rutaController;
 
-    if(isset($_POST['model_vehiculo'])){
+    if(isset($_POST['model_ruta'])){
 
-        $user = new vehiculoController();
+        $user = new rutaController();
 
-        if($_POST['model_vehiculo'] == 'register'){
-            echo $user->registerVehiculo();
+        if($_POST['model_ruta'] == 'register'){
+            echo $user->registerRuta();
         }
         
     }else{
