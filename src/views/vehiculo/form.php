@@ -1,28 +1,27 @@
 <?php
-    use src\controllers\vehiculoController;
-    $autocompleteController = new vehiculoController();
+    use src\helpers\components\Autocomplete;
+    $autocomplete = new Autocomplete();
 
     $registros = [
-        'tipoVehiculo' => '',
-        'propiedad' => '',
-        'unidadNegocio' => '',
-        'marcaVehiculo' => '',
-        'numeroEjes' => '',
-        'capacidadCarga' => '',
-        'uso' => '',
-        'bolipuertos' => '',
-        'gps' => '',
+        'tipoVehiculo' => 9,
+        'propiedad' => 10,
+        'unidadNegocio' => 11,
+        'marcaVehiculo' => 12,
+        'numeroEjes' => 13,
+        //'capacidadCarga' => '',
+        'uso' => 14,
+        'bolipuertos' => 15,
+        'gps' => 16,
     ];
 
-    $tipoVehiculo = $autocompleteController->autocompleteSelect($registros['tipoVehiculo']);
-    $propiedad = $autocompleteController->autocompleteSelect($registros['propiedad']);
-    $unidadNegocio = $autocompleteController->autocompleteSelect($registros['unidadNegocio']);
-    $marcaVehiculo = $autocompleteController->autocompleteSelect($registros['marcaVehiculo']);
-    $numeroEjes = $autocompleteController->autocompleteSelect($registros['numeroEjes']);
-    $capacidadCarga = $autocompleteController->autocompleteSelect($registros['capacidadCarga']);
-    $uso = $autocompleteController->autocompleteSelect($registros['uso']);
-    $bolipuertos = $autocompleteController->autocompleteSelect($registros['bolipuertos']);
-    $gps = $autocompleteController->autocompleteSelect($registros['gps']);
+    $tipoVehiculo = $autocomplete->autocompleteSelect($registros['tipoVehiculo']);
+    $propiedad = $autocomplete->autocompleteSelect($registros['propiedad']);
+    $unidadNegocio = $autocomplete->autocompleteSelect($registros['unidadNegocio']);
+    $marcaVehiculo = $autocomplete->autocompleteSelect($registros['marcaVehiculo']);
+    $numeroEjes = $autocomplete->autocompleteSelect($registros['numeroEjes']);
+    $uso = $autocomplete->autocompleteSelect($registros['uso']);
+    $bolipuertos = $autocomplete->autocompleteSelect($registros['bolipuertos']);
+    $gps = $autocomplete->autocompleteSelect($registros['gps']);
 ?>
 
 <main class="app-content">
@@ -53,11 +52,11 @@
                         <option selected disabled>Tipo de vehículo</option>
                         <?php
                             if(!empty($tipoVehiculo)){
-                                foreach($tipoVehiculo as $tipo){
-                                    echo '<option value="'. $tipo['id_entidad'] . '">'. $tipo['descripcion1'] .'</option>';
+                                foreach($tipoVehiculo as $key){
+                                    echo '<option value="'. $key['id_entidad'] . '">'. $key['descripcion1'] .'</option>';
                                 }
                             } else{
-                                echo '<option disabled>No hay roles registrados</option>';
+                                echo '<option disabled>No hay datos registrados</option>';
                             }
                         ?>
                     </select>
@@ -66,18 +65,45 @@
                     <label for="propiedad" class="form-label">Propiedad</label>
                     <select class="form-select" name="propiedad">
                         <option selected disabled>Propiedad</option>
+                        <?php
+                            if(!empty($propiedad)){
+                                foreach($propiedad as $key){
+                                    echo '<option value="'. $key['id_entidad'] . '">'. $key['descripcion1'] .'</option>';
+                                }
+                            } else{
+                                echo '<option disabled>No hay datos registrados</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <label for="unidad-negocio" class="form-label">Unidad</label>
                     <select class="form-select" name="unidad-negocio">
                         <option selected disabled>Unidad Negocio</option>
+                        <?php
+                            if(!empty($unidadNegocio)){
+                                foreach($unidadNegocio as $key){
+                                    echo '<option value="'. $key['id_entidad'] . '">'. $key['descripcion1'] .'</option>';
+                                }
+                            } else{
+                                echo '<option disabled>No hay datos registrados</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <label for="marca-vehiculo" class="form-label">Marca</label>
                     <select class="form-select" name="marca-vehiculo">
                         <option selected disabled>Marca</option>
+                        <?php
+                            if(!empty($marcaVehiculo)){
+                                foreach($marcaVehiculo as $key){
+                                    echo '<option value="'. $key['id_entidad'] . '">'. $key['descripcion1'] .'</option>';
+                                }
+                            } else{
+                                echo '<option disabled>No hay datos registrados</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -108,6 +134,15 @@
                     <label for="numero-ejes" class="form-label">Ejes</label>
                     <select class="form-select" name="numero-ejes">
                         <option selected disabled>Número ejes</option>
+                        <?php
+                            if(!empty($numeroEjes)){
+                                foreach($numeroEjes as $key){
+                                    echo '<option value="'. $key['id_entidad'] . '">'. $key['descripcion1'] .'</option>';
+                                }
+                            } else{
+                                echo '<option disabled>No hay datos registrados</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -118,6 +153,15 @@
                     <label for="uso-vehiculo" class="form-label">Uso</label>
                     <select class="form-select" name="uso-vehiculo">
                         <option selected disabled>Uso vehículo</option>
+                        <?php
+                            if(!empty($uso)){
+                                foreach($uso as $key){
+                                    echo '<option value="'. $key['id_entidad'] . '">'. $key['descripcion1'] .'</option>';
+                                }
+                            } else{
+                                echo '<option disabled>No hay datos registrados</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -148,12 +192,30 @@
                     <label for="bolipuertos" class="form-label">Bolipuertos</label>
                     <select class="form-select" name="bolipuertos">
                         <option selected disabled>Bolipuertos</option>
+                        <?php
+                            if(!empty($bolipuertos)){
+                                foreach($bolipuertos as $key){
+                                    echo '<option value="'. $key['id_entidad'] . '">'. $key['descripcion1'] .'</option>';
+                                }
+                            } else{
+                                echo '<option disabled>No hay datos registrados</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-2">
                     <label for="gps" class="form-label">GPS</label>
                     <select class="form-select" name="gps">
                         <option disabled selected>GPS</option>
+                        <?php
+                            if(!empty($gps)){
+                                foreach($gps as $key){
+                                    echo '<option value="'. $key['id_entidad'] . '">'. $key['descripcion1'] .'</option>';
+                                }
+                            } else{
+                                echo '<option disabled>No hay datos registrados</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -164,8 +226,11 @@
                     <label for="estatus-vehiculo" class="form-label">Estatus</label>
                     <select class="form-select" name="estatus-vehiculo">
                         <option selected disabled>Estatus</option>
+                        <option value="1">Activo</option>
+                        <option value="1">Inactivo</option>
                     </select>
                 </div>
+                <div class="tile-footer"></div>
             </form>
         </div>
     </div>
