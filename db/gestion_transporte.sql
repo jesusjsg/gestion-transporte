@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 08-08-2024 a las 00:23:58
+-- Tiempo de generación: 13-08-2024 a las 02:21:24
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 8.1.10
 
@@ -68,8 +68,16 @@ CREATE TABLE `general` (
   `descripcion1` varchar(255) NOT NULL,
   `descripcion2` varchar(255) NOT NULL,
   `descripcion3` varchar(255) NOT NULL,
-  `valor` decimal(10,0) NOT NULL
+  `valor` decimal(10,0) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `general`
+--
+
+INSERT INTO `general` (`id_registro`, `id_entidad`, `descripcion1`, `descripcion2`, `descripcion3`, `valor`) VALUES
+(1, 1, 'Nodriza', '', '', NULL),
+(2, 1, 'Clover Internacional', '', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -81,6 +89,17 @@ CREATE TABLE `rol` (
   `id_rol` int NOT NULL,
   `nombre` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`id_rol`, `nombre`) VALUES
+(1, 'Administrador'),
+(3, 'Contabilidad'),
+(5, 'Flota'),
+(4, 'Procesos'),
+(2, 'Transporte');
 
 -- --------------------------------------------------------
 
@@ -103,12 +122,20 @@ CREATE TABLE `ruta` (
 --
 
 CREATE TABLE `usuario` (
-  `id_usuario` int NOT NULL,
+  `id_usuario` int(10) UNSIGNED ZEROFILL NOT NULL,
   `nombre_apellido` varchar(255) NOT NULL,
   `nombre_usuario` varchar(255) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
   `id_rol` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`id_usuario`, `nombre_apellido`, `nombre_usuario`, `contraseña`, `id_rol`) VALUES
+(0000000005, 'Amador Espinoza', 'amador10', 'am10am', 1),
+(0000000006, 'Jesus Santana', 'jesusjsg', '03092003', 1);
 
 -- --------------------------------------------------------
 
@@ -137,7 +164,7 @@ CREATE TABLE `vehiculo` (
   `fecha_impuesto` date NOT NULL,
   `bolipuertos` int NOT NULL,
   `gps` int NOT NULL,
-  `link_gps` varchar(255) NOT NULL,
+  `link_gps` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `estatus` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -241,7 +268,13 @@ ALTER TABLE `viaje`
 -- AUTO_INCREMENT de la tabla `rol`
 --
 ALTER TABLE `rol`
-  MODIFY `id_rol` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rol` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id_usuario` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `viaje`
