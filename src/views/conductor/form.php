@@ -1,3 +1,14 @@
+<?php
+    use src\helpers\components\Autocomplete;
+    $autocomplete = new Autocomplete();
+
+    $registros = [
+        'nominas' => 6,
+    ];
+
+    $tipoNomina = $autocomplete->autocompleteSelect($registros['nominas']);
+?>
+
 <main class="app-content">
     <div class="app-title">
         <div>
@@ -68,6 +79,15 @@
                     <label for="tipo-nomina" class="form-label">Nómina</label>
                     <select class="form-select" name="tipo-nomina">
                         <option selected disabled>Tipo de nómina</option>
+                        <?php
+                            if(!empty($tipoNomina)){
+                                foreach($tipoNomina as $key){
+                                    echo '<option value="' . $key['id_entidad'] .'">' . $key['descripcion1']. '</option>';
+                                }
+                            } else {
+                                '<option disabled>No hay datos registrados</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="tile-footer"></div>
