@@ -8,7 +8,7 @@
     error_log('Inicio del sistema de gestión de transporte');
 
     require_once './autoload.php';
-    require_once './vendor/autoload.php';
+    //require_once './vendor/autoload.php';
     require_once './config/app.php';
     require_once './src/helpers/session_start.php';
 
@@ -28,9 +28,7 @@
 
     }
 
-    //error_log('Ruta procesada: carpeta: ' . $folder . ', vista: ' .$view);
     $viewPath = $viewsController->getViewsController($folder, $view);
-    //error_log('Ruta completa: ' . $viewPath);
 
     if ($viewPath != "./src/views/auth/login.php" && $viewPath != "./src/views/errors/404.php"){
         require_once "./src/helpers/includes/header.php";
@@ -38,7 +36,6 @@
     }
 
     if (is_file($viewPath)){
-        //var_dump($viewPath);
         require_once $viewPath;
     } else {
         require_once "./src/views/errors/404.php";

@@ -16,7 +16,8 @@
         "components/jquery": "^3.7",
         "realrashid/sweet-alert": "^3.2",
         "twbs/bootstrap": "*",
-        "twbs/bootstrap-icons": "*"
+        "twbs/bootstrap-icons": "*",
+        "datatables/datatables": "^1.10"
     },
     "config": {
         "allow-plugins": {
