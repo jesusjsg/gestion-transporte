@@ -21,7 +21,7 @@
     if (isset($_GET['views'])) { 
         $url = explode("/", $_GET['views']);
         $folder = $url[0] ?? 'home';
-        $view = $url[1] ?? 'form'; // Vista predeterminada "index"
+        $view = $url[1] ?? 'index'; // Vista predeterminada "index"
     } else {
         $folder = 'auth';
         $view = 'login'; 
