@@ -6,6 +6,6 @@
         <script src="<?= URL; ?>public/js/libs/datatables.min.js"></script>
         <script src="<?= URL; ?>public/js/sidebar.js"></script>
         <script src="<?= URL; ?>public/js/main.js"></script>
-        <script src="<?= URL; ?>public/js/ajax/mainAjax.js"></script>
+        <script type="module" src="<?= URL; ?>public/js/ajax/mainAjax.js"></script>
     </body>
 </html>
