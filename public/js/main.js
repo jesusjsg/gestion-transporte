@@ -12,4 +12,5 @@ function dateZone(){
     date.html(nowFormat)
 }
 
+
 document.addEventListener('DOMContentLoaded', main)
