@@ -113,6 +113,10 @@
             return json_encode($alert);
         }
 
+        public function updateUser(){}
+
+        public function deleteUser(){}
+
         public function getRol(){
             $getRol = $this->executeQuery('SELECT id_rol, nombre FROM rol ORDER BY nombre');
             $roles = [];
