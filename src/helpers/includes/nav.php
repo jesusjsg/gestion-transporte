@@ -1,10 +1,14 @@
+<?php 
+    $actualDate = date('d/m/Y');
+    /* $name = 'Jesús Santana' */
+?>
 <body class="app sidebar-mini">
     <header class="app-header">
         <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="hide sidebar"></a>
         <ul class="app-nav">
-            <div class="app-nav__item user-select-none">
-                <i class="bi bi-person-fill me-2"></i><span></span>
-                <i class="bi bi-calendar me-2"></i><span class="me-2" id="date"></span>
+            <div class="app-nav__item user-select-none align-items-center">
+                <i class="bi bi-person-fill me-2"></i><span class="me-2 text-capitalize"></span>
+                <i class="bi bi-calendar fs-6 me-2"></i><span class="me-2"><?= $actualDate; ?></span>
             </div>
         </ul>
     </header>
@@ -47,6 +51,6 @@
                 </ul>
             </li>
         </ul>
-        <li><a class="app-menu__item" href="<?= URL; ?>auth/closeSesion"><i class="app-menu__icon bi bi-box-arrow-right"></i>
-        <span class="app-menu__label">Cerrar sesión</span></a></li>
+        <!-- <li><a class="app-menu__item" href="auth/closeSesion"><i class="app-menu__icon bi bi-box-arrow-right"></i>
+        <span class="app-menu__label">Cerrar sesión</span></a></li> -->
     </aside>
