@@ -1,19 +1,46 @@
+<?php
+    use src\controllers\vehiculoController;
+    $autocompleteController = new vehiculoController();
+
+    $registros = [
+        'tipoVehiculo' => '',
+        'propiedad' => '',
+        'unidadNegocio' => '',
+        'marcaVehiculo' => '',
+        'numeroEjes' => '',
+        'capacidadCarga' => '',
+        'uso' => '',
+        'bolipuertos' => '',
+        'gps' => '',
+    ];
+
+    $tipoVehiculo = $autocompleteController->autocompleteSelect($registros['tipoVehiculo']);
+    $propiedad = $autocompleteController->autocompleteSelect($registros['propiedad']);
+    $unidadNegocio = $autocompleteController->autocompleteSelect($registros['unidadNegocio']);
+    $marcaVehiculo = $autocompleteController->autocompleteSelect($registros['marcaVehiculo']);
+    $numeroEjes = $autocompleteController->autocompleteSelect($registros['numeroEjes']);
+    $capacidadCarga = $autocompleteController->autocompleteSelect($registros['capacidadCarga']);
+    $uso = $autocompleteController->autocompleteSelect($registros['uso']);
+    $bolipuertos = $autocompleteController->autocompleteSelect($registros['bolipuertos']);
+    $gps = $autocompleteController->autocompleteSelect($registros['gps']);
+?>
+
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="bi bi-car-front-fill"></i> Agregar vehículo</h1>
+            <h1 class="fw-light"><i class="bi bi-car-front-fill me-2"></i>Agregar vehículo</h1>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="bi bi-car-fill"></i></li>
-            <li class="breadcrumb-item"><a href="#">Vehículos</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="<? URL; ?>vehiculo/">Vehículos</a></li>
         </ul>
     </div>
     <div class="tile">
         <div class="tile-body">
-            <form class="row g-3" action="">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <a class="btn btn-secondary" href="javascript:window.history.back();">Regresar</a>
-                    <button type="button" class="btn btn-success">Guardar</button>
+            <form class="row g-3" action="" method="post" autocomplete="off">
+                <div class="d-grid gap-2 d-md-flex justify-content-end">
+                    <button type="reset" class="btn btn-primary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
+                    <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                 </div>
                 <hr>
                 <div class="col-md-2">
@@ -24,6 +51,15 @@
                     <label for="tipo-vehiculo" class="form-label">Tipo</label>
                     <select class="form-select" name="tipo-vehiculo">
                         <option selected disabled>Tipo de vehículo</option>
+                        <?php
+                            if(!empty($tipoVehiculo)){
+                                foreach($tipoVehiculo as $tipo){
+                                    echo '<option value="'. $tipo['id_entidad'] . '">'. $tipo['descripcion1'] .'</option>';
+                                }
+                            } else{
+                                echo '<option disabled>No hay roles registrados</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -52,6 +88,12 @@
                     <label for="year-vehiculo" class="form-label">Año</label>
                     <select class="form-select" name="year-vehiculo">
                         <option selected disabled>Año</option>
+                        <?php
+                            $year = date('Y');
+                            for($i = 2007; $i <= $year; $i++){
+                                echo '<option value="'. $i. '">'. $i. '</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-3">
