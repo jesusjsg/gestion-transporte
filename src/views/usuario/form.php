@@ -1,7 +1,13 @@
+<?php
+    use src\controllers\usuarioController;
+    $rolController = new usuarioController();
+    $roles = $rolController->getRol()
+?>
+
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="bi bi-people-fill"></i> Agregar usuario</h1>
+            <h1 class="fw-light"><i class="bi bi-people-fill me-2"></i>Agregar usuario</h1>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="bi bi-people-fill"></i></li>
@@ -12,8 +18,8 @@
         <div class="tile-body">
             <form class="row g-3 form-ajax" action="<?= URL; ?>src/helpers/ajax/usuarioAjax.php" method="POST" autocomplete="off" enctype="multipart/form-data">
                 <div class="d-grid gap-2 d-md-flex justify-content-end">
-                    <button type="reset" class="btn btn-primary">Limpiar <i class="bi bi-archive"></i></button>
-                    <button type="submit" class="btn btn-success">Guardar <i class="bi bi-floppy"></i></button>
+                    <button type="reset" class="btn btn-primary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
+                    <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                 </div>
                 <div class="tile-footer"></div>
                 <input type="hidden" name="model_user" value="register" />
@@ -37,7 +43,16 @@
                     <label for="id-rol" class="form-label">Rol del usuario</label>
                     <select class="form-select" name="id-rol">
                         <option selected disabled>Rol del usuario</option>
-                        <option value="1">Administrador</option>
+                        <?php
+                            if(!empty($roles)){
+                                //asort($roles);
+                                foreach($roles as $rol){
+                                    echo '<option value="'. $rol['id_rol'] . '">'. $rol['nombre'] .'</option>';
+                                }
+                            } else{
+                                echo '<option disabled>No hay roles registrados</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="tile-footer"></div>

@@ -1,27 +1,28 @@
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1><i class="bi bi-people-fill"></i> Agregar conductor</h1>
+            <h1 class="fw-light"><i class="bi bi-people-fill me-2"></i>Agregar conductor</h1>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="bi bi-people-fill"></i></li>
-            <li class="breadcrumb-item"><a href="<?= URL; ?>conductor/">Conductores</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="<?= URL; ?>conductor/">Conductores</a></li>
         </ul>
     </div>
     <div class="tile">
         <div class="tile-body">
-            <form class="row g-3" method="">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="button" class="btn btn-success">Guardar</button>
+            <form class="row g-3" action="" method="post" autocomplete="off">
+                <div class="d-grid gap-2 d-md-flex justify-content-end">
+                    <button type="reset" class="btn btn-primary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
+                    <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                 </div>
-                <hr>
+                <div class="tile-footer"></div>
                 <div class="col-md-2">
                     <label for="ficha-conductor" class="form-label">Ficha</label>
                     <input type="text" class="form-control" name="ficha-conductor" />
                 </div>
                 <div class="col-md-3">
                     <label for="name-conductor" class="form-label">Nombre y apellido</label>
-                    <input type="text" class="form-control" id="name-conductor" />
+                    <input type="text" class="form-control" name="name-conductor" />
                 </div>
                 <div class="col-md-2">
                     <label for="cedula-conductor" class="form-label">Cédula</label>
@@ -69,7 +70,7 @@
                         <option selected disabled>Tipo de nómina</option>
                     </select>
                 </div>
-                <hr>
+                <div class="tile-footer"></div>
             </form>
         </div>
     </div>
