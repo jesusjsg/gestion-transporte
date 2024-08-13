@@ -3,4 +3,9 @@
     namespace src\controllers;
     use src\models\uniqueModel;
 
-    class 
+    class conductorController extends uniqueModel{
+
+        public function registerConductor(){
+            
+        }
+    }
