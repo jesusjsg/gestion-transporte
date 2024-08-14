@@ -36,7 +36,7 @@
                 return json_encode($alert);
             }
 
-            if($this->verifyData("[a-zA-Z0-9$@.\-]{6,100}", $passwordOne) /* || $this->verifyData("[a-zA-Z0-9$@.\-]{6,100}", $passwordTwo) */){
+            if($this->verifyData("[a-zA-Z0-9$@.\-]{6,100}", $passwordOne) || $this->verifyData("[a-zA-Z0-9$@.\-]{6,100}", $passwordTwo)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
@@ -113,9 +113,56 @@
             return json_encode($alert);
         }
 
+        public function tableUser(){}
+
         public function updateUser(){}
 
-        public function deleteUser(){}
+        public function deleteUser(){
+            $id = $this->cleanString($_POST['user_id']);
+
+            if($id == 1){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'No se puede eliminar el usuario principal.',
+                ];
+                return json_encode($alert);
+            }
+
+            $dataUser = $this->executeQuery("SELECT * FROM usuario WHERE id_usuario='$id'");
+            if($dataUser->rowCount()<=0){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrrió un error',
+                    'text' => 'El usuario no se encuentra registrado',
+                ];
+                return json_encode($alert);
+            } else {
+                $dataUser = $dataUser->fetch();
+            }
+
+            $deleteUser = $this->deleteData('usuario', 'id_usuario', $id);
+
+            if($deleteUser->rowCount()==1){
+                $alert = [
+                    'type' => 'reload',
+                    'icon' => 'success',
+                    'title' => 'Usuario eliminado',
+                    'text' => 'El usuario '.$dataUser['nombre_apellido'].' ha sido eliminado.'
+                ];
+                return json_encode($alert);
+            }else{
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrrió un error',
+                    'text' => 'No se pudo eliminar el usuario '.$dataUser['nombre_apellido'].', intente nuevamente.'
+                ];
+                return json_encode($alert);
+            }
+        }
 
         public function getRol(){
             $getRol = $this->executeQuery('SELECT id_rol, nombre FROM rol ORDER BY nombre');
