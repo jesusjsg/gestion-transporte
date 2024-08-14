@@ -21,10 +21,10 @@
         }
     }
     
-    class Datatable extends mainModel{
+    /* class Datatable extends mainModel{
 
         public function getDatatable($table){
             $rowDatatable = $this->executeQuery("SELECT * FROM $table");
             return $rowDatatable->fetchAll(PDO::FETCH_ASSOC);
         }
-    }
+    } */ 
