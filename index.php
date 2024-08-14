@@ -8,7 +8,7 @@
     error_log('Inicio del sistema de gestión de transporte');
 
     require_once './autoload.php';
-    //require_once './vendor/autoload.php';
+    require_once './vendor/autoload.php';
     require_once './config/app.php';
     require_once './src/helpers/session_start.php';
 
@@ -21,7 +21,7 @@
     if (isset($_GET['views'])) { 
         $url = explode("/", $_GET['views']);
         $folder = $url[0] ?? 'home';
-        $view = $url[1] ?? 'index'; // Vista predeterminada "index"
+        $view = $url[1] ?? 'form'; // Vista predeterminada "index"
     } else {
         $folder = 'auth';
         $view = 'login'; 
