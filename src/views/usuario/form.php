@@ -39,12 +39,11 @@
                         <option selected disabled>Rol del usuario</option>
                         <?php
                             if(!empty($roles)){
-                                //asort($roles);
                                 foreach($roles as $rol){
                                     echo '<option value="'. $rol['id_rol'] . '">'. $rol['nombre'] .'</option>';
                                 }
                             } else{
-                                echo '<option disabled>No hay roles registrados</option>';
+                                echo '<option disabled>No hay datos registrados</option>';
                             }
                         ?>
                     </select>

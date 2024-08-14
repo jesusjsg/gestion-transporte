@@ -16,7 +16,7 @@
                     <h6 class="fw-bold mb-4">Listado de los viajes registrados</h6>
                 </div>
                 <div class="table-responsive">
-                    <table class="table row-border display compact table-hover" id="table-viaje" style="width: 100%;">
+                    <table class="datatable table row-border display compact table-hover" id="table-viaje" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>Viaje</th>

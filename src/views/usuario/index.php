@@ -1,3 +1,10 @@
+<?php
+    use src\helpers\components\Datatable;
+    $datatable = new Datatable();
+
+    $data = $datatable->getDatatable('usuario');
+?>
+
 <main class="app-content">
     <div class="app-title">
         <div>
@@ -16,7 +23,7 @@
                     <h6 class="fw-bold mb-4">Listado de los usuarios registrados</h6>
                 </div>
                 <div class="table-responsive">
-                    <table class="table row-border display compact table-hover" id="table-usuario" style="width: 100%;">
+                    <table class="datatable table row-border display compact table-hover" id="table-usuario" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>ID usuario</th>
@@ -27,6 +34,17 @@
                                 <th>Opciones</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            <?php foreach($data as $row): ?>
+                                <tr>
+                                    <td><?= $row['id_usuario']; ?></td>
+                                    <td><?= $row['nombre_apellido']; ?></td>
+                                    <td><?= $row['nombre_usuario']; ?></td>
+                                    <td><?= $row['contraseña']; ?></td>
+                                    <td><?= $row['id_rol']; ?></td>
+                                </tr>
+                            <?php endforeach; ?> 
+                        </tbody>
                     </table>
                 </div>
             </div>

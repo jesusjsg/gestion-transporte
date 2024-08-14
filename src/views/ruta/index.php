@@ -16,7 +16,7 @@
                     <h6 class="fw-bold mb-4">Listado de las rutas registradas</h6>
                 </div>
                 <div class="table-responsive">
-                    <table class="table row-border display compact table-hover" id="table-ruta" style="width: 100%;">
+                    <table class="datatable table row-border display compact table-hover" id="table-ruta" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>Código</th>
