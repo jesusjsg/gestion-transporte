@@ -42,6 +42,18 @@
                                     <td><?= $row['nombre_usuario']; ?></td>
                                     <td><?= $row['contraseña']; ?></td>
                                     <td><?= $row['id_rol']; ?></td>
+                                    <?php
+                                    echo '
+                                        <td class="justify-content-between">
+                                            <a class="btn btn-primary btn-sm" href="'.URL.'conductor/edit/'.$row['id_usuario'].'/">Actualizar</a>
+                                            <form class="form-ajax" action="'.URL.'src/helpers/ajax/usuarioAjax.php" method="POST" autocomplete="off">
+                                                <input type="hidden" name="model_user" value="delete" />
+                                                <input type="hidden" name="user_id" value="'.$row['id_usuario'].'" />
+                                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                            </form>
+                                        </td>
+                                        ' 
+                                    ?>
                                 </tr>
                             <?php endforeach; ?> 
                         </tbody>
