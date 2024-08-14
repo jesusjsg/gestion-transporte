@@ -13,6 +13,10 @@
         if($_POST['model_user'] == 'register'){
             echo $user->registerUser();
         }
+
+        if($_POST['model_user'] == 'delete'){
+            echo $user->deleteUser();
+        }
         
     }else{
         session_destroy();
