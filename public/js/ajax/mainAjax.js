@@ -1,8 +1,4 @@
-import { autocompleteField } from "../components/autocomplete.js"
-
 const formsAjax = document.querySelectorAll('.form-ajax')
-const fields = document.querySelectorAll('.autocomplete')
-
 
 formsAjax.forEach(forms => {
     forms.addEventListener('submit', function(e){
@@ -10,7 +6,7 @@ formsAjax.forEach(forms => {
 
         Swal.fire({
             title: '¿Estás seguro?',
-            text: 'Los datos son modificables',
+            text: '¿Desea realizar la siguiente operación?',
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: "Sí, Guardar",
@@ -57,9 +53,7 @@ function alertsAjax(alert){
             icon: alert.icon,
             title: alert.title,
             text: alert.text,
-            showCancelButton: true,
-            confirmButtonText: 'Sí, Aceptar',
-            cancelButtonText: 'No, Cancelar'
+            confirmButtonText: 'Aceptar',
         }).then((result) => {
             if(result.isConfirmed){
                 location.reload()
