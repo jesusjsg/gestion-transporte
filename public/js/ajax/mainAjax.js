@@ -1,16 +1,26 @@
 const formsAjax = document.querySelectorAll('.form-ajax')
 
+const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success m-1",
+      cancelButton: "btn btn-secondary m-1"
+    },
+    buttonsStyling: false
+});
+
+
 formsAjax.forEach(forms => {
     forms.addEventListener('submit', function(e){
         e.preventDefault()
 
-        Swal.fire({
+        swalWithBootstrapButtons.fire({
             title: '¿Estás seguro?',
-            text: '¿Desea realizar la siguiente operación?',
+            text: '¿Deseas realizar la siguiente operación?',
             icon: 'question',
             showCancelButton: true,
             confirmButtonText: "Sí, Guardar",
             cancelButtonText: "No, Cancelar",
+            reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed){
 
@@ -42,14 +52,14 @@ formsAjax.forEach(forms => {
 function alertsAjax(alert){
     
     if(alert.type == 'simple'){
-        Swal.fire({
+        swalWithBootstrapButtons.fire({
             icon: alert.icon,
             title: alert.title,
             text: alert.text,
             confirmButtonText: 'Aceptar'
         })
     } else if(alert.type == 'reload'){
-        Swal.fire({
+        swalWithBootstrapButtons.fire({
             icon: alert.icon,
             title: alert.title,
             text: alert.text,
@@ -60,7 +70,7 @@ function alertsAjax(alert){
             }
         })
     } else if(alert.type == 'clean'){
-        Swal.fire({
+        swalWithBootstrapButtons.fire({
             icon: alert.icon,
             title: alert.title,
             text: alert.text,
