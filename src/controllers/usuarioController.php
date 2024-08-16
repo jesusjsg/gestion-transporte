@@ -107,7 +107,7 @@
                     'type' => 'simple',
                     'icon' => 'error',
                     'title' => 'Ocurrió un error',
-                    'text' => 'No se pudo registrar el usuario.',
+                    'text' => 'Hubo un problema al registrar el usuario.',
                 ];
             }
             return json_encode($alert);
