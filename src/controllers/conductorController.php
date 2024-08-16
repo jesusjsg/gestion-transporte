@@ -37,6 +37,7 @@
                     'title' => 'Ocurrió un error',
                     'text' => 'La ficha del conductor solo puede contener números.',
                 ];
+                return json_encode($alert);
             }
 
             if($this->verifyData('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,255}', $fullname)){
@@ -46,6 +47,7 @@
                     'title' => 'Ocurrió un error',
                     'text' => 'El nombre y apellido solo puede contener caracteres.'
                 ];
+                return json_encode($alert);
             }
 
             if($this->verifyData('[0-9]', $cedula)){
@@ -55,6 +57,7 @@
                     'title' => 'Ocurrió un error',
                     'text' => 'La cédula del conductor solo puede contener números.',
                 ];
+                return json_encode($alert);
             }
 
             if($this->verifyData('[0-9]', $telefono)){
@@ -64,6 +67,7 @@
                     'title' => 'Ocurrió un error',
                     'text' => 'El teléfono del conductor solo puede contener números.',
                 ];
+                return json_encode($alert);
             }
 
             $checkConductor = $this->executeQuery("SELECT id_conductor FROM conductor WHERE id_conductor = '$ficha'");
