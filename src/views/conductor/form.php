@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="name-conductor" class="form-label">Nombre y apellido</label>
-                    <input type="text" class="form-control" name="name-conductor" />
+                    <input type="text" class="form-control" name="name-conductor" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,255}" />
                 </div>
                 <div class="col-md-2">
                     <label for="cedula-conductor" class="form-label">Cédula</label>
