@@ -173,7 +173,6 @@
                     'title' => 'Ocurrió un error',
                     'text' => 'Hubo un problema al registrar el conductor.',
                 ];
-
                 return json_encode($alert);
             }
         }
