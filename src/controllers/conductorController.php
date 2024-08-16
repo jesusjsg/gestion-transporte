@@ -39,6 +39,15 @@
                 ];
             }
 
+            if($this->verifyData('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,255}', $fullname)){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'El nombre y apellido solo puede contener caracteres.'
+                ];
+            }
+
             if($this->verifyData('[0-9]', $cedula)){
                 $alert = [
                     'type' => 'simple',
@@ -167,10 +176,8 @@
 
                 return json_encode($alert);
             }
-
-            
-            
         }
+
         public function updateConductor(){}
         
         public function deleteConductor(){}
