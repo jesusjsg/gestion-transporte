@@ -41,7 +41,7 @@
                     'type' => 'simple',
                     'icon' => 'error',
                     'title' => 'Ocurrió un error',
-                    'text' => 'El aviso solo puede contener números de un mínimo de 9 digitos.'
+                    'text' => 'El aviso solo puede contener números con un mínimo de 9 digitos.'
                 ];
                 return json_encode($alert);
             }
