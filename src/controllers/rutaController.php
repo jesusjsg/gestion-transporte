@@ -24,13 +24,24 @@
                 return json_encode($alert);
             }
 
-            if($this->verifyData("[a-zA-Z ]{5,40}", $origen) || $this->verifyData("[a-zA-Z ]{5,40}", $destino)){
+            if($this->verifyData("[a-zA-Z ]{5,255}", $origen)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
                     'title' => 'Ocurrió un error',
-                    'text' => 'El origen y destino deben tener entre 5 y 255 caracteres.',
+                    'text' => 'El origen solo puede contener caracteres.',
                 ];
+                return json_encode($alert);
+            }
+
+            if($this->verifyData("[a-zA-Z ]{5,255}", $destino)){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'El destino solo puede contener caracteres.'
+                ];
+                return json_encode($alert);
             }
 
             if(!is_int($kilometros)){
@@ -43,12 +54,27 @@
                 return json_encode($alert);
             }
 
-            $checkRuta = $this->executeQuery("SELECT codigo_ruta FROM ruta WHERE codigo_ruta = '$codigoRuta'");
+            $checkCodigoRuta = $this->executeQuery("SELECT codigo_ruta FROM ruta WHERE codigo_ruta = '$codigoRuta'");
+
+            if($checkCodigoRuta->rowCount()>0){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'El código de ruta '. $codigoRuta . ' ya se encuentra registrado.'
+                ];
+                return json_encode($alert);
+            }
 
             $rutaDataLog = [
                 [
-                    'field_name_database' => 'nombre_ruta',
+                    'field_name_database' => 'id_ruta',
                     'field_name_form' => ':codigoRuta',
+                    'field_value' => $codigoRuta
+                ],
+                [
+                    'field_name_database' => 'nombre_ruta',
+                    'field_name_form' => ':nombreRuta',
                     'field_value' => $origen .'-' . $destino,
                 ],
                 [
@@ -67,7 +93,34 @@
                     'field_value' => $kilometros,
                 ]
             ];
+
+            $saveRuta = $this->saveData('ruta', $rutaDataLog);
+
+            if($saveRuta->rowCount() == 1){
+                $alert = [
+                    'type' => 'reload',
+                    'icon' => 'success',
+                    'title' => 'Registro exitoso',
+                    'text' => 'La ruta ha sido registrada correctamente.'
+                ];
+            }else{
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'Hubo un problema al registrar la ruta.'
+                ];
+
+                return json_encode($alert);
+            }
         }
+
+        
+        public function updateRuta(){}
+
+        public function deleteRuta(){}
+
+        public function tableRuta(){}
 
         public function getOrigenDestino(){
             $getMunicipios = $this->executeQuery(
