@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 13-08-2024 a las 20:50:29
+-- Tiempo de generación: 16-08-2024 a las 18:10:42
 -- Versión del servidor: 8.0.30
--- Versión de PHP: 8.1.10
+-- Versión de PHP: 8.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -1264,7 +1264,7 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_usuario` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `viaje`
