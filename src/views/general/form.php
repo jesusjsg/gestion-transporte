@@ -12,11 +12,11 @@
                 <div class="tile-footer"></div>
                 <div class="col-md-1">
                     <label for="codigo-registro" class="form-label">Registro</label>
-                    <input type="text" class="form-control" name="codigo-registro" />
+                    <input type="text" class="form-control" name="codigo-registro" pattern="[0-9]{1,255}" />
                 </div>
                 <div class="col-md-1">
                     <label for="codigo-entidad" class="form-label">Entidad</label>
-                    <input type="text" class="form-control" name="codigo-entidad" />
+                    <input type="text" class="form-control" name="codigo-entidad" pattern="[0-9]{1,255}"/>
                 </div>
                 <div class="col-md-3">
                     <label for="primera-descripcion" class="form-label">Descripción 1</label>
@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-1">
                     <label for="valor" class="form-label">Valor</label>
-                    <input type="text" class="form-control" name="valor">
+                    <input type="text" class="form-control" name="valor" pattern="[0-9]{1,255}">
                 </div>
                 <div class="tile-footer"></div>
             </form>
