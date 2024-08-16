@@ -43,6 +43,16 @@ use src\models\uniqueModel;
                 return json_encode($alert);
             }
 
+            if($this->verifyData('[0-9]{8,8}', $placa)){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'La placa solo puede contener números con un rango de 8 digitos.'
+                ];
+                return json_encode($alert);
+            }
+
             $checkPlaca = $this->executeQuery("SELECT placa FROM vehiculo WHERE placa = '$placa'");
             if($checkPlaca->rowCount()>0){
                 $alert = [
@@ -167,18 +177,29 @@ use src\models\uniqueModel;
                 ]
             ];
 
-            
-        }
-        
-        public function autocompleteSelect($idRegistro){
-            $fillData = $this->executeQuery("SELECT id_entidad, descripcion1 FROM general WHERE id_registro = '$idRegistro' AND id_entidad > 0");
-            $data = [];
-            
-            if($fillData->rowCount()>0){
-                while($row = $fillData->fetch(PDO::FETCH_ASSOC)){
-                    $data[] = $row;
-                }
+            $saveVehiculo = $this->saveData('vehiculo', $vehiculoDataLog);
+
+            if($saveVehiculo->rowCount() == 1){
+                $alert = [
+                    'type' => 'reload',
+                    'icon' => 'success',
+                    'title' => 'Registro exitoso',
+                    'text' => 'El vehículo('.$placa.') se registró correctamente.',
+                ];
+            }else{
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'Hubo un problema al registrar el vehículo.'
+                ];
+                return json_encode($alert);
             }
-            return $data;
         }
+
+        public function updateVehiculo(){}
+
+        public function deleteVehiculo(){}
+
+        public function tableVehiculo(){}
     }
