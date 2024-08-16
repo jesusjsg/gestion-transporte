@@ -23,7 +23,7 @@
                 <div class="tile-footer"></div>
                 <div class="col-md-2">
                     <label for="ficha-conductor" class="form-label">Ficha</label>
-                    <input type="text" class="form-control" name="ficha-conductor" />
+                    <input type="text" class="form-control" name="ficha-conductor" pattern="[0-9]" max="8" />
                 </div>
                 <div class="col-md-3">
                     <label for="name-conductor" class="form-label">Nombre y apellido</label>
@@ -31,11 +31,11 @@
                 </div>
                 <div class="col-md-2">
                     <label for="cedula-conductor" class="form-label">Cédula</label>
-                    <input type="text" class="form-control" name="cedula-conductor" />
+                    <input type="text" class="form-control" name="cedula-conductor" pattern="[0-9]" max="8"/>
                 </div>
                 <div class="col-md-2">
                     <label for="phone-conductor" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" name="phone-conductor" />
+                    <input type="text" class="form-control" name="phone-conductor" pattern="[0-9]" max="14"/>
                 </div>
                 <div class="col-md-2">
                     <label for="vehiculo-conductor" class="form-label">Placa</label>
