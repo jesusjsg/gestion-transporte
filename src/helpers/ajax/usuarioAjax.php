@@ -18,6 +18,11 @@
             echo $user->deleteUser();
         }
         
+    }elseif(isset($_GET['action']) && $_GET['action'] == 'load_users'){
+        //alert('cargando');
+        $user = new usuarioController;
+        echo $user->tableUser();
+
     }else{
         session_destroy();
         header('Location: '. URL);
