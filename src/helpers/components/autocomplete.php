@@ -17,7 +17,7 @@
                     $options[] = $row;
                 }
             }
-            return $options;
+            return json_encode($options);
         }
     }
     
