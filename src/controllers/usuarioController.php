@@ -113,11 +113,24 @@
             return json_encode($alert);
         }
 
-        public function tableUser(){}
+        public function tableUser(){
+
+            $getTableUser = $this->executeQuery("SELECT id_usuario, nombre_apellido, nombre_usuario, contraseña, id_rol FROM usuario");
+            $data = [];
+
+            if($getTableUser->rowCount()>0){
+                while($row = $getTableUser->fetch(PDO::FETCH_ASSOC)){
+                    $data[] = $row;
+                }
+            }
+
+            return json_encode($data, JSON_UNESCAPED_UNICODE);
+        }
 
         public function updateUser(){}
 
         public function deleteUser(){
+
             $id = $this->cleanString($_POST['user_id']);
 
             if($id == 1){
