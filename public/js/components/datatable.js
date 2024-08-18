@@ -2,8 +2,8 @@
 Funcion para obtener las tablas de cada vista
 */
 
-export function getDatatable(fieldClass){
-    $(fieldClass).DataTable({
+export function getDatatable(url, columns){
+    $('.datatable').DataTable({
         "aProcessing": true,
         "aServerside": true,
         language: {
@@ -22,6 +22,22 @@ export function getDatatable(fieldClass){
                 'previous': 'Anterior'
             }
         },
+        'ajax': {
+            'url': url,
+            'dataSrc':'',
+        },
+        'columns': columns,
+        dom: '1Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml',
+                text: 'Excel<i class="bi bi-file-earmark-excel ms-1"></i>',
+                className: 'btn btn-success',
+                exportOptions: {
+                    columns: ':visible'
+                }
+            }
+        ],
         'responsive': true,
         'bDestroy': true,
         'iDisplayLength': 15,
