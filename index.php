@@ -18,29 +18,24 @@
     $login = new loginController();
     $viewsController = new viewsController();
 
-    if (isset($_GET['views'])) { 
+    if (isset($_GET['views'])) {
         $url = explode("/", $_GET['views']);
         $folder = $url[0] ?? 'home';
-        $view = $url[1] ?? 'index'; // Vista predeterminada "index"
+        $view = $url[1] ?? 'index'; //Cammbiar al formulario de forma manual
     } else {
         $folder = 'auth';
         $view = 'login'; 
-
     }
-
+    
     $viewPath = $viewsController->getViewsController($folder, $view);
-
-    if ($viewPath != "./src/views/auth/login.php" && $viewPath != "./src/views/errors/404.php"){
+    
+    if ($viewPath != "./src/views/auth/login.php" && $viewPath != "./src/views/errors/404.php") {
         require_once "./src/helpers/includes/header.php";
         require_once "./src/helpers/includes/nav.php";
     }
-
-    if (is_file($viewPath)){
-        require_once $viewPath;
-    } else {
-        require_once "./src/views/errors/404.php";
-    }
-
-    if ($viewPath != "./src/views/auth/login.php" && $viewPath != "./src/views/errors/404.php"){
+    
+    require_once $viewPath;
+    
+    if ($viewPath != "./src/views/auth/login.php" && $viewPath != "./src/views/errors/404.php") {
         require_once "./src/helpers/includes/script.php";
     }
