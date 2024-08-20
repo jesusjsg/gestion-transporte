@@ -1,7 +1,7 @@
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1 class="fw-light mb-4"><i class="bi bi-file-text-fill me-2"></i>Mantenimiento registros generales</h1>
+            <h1 class="fw-light mb-4"><i class="bi bi-file-text-fill me-2"></i>Mantenimiento de los registros generales</h1>
             <a class="btn btn-success" href="<?= URL; ?>general/form/">Agregar registro</a>
         </div>
         <ul class="app-breadcrumb breadcrumb">
