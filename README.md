@@ -12,5 +12,3 @@ Descargar el zip que se encuentra en la seccion codigo.
 ## Cambios que hacen falta
 
 El autocompletado para los campos de los formularios de las rutas, viajes y detalles.
-
-Hace falta la validacion de la funcion para editar los valores de las tablas, debido al inconveniente de las URL para acceder a los formularios.
