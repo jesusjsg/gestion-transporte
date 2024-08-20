@@ -4,9 +4,14 @@
 
     class viewsModel {
         protected $folderList = ["conductor", "viaje", "general", "ruta", "usuario", "vehiculo", "home", "auth", "errors", "nomina"];
+
         protected $viewList = ["dashboard", "form", "index", "edit", 'login', "logout"];
 
-        protected function getViewsModel($folder, $view) {
+        protected $ajaxList = [
+            'usuario' => 'usuarioAjax'
+        ];
+
+        protected function getViewsModel($folder, string $view) {
             if (in_array($folder, $this->folderList)) {
                 
                 if (empty($view) || !in_array($view, $this->viewList)) {
@@ -22,5 +27,14 @@
 
         protected function checkFile($filePath) {
             return is_file($filePath) ? $filePath : "./src/views/errors/404.php";
+        }
+
+        protected function loadAjax(string $view){
+            if(isset($this->ajaxList[$view])){
+                $file = $this->ajaxList[$view];
+                $base = "./src/helpers/ajax/{$file}.php";
+                require_once $this->checkFile($base);
+                exit;
+            }
         }
     }
