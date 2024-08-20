@@ -1,6 +1,5 @@
 <?php 
     $actualDate = date('d/m/Y');
-    /* $name = 'Jesús Santana' */
 ?>
 <body class="app sidebar-mini">
     <header class="app-header">
@@ -51,6 +50,6 @@
                 </ul>
             </li>
         </ul>
-        <!-- <li><a class="app-menu__item" href="auth/closeSesion"><i class="app-menu__icon bi bi-box-arrow-right"></i>
-        <span class="app-menu__label">Cerrar sesión</span></a></li> -->
+        <li><a class="app-menu__item" href="<?= URL; ?>auth/logout"><i class="app-menu__icon bi bi-box-arrow-right"></i>
+        <span class="app-menu__label">Cerrar sesión</span></a></li>
     </aside>
