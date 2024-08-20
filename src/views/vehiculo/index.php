@@ -2,7 +2,7 @@
     <div class="app-title">
         <div>
             <h1 class="fw-light mb-4"><i class="bi bi-car-front-fill me-2"></i>Mantenimiento de los vehículos</h1>
-            <a class="btn btn-success" href="<?= URL; ?>vehiculo/form">Agregar vehículo</a>
+            <a class="btn btn-success" href="<?= URL; ?>vehiculo/form/">Agregar vehículo</a>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="bi bi-house-door-fill fs-6"></i></li>

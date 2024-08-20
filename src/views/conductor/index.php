@@ -2,7 +2,7 @@
     <div class="app-title">
         <div>
             <h1 class="fw-light mb-4"><i class="bi bi-people-fill me-2"></i>Mantenimiento de los conductores</h1>
-            <a class="btn btn-success" href="<?= URL; ?>conductor/form.php">Agregar conductor</a>
+            <a class="btn btn-success" href="<?= URL; ?>conductor/form/">Agregar conductor</a>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="bi bi-house-door-fill fs-6"></i></li>

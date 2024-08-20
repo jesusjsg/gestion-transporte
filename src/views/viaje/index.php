@@ -2,7 +2,7 @@
     <div class="app-title">
         <div>
             <h1 class="fw-light mb-4"><i class="bi bi-cursor-fill me-2"></i>Mantenimiento de los viajes</h1>
-            <a class="btn btn-success" href="#">Agregar viaje</a>
+            <a class="btn btn-success" href="<?= URL; ?>viaje/form/">Agregar viaje</a>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="bi bi-house-door-fill fs-6"></i></li>
