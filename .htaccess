@@ -1,10 +1,3 @@
-# Deshabilitar el listado de directorios
-Options All -Indexes
 RewriteEngine On
-
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-#RewriteCond %{REQUEST_FILENAME} !-l
-
-# Redirigir cualquier otra solicitud a index.php
-RewriteRule ^([a-zA-Z0-9_-]+)/?$ index.php?views=$1 [L,QSA]
+Options All -Indexes
+RewriteRule ^([a-zA-Z0-9/ñÑ-]+)$ index.php?views=$1
