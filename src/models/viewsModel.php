@@ -4,7 +4,7 @@
 
     class viewsModel {
         protected $folderList = ["conductor", "viaje", "general", "ruta", "usuario", "vehiculo", "home", "auth", "errors", "nomina"];
-        protected $viewList = ["dashboard", "form", "index", "edit", 'login', "closeSesion"];
+        protected $viewList = ["dashboard", "form", "index", "edit", 'login', "logout"];
 
         protected function getViewsModel($folder, $view) {
             if (in_array($folder, $this->folderList)) {
