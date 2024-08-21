@@ -1,5 +1,5 @@
 <?php
-
+    require_once '../../../autoload.php';
     use src\controllers\usuarioController;
 
     if(isset($_POST['model_user'])){
