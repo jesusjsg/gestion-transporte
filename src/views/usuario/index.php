@@ -13,22 +13,24 @@
         <div class="col-md-12">
             <div class="tile">
                 <div class="tile-body">
-                    <h6 class="fw-bold mb-4">Listado de los usuarios registrados</h6>
-                </div>
-                <div class="table-responsive">
-                    <table class="table row-border display compact table-hover" id="table-usuario" style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th>ID usuario</th>
-                                <th>Nombre y apellido</th>
-                                <th>Usuario</th>
-                                <th>Contraseña</th>
-                                <th>Rol</th>
-                            </tr>
-                        </thead>
-                    </table>
+                    <div class="tile-body">
+                        <strong>Lista de los usuarios registrados</strong>
+                    </div>
+                    <br>
+                    <div class="table-responsive">
+                        <table class="table row-border display compact table-hover" id="table-usuario" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>ID-Usuario</th>
+                                    <th>Nombre y apellido</th>
+                                    <th>Usuario</th>
+                                    <th>Contraseña</th>
+                                    <th>Rol</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </main>
