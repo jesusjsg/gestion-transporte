@@ -17,14 +17,6 @@
                     $options[] = $row;
                 }
             }
-            return json_encode($options);
+            return $options;
         }
     }
-    
-    /* class Datatable extends mainModel{
-
-        public function getDatatable($table){
-            $rowDatatable = $this->executeQuery("SELECT * FROM $table");
-            return $rowDatatable->fetchAll(PDO::FETCH_ASSOC);
-        }
-    } */ 
