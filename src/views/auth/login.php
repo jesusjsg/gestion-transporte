@@ -38,7 +38,6 @@
     </main>
     <script src="<?= URL; ?>public/js/libs/bootstrap.bundle.min.js"></script>
     <script src="<?= URL; ?>public/js/libs/sweetalert2@11.js"></script>
-    <!-- <script src="<?= URL; ?>public/js/libs/jquery-3.7.1.min.js"></script> -->
     <?php
         use src\controllers\loginController;
         $login = new loginController();
