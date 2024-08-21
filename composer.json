@@ -17,7 +17,8 @@
         "realrashid/sweet-alert": "^3.2",
         "twbs/bootstrap": "*",
         "twbs/bootstrap-icons": "*",
-        "datatables/datatables": "^1.10"
+        "datatables/datatables": "^1.10",
+        "dragonmantank/cron-expression": "^3.3"
     },
     "config": {
         "allow-plugins": {
