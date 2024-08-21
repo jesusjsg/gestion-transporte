@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         },
         'ajax': {
-            'url': '?action=load_users',
+            'url': 'ajax/usuario?action=load_users',
             'dataSrc': '',
         },
         'columns': [
