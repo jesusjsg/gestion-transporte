@@ -8,7 +8,7 @@
         protected $viewList = ["dashboard", "form", "index", "edit", 'login', "logout"];
 
         protected $ajaxList = [
-            'usuario' => 'usuarioAjax'
+            'usuarios' => 'usuarioAjax'
         ];
 
         protected function getViewsModel($folder, string $view) {
