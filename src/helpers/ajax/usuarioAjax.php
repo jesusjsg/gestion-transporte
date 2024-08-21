@@ -19,7 +19,6 @@
         }
         
     }elseif(isset($_GET['action']) && $_GET['action'] == 'load_users'){
-        //alert('cargando');
         $user = new usuarioController;
         echo $user->tableUser();
 
