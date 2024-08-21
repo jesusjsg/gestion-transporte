@@ -1,16 +1,9 @@
-/* import { getDatatable } from "./components/datatable.js";
+$('#table-usuario').DataTable()
 
-    getDatatable('?action=load_users', [
-        {'data': 'id_usuario', visible:false},
-        {'data': 'nombre_apellido', 'className': 'text-center'},
-        {'data': 'nombre_usuario', 'className': 'text-center'},
-        {'data': 'contraseña', visible:false},
-        {'data': 'id_rol', visible:false},
-        {'data': 'opciones', 'className': 'text-center'}
-    ]) */
+let tableUser
 
 document.addEventListener('DOMContentLoaded', function(){
-    $('#table-usuario').DataTable({
+    tableUser = $('#table-usuario').DataTable({
         'aProcessing': true,
         'aServerSide': true,
         language: {
@@ -30,26 +23,15 @@ document.addEventListener('DOMContentLoaded', function(){
             }
         },
         'ajax': {
-            'url': 'ajax/usuario?action=load_users',
+            'url': 'http://localhost/gestion-transporte/ajax/usuarios?action=load_users',
             'dataSrc': '',
         },
         'columns': [
             {'data': 'id_usuario'},
             {'data': 'nombre_apellido', 'className': 'text-center'},
             {'data': 'nombre_usuario', 'className': 'text-center'},
-            {'data': 'contraseña'},
+            {'data': 'contraseña', visible:false},
             {'data': 'id_rol', 'className': 'text-center'},
-        ],
-        dom: '1Bfrtip',
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                text: 'Excel<i class="bi bi-file-earmark-excel ms-1"></i>',
-                className: 'btn btn-success btn-sm',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            }
         ],
         'responsive': true,
         'bDestroy': true,
