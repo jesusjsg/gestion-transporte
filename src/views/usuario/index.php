@@ -18,7 +18,7 @@
                     </div>
                     <br>
                     <div class="table-responsive">
-                        <table class="table row-border display compact table-hover" id="table-usuario" style="width: 100%;">
+                        <table class="table table-striped" id="table-usuario" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>ID-Usuario</th>
