@@ -6,7 +6,7 @@
 
 <main class="app-content">
     <div class="app-title align-items-center">
-        <a class="text-decoration-none btn btn-secondary btn-sm" href="<?= URL; ?>usuario/"><i class="bi bi-box-arrow-left me-1"></i>Salir</a>
+    <h1 class="fw-light mb-4"><i class="bi bi-people-fill me-2"></i>Agregar usuario</h1>
     </div>
     <div class="tile">
         <div class="tile-body">
@@ -40,7 +40,7 @@
                         <?php
                             if(!empty($roles)){
                                 foreach($roles as $rol){
-                                    echo '<option value="'. $rol['id_rol'] . '">'. $rol['nombre'] .'</option>';
+                                    echo '<option value="'. $rol['id_rol'] . '">'. $rol['nombre_rol'] .'</option>';
                                 }
                             } else{
                                 echo '<option disabled>No hay datos registrados</option>';
