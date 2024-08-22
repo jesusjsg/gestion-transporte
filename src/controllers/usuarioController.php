@@ -115,7 +115,18 @@
 
         public function tableUser(){
 
-            $getTableUser = $this->executeQuery("SELECT id_usuario, nombre_apellido, nombre_usuario, contraseña, id_rol FROM usuario");
+            $getTableUser = $this->executeQuery(
+                "SELECT 
+                    u.id_usuario,
+                    u.nombre_apellido,
+                    u.nombre_usuario,
+                    u.contraseña,
+                    r.nombre_rol
+                FROM usuario u 
+                INNER JOIN rol r 
+                ON u.id_rol = r.id_rol
+                "
+            );
             $data = [];
 
             if($getTableUser->rowCount()>0){
@@ -124,7 +135,7 @@
                 }
             }
 
-            return json_encode($data, JSON_UNESCAPED_UNICODE);
+            return json_encode($data);
         }
 
         public function updateUser(){}
@@ -178,7 +189,7 @@
         }
 
         public function getRol(){
-            $getRol = $this->executeQuery('SELECT id_rol, nombre FROM rol ORDER BY nombre');
+            $getRol = $this->executeQuery('SELECT id_rol, nombre_rol FROM rol ORDER BY nombre_rol');
             $roles = [];
 
             if($getRol->rowCount()>0){
