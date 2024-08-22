@@ -1,42 +1,111 @@
-$('#table-usuario').DataTable()
+const formsAjax = document.querySelectorAll('.form-ajax')
 
-let tableUser
+const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success m-1",
+      cancelButton: "btn btn-secondary m-1"
+    },
+    buttonsStyling: false
+});
 
-document.addEventListener('DOMContentLoaded', function(){
-    tableUser = $('#table-usuario').DataTable({
-        'aProcessing': true,
-        'aServerSide': true,
-        language: {
-            'processing': 'Procesando...',
-            'lengthMenu': 'Mostrar registros _MENU_',
-            'zeroRecords': 'No se encontraron resultados',
-            'info': 'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
-            'infoEmpty': 'Mostrando registros del 0 al 0 de un total de 0 registros',
-            'infoFiltered': '(filtrado de un total de _MAX_ registros)',
-            'search': 'Buscar:',
-            'loadingRecords': 'Cargando',
-            'paginate': {
-                'first': 'Primero',
-                'last': 'Último',
-                'next': 'Siguiente',
-                'previous': 'Anterior'
+
+formsAjax.forEach(forms => {
+    forms.addEventListener('submit', function(e){
+        e.preventDefault()
+
+        swalWithBootstrapButtons.fire({
+            title: '¿Estás seguro?',
+            text: '¿Deseas realizar la siguiente operación?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: "Sí, Guardar",
+            cancelButtonText: "No, Cancelar",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed){
+
+                let data = new FormData(this)
+                let method = this.getAttribute('method')
+                let action = this.getAttribute('action')
+    
+                let headers = new Headers()
+    
+                let config = {
+                    method: method,
+                    headers: headers,
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    body: data,
+                }
+
+                fetch(action, config)
+                .then(response => response.json())
+                .then(response => {
+                    return alertsAjax(response)
+                })
             }
-        },
-        'ajax': {
-            'url': 'http://localhost/gestion-transporte/ajax/usuarios?action=load_users',
-            'dataSrc': '',
-        },
-        'columns': [
-            {'data': 'id_usuario', visible:false},
-            {'data': 'nombre_apellido'},
-            {'data': 'nombre_usuario'},
-            {'data': 'contraseña', visible:false},
-            {'data': 'id_rol'},
-        ],
-        'responsive': true,
-        'bDestroy': true,
-        'iDisplayLength': 10,
-        'order': [[0, 'asc']],
+
+        })
     })
 })
+
+function alertsAjax(alert){
+    
+    if(alert.type == 'simple'){
+        swalWithBootstrapButtons.fire({
+            icon: alert.icon,
+            title: alert.title,
+            text: alert.text,
+            confirmButtonText: 'Aceptar'
+        })
+    } else if(alert.type == 'reload'){
+        swalWithBootstrapButtons.fire({
+            icon: alert.icon,
+            title: alert.title,
+            text: alert.text,
+            confirmButtonText: 'Aceptar',
+        }).then((result) => {
+            if(result.isConfirmed){
+                location.reload()
+            }
+        })
+    } else if(alert.type == 'clean'){
+        swalWithBootstrapButtons.fire({
+            icon: alert.icon,
+            title: alert.title,
+            text: alert.text,
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+        }).then((result) => {
+            if(result.isConfirmed){
+                document.querySelector('.form-ajax').reset()
+            }
+        })
+    } else if(alert.type == 'redirect'){
+        window.location.href = alert.url
+    }
+}
+
+// Funcion para el sidebar 
+(function () {
+	"use strict";
+
+	const treeviewMenu = $('.app-menu');
+
+	// Toggle Sidebar
+	$('[data-toggle="sidebar"]').click(function(event) {
+		event.preventDefault();
+		$('.app').toggleClass('sidenav-toggled');
+	});
+
+	// Activate sidebar treeview toggle
+	$("[data-toggle='treeview']").click(function(event) {
+		event.preventDefault();
+		if(!$(this).parent().hasClass('is-expanded')) {
+			treeviewMenu.find("[data-toggle='treeview']").parent().removeClass('is-expanded');
+		}
+		$(this).parent().toggleClass('is-expanded');
+	});
+
+})();
 
