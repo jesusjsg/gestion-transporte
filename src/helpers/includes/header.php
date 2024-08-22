@@ -9,5 +9,6 @@
     <link rel="stylesheet" type="text/css" href="<?= URL; ?>public/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="<?= URL; ?>public/css/libs/bootstrap.min.css">
+    <link rel="stylesheet" href="<?= URL; ?>public/css/libs/datatables.min.css">
     <link rel="stylesheet" href="<?= URL; ?>public/css/libs/sweetalert2.min.css">
 </head>
