@@ -31,6 +31,5 @@ export function getDatatable(url, columns){
         'bDestroy': true,
         'iDisplayLength': 15,
         'order': [[0, 'asc']],
-        'infoThousands': '.'
     })
 }
