@@ -1,0 +1,10 @@
+#Configuracion para el uso de laragon
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php?views=$1 [L,QSA]
+
+#Configuracion para el uso de xampp
+#RewriteEngine On
+#Options All -Indexes
+#RewriteRule ^([a-zA-Z0-9/ñÑ-]+)$ index.php?views=$1 [L,QSA]
