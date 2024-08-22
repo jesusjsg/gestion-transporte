@@ -27,17 +27,16 @@ document.addEventListener('DOMContentLoaded', function(){
             'dataSrc': '',
         },
         'columns': [
-            {'data': 'id_usuario'},
-            {'data': 'nombre_apellido', 'className': 'text-center'},
-            {'data': 'nombre_usuario', 'className': 'text-center'},
+            {'data': 'id_usuario', visible:false},
+            {'data': 'nombre_apellido'},
+            {'data': 'nombre_usuario'},
             {'data': 'contraseña', visible:false},
-            {'data': 'id_rol', 'className': 'text-center'},
+            {'data': 'id_rol'},
         ],
         'responsive': true,
         'bDestroy': true,
         'iDisplayLength': 10,
         'order': [[0, 'asc']],
-
     })
 })
 
