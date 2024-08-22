@@ -11,7 +11,7 @@
                 $this->ajax($view);
             }
 
-            error_log('Carpeta: ' . $folder . ', Vista: ' . $view);
+            error_log('Ruta de la vista: '. $folder. '/' .$view);
             return $this->getViewsModel($folder, $view);
         }
 
