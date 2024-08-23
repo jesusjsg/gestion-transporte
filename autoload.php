@@ -7,5 +7,5 @@
 
         if(is_file($archivo)){
             require_once $archivo;
-        } 
+        }
     });
