@@ -4,7 +4,7 @@
     </div>
     <div class="tile">
         <div class="tile-body">
-            <form class="row g-3 form-ajax" action="<?= URL; ?>src/helpers/ajax/rutaAjax.php" method="POST" autocomplete="off">
+            <form class="row g-3 form-ajax" action="<?= URL; ?>ajax/ruta" method="POST" autocomplete="off">
                 <div class="d-grid gap-2 d-md-flex justify-content-end">
                     <button type="reset" class="btn btn-primary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
                     <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>

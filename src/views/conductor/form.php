@@ -15,7 +15,7 @@
     </div>
     <div class="tile">
         <div class="tile-body">
-            <form class="row g-3" action="" method="post" autocomplete="off">
+            <form class="row g-3" action="<?= URL; ?>ajax/conductor" method="post" autocomplete="off">
                 <div class="d-grid gap-2 d-md-flex justify-content-end">
                     <button type="reset" class="btn btn-primary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
                     <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>

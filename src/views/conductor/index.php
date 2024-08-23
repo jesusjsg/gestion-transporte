@@ -16,7 +16,7 @@
                     <h6 class="fw-bold mb-4">Listado de los conductores registrados</h6>
                 </div>
                 <div class="table-responsive">
-                    <table class="datatable table row-border display compact table-hover" style="width: 100%;">
+                    <table class="datatable table table-striped table-hover" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>Ficha</th>
@@ -31,7 +31,7 @@
                                 <th>FV Saberes</th>
                                 <th>FV MS</th>
                                 <th>FV Alimento</th>
-                                <th>Opciones</th>
+                                <th>Nómina</th>
                             </tr>
                         </thead>
                     </table>
@@ -40,3 +40,5 @@
         </div>
     </div>
 </main>
+
+<script type="module" src="<?= URL; ?>public/js/functions/conductor.js"></script>

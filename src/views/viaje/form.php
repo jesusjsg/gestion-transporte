@@ -1,7 +1,5 @@
 <?php
     use src\helpers\components\Autocomplete;
-use Symfony\Component\Console\Helper\FormatterHelper;
-
     $autocomplete = new Autocomplete();
 
     $registros = [
