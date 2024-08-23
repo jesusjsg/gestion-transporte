@@ -238,7 +238,7 @@ use src\models\uniqueModel;
                     general AS gps ON vehiculo.gps = gps.id_entidad AND gps.id_registro = 16 AND gps.id_entidad > 0
                 "
             );
-
+            
             $data = [];
 
             if($getTableVehiculo->rowCount()>0){
