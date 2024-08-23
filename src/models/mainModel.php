@@ -56,4 +56,11 @@
                 return true;
             }
         }
+
+        protected function formatDate(string $date){
+            if(!empty($date)){
+                return date('d/m/Y', strtotime($date));
+            }
+            return '';
+        }
     }
