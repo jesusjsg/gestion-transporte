@@ -131,6 +131,22 @@
 
             if($getTableUser->rowCount()>0){
                 while($row = $getTableUser->fetch(PDO::FETCH_ASSOC)){
+                    foreach($row as $key => $value){
+                        if(empty($value)){
+                            $row[$key] = '<span class="badge text-bg-danger">No definido</span>';
+                        }
+                    }
+
+                    $row['opciones'] = '
+                        <a href="edit/'.$row['id_usuario'].'/" class="btn btn-primary btn-sm">Editar</a>
+                    ';
+                    $row['opciones'] .= '
+                        <form class="form-ajax d-inline" autocomplete="off">
+                    ';
+                    $row['opciones'] .= '
+                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                    ';
+                    $row['opciones'] .= '</form>';
                     $data[] = $row;
                 }
             }
