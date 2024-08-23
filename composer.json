@@ -1,9 +1,9 @@
 {
-    "name": "nomina/nomina",
+    "name": "gestion-transporte/gestion-transporte",
     "description": "Dependencias del sistema",
     "autoload": {
         "psr-4": {
-            "Nomina\\Nomina\\": "src/"
+            "gestionTransporte\\": "src/"
         }
     },
     "authors": [
