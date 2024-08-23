@@ -24,6 +24,7 @@
                                     <th>Nombre y apellido</th>
                                     <th>Usuario</th>
                                     <th>Rol</th>
+                                    <th>Opciones</th>
                                 </tr>
                             </thead>
                         </table>
@@ -31,4 +32,7 @@
                 </div>
             </div>
         </div>
+    </div>
 </main>
+
+<script type="module" src="<?= URL; ?>public/js/functions/usuario.js"></script>
