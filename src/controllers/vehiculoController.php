@@ -221,21 +221,21 @@ use src\models\uniqueModel;
                     gps.descripcion1 AS gps
                 FROM vehiculo
                 LEFT JOIN
-                    general AS tipoVehiculo ON vehiculo.tipo_vehiculo = tipoVehiculo.id_entidad AND tipoVehiculo.id_registro = 9 AND tipoVehiculo.id_entidad > 0
+                    general AS tipoVehiculo ON vehiculo.tipo_vehiculo = tipoVehiculo.id_entidad AND tipoVehiculo.id_registro = 9
                 LEFT JOIN
-                    general AS propiedad ON vehiculo.propiedad = propiedad.id_entidad AND propiedad.id_registro = 10 AND propiedad.id_entidad > 0
+                    general AS propiedad ON vehiculo.propiedad = propiedad.id_entidad AND propiedad.id_registro = 10
                 LEFT JOIN
-                    general AS unidadNegocio ON vehiculo.unidad_negocio = unidadNegocio.id_entidad AND unidadNegocio.id_registro = 11 AND unidadNegocio.id_entidad > 0
+                    general AS unidadNegocio ON vehiculo.unidad_negocio = unidadNegocio.id_entidad AND unidadNegocio.id_registro = 11
                 LEFT JOIN
-                    general AS marca ON vehiculo.marca = marca.id_entidad AND marca.id_registro = 12 AND marca.id_entidad > 0
+                    general AS marca ON vehiculo.marca = marca.id_entidad AND marca.id_registro = 12
                 LEFT JOIN
-                    general AS numeroEjes ON vehiculo.numero_ejes = numeroEjes.id_entidad AND numeroEjes.id_registro = 13 AND numeroEjes.id_entidad > 0
+                    general AS numeroEjes ON vehiculo.numero_ejes = numeroEjes.id_entidad AND numeroEjes.id_registro = 13
                 LEFT JOIN
-                    general AS usoVehiculo ON vehiculo.uso = usoVehiculo.id_entidad AND usoVehiculo.id_registro = 14 AND usoVehiculo.id_entidad > 0
+                    general AS usoVehiculo ON vehiculo.uso = usoVehiculo.id_entidad AND usoVehiculo.id_registro = 14
                 LEFT JOIN
-                    general AS bolipuertos ON vehiculo.bolipuertos = bolipuertos.id_entidad AND bolipuertos.id_registro = 15 AND bolipuertos.id_entidad > 0
+                    general AS bolipuertos ON vehiculo.bolipuertos = bolipuertos.id_entidad AND bolipuertos.id_registro = 15
                 LEFT JOIN
-                    general AS gps ON vehiculo.gps = gps.id_entidad AND gps.id_registro = 16 AND gps.id_entidad > 0
+                    general AS gps ON vehiculo.gps = gps.id_entidad AND gps.id_registro = 16
                 "
             );
             $data = [];
