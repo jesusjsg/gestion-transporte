@@ -17,7 +17,7 @@
                         <h6 class="fw-bold mb-4">Listado de los usuarios registrados</h6>
                     </div>
                     <div class="table-responsive">
-                        <table class="datatable table table-striped" id="table-usuario" style="width: 100%;">
+                        <table class="datatable table table-striped table-hover" id="table-usuario" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>ID-Usuario</th>

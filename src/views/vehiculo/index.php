@@ -16,7 +16,7 @@
                     <h6 class="fw-bold mb-4">Listado de los vehículos registrados</h6>
                 </div>
                 <div class="table-responsive">
-                    <table class="datatable table row-border display compact table-hover" id="table-vehiculo" style="width: 100%;">
+                    <table class="datatable table table-striped table-hover" id="table-vehiculo" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>Placa</th>
@@ -41,7 +41,6 @@
                                 <th>GPS</th>
                                 <th>Link GPS</th>
                                 <th>Estatus</th>
-                                <th>Opciones</th>
                             </tr>
                         </thead>
                     </table>
@@ -50,3 +49,5 @@
         </div>
     </div>
 </main>
+
+<script type="module" src="<?= URL; ?>public/js/functions/vehiculo.js"></script>
