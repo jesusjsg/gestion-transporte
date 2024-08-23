@@ -184,6 +184,7 @@ use src\models\uniqueModel;
         }
 
         public function tableConductor(){
+
             $getTableConductor = $this->executeQuery(
                 "SELECT conductor.*,
                     tipoNomina.descripcion1 AS tipo_nomina
@@ -194,13 +195,30 @@ use src\models\uniqueModel;
             );
             $data = [];
 
+            $dateColumns = [
+                'vencimiento_cedula',
+                'vencimiento_licencia',
+                'vencimiento_certificadoMedico',
+                'vencimiento_mppps',
+                'vencimiento_saberes',
+                'vencimiento_manejoSeguro',
+                'vencimiento_alimento'
+            ];
+
             if($getTableConductor->rowCount()>0){
                 while($row = $getTableConductor->fetch(PDO::FETCH_ASSOC)){
+                    foreach($dateColumns as $column){
+                        if(!empty($row[$column])){
+                            $row[$column] = $this->formatDate($row[$column]);
+                        }
+                    }
+
                     foreach($row as $key => $value){
                         if(empty($value)){
                             $row[$key] = '<span class="badge text-bg-danger">No definido</span>';
                         }
                     }
+
                     $data[] = $row;
                 }
             }
