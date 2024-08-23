@@ -238,11 +238,25 @@ use src\models\uniqueModel;
                     general AS gps ON vehiculo.gps = gps.id_entidad AND gps.id_registro = 16 AND gps.id_entidad > 0
                 "
             );
-            
             $data = [];
 
+            $dateColumns = [
+                'vencimiento_poliza',
+                'vencimiento_racda',
+                'vencimiento_sanitario',
+                'vencimiento_rotc',
+                'fecha_fumigacion',
+                'fecha_impuesto'
+            ];
+        
             if($getTableVehiculo->rowCount()>0){
                 while($row = $getTableVehiculo->fetch(PDO::FETCH_ASSOC)){
+                    foreach($dateColumns as $column){
+                        if(!empty($row[$column])){
+                            $row[$column] = $this->formatDate($row[$column]);
+                        }
+                    }
+
                     foreach($row as $key => $value){
                         if(empty($value)){
                             $row[$key] = '<span class="badge text-bg-danger">No definido</span>';
