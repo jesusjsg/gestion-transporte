@@ -1,7 +1,9 @@
 <?php
 
     namespace src\controllers;
-    use src\models\uniqueModel;
+
+use PDO;
+use src\models\uniqueModel;
 
     class conductorController extends uniqueModel{
 
@@ -181,9 +183,32 @@
             }
         }
 
+        public function tableConductor(){
+            $getTableConductor = $this->executeQuery(
+                "SELECT conductor.*,
+                    tipoNomina.descripcion1 AS tipo_nomina
+                FROM conductor
+                LEFT JOIN
+                    general AS tipoNomina ON conductor.tipo_nomina = tipoNomina.id_entidad AND tipoNomina.id_registro = 6
+                "
+            );
+            $data = [];
+
+            if($getTableConductor->rowCount()>0){
+                while($row = $getTableConductor->fetch(PDO::FETCH_ASSOC)){
+                    foreach($row as $key => $value){
+                        if(empty($value)){
+                            $row[$key] = '<span class="badge text-bg-danger">No definido</span>';
+                        }
+                    }
+                    $data[] = $row;
+                }
+            }
+            return json_encode($data);
+        }
+
         public function updateConductor(){}
         
         public function deleteConductor(){}
         
-        public function tableConductor(){}
     }
