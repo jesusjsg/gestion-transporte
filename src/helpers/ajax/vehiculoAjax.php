@@ -1,18 +1,18 @@
 <?php
 
-    require_once '../../../config/app.php';
-    require_once '../session_start.php';
-    require_once '../../../autoload.php';
-
     use src\controllers\vehiculoController;
 
     if(isset($_POST['model_vehiculo'])){
 
-        $user = new vehiculoController();
+        $vehiculo = new vehiculoController();
 
         if($_POST['model_vehiculo'] == 'register'){
-            echo $user->registerVehiculo();
+            echo $vehiculo->registerVehiculo();
         }
+    
+    }elseif(isset($_GET['action']) && ($_GET['action'] == 'load_vehiculos')){
+        $vehiculo = new vehiculoController;
+        echo $vehiculo->tableVehiculo();
         
     }else{
         session_destroy();
