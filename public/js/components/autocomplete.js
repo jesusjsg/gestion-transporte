@@ -3,22 +3,20 @@ Autocompletado para los inputs de tipo texto
 (Cliente, placa vehiculo, municipios) 
 */
 
-export function autocompleteField(url, fieldClass, action){
-    $(fieldClass).autocomplete({
+export function autocomplete(fieldId, url){
+    $(fieldId).autocomplete({
         source: function(request, response){
             $.ajax({
                 url: url,
                 type: 'get',
-                data: {
-                    term: request.term,
-                    action: action
-                },
                 dataType: 'json',
+                data: {
+                    term: request.term
+                },
                 success: function(data){
                     response(data)
                 }
             })
-        },
-        minLength: 1,
+        }
     })
 }
