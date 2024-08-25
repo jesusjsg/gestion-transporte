@@ -20,8 +20,13 @@
             return $connection;
         }
 
-        protected function executeQuery($query){ // Función para ejecutar las consultas preparadas
-            $sql = $this->conection()->prepare($query); 
+        protected function executeQuery($query, $params = []){ // Función para ejecutar las consultas preparadas
+            $sql = $this->conection()->prepare($query);
+            if(!empty($params)){
+                foreach($params as $key => &$value){
+                    $sql->bindParam($key, $value);
+                }
+            }
             $sql->execute();
             return $sql;
         }
