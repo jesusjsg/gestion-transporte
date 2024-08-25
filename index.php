@@ -8,7 +8,6 @@
     error_log('Inicio del sistema de gestión de transporte');
 
     require_once 'autoload.php';
-    require_once 'vendor/autoload.php';
     require_once 'config/app.php';
     require_once 'src/helpers/session_start.php';
 
