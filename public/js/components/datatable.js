@@ -2,8 +2,8 @@
 Funcion para obtener las tablas de cada vista
 */
 
-export function getDatatable(url, columns){
-    $('.datatable').DataTable({
+export function getDatatable(fieldId, url, columns){
+    $(fieldId).DataTable({
         "aProcessing": true,
         "aServerside": true,
         language: {
