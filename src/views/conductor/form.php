@@ -15,15 +15,16 @@
     </div>
     <div class="tile">
         <div class="tile-body">
-            <form class="row g-3" action="<?= URL; ?>ajax/conductor" method="post" autocomplete="off">
+            <form class="row g-3 form-ajax" action="<?= URL; ?>ajax/conductor" method="post" autocomplete="off">
                 <div class="d-grid gap-2 d-md-flex justify-content-end">
                     <button type="reset" class="btn btn-primary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
                     <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                 </div>
                 <div class="tile-footer"></div>
+                <input type="hidden" name="model_conductor" value="register" />
                 <div class="col-md-2">
                     <label for="ficha-conductor" class="form-label">Ficha</label>
-                    <input type="text" class="form-control" name="ficha-conductor" pattern="[0-9]" max="8" />
+                    <input type="text" class="form-control" name="ficha-conductor" min="8" max="8" />
                 </div>
                 <div class="col-md-3">
                     <label for="name-conductor" class="form-label">Nombre y apellido</label>
@@ -31,11 +32,11 @@
                 </div>
                 <div class="col-md-2">
                     <label for="cedula-conductor" class="form-label">Cédula</label>
-                    <input type="text" class="form-control" name="cedula-conductor" pattern="[0-9]" max="8"/>
+                    <input type="text" class="form-control" name="cedula-conductor" pattern="[0-9]+"/>
                 </div>
                 <div class="col-md-2">
                     <label for="phone-conductor" class="form-label">Teléfono</label>
-                    <input type="text" class="form-control" name="phone-conductor" pattern="[0-9]" max="14"/>
+                    <input type="text" class="form-control" name="phone-conductor" max="14"/>
                 </div>
                 <div class="col-md-2">
                     <label for="vehiculo-conductor" class="form-label">Placa</label>

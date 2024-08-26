@@ -29,12 +29,13 @@
     </div>
     <div class="tile">
         <div class="tile-body">
-            <form class="row g-3" action="<?= URL; ?>ajax/vehiculo" method="post" autocomplete="off">
+            <form class="row g-3 form-ajax" action="<?= URL; ?>ajax/vehiculo" method="post" autocomplete="off">
                 <div class="d-grid gap-2 d-md-flex justify-content-end">
                     <button type="reset" class="btn btn-primary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
                     <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                 </div>
-                <hr>
+                <div class="tile-footer"></div>
+                <input type="hidden" name="model_vehiculo" value="register">
                 <div class="col-md-2">
                     <label for="placa" class="form-label">Placa</label>
                     <input type="text" class="form-control" name="placa" />
