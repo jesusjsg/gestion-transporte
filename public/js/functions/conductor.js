@@ -1,7 +1,9 @@
 import { getDatatable } from "../components/datatable.js";
+import { getPlaca } from "../components/autocomplete.js";
 
 const tableUrl = 'http://localhost/gestion-transporte/ajax/conductor?action=load_conductores'
 const autocompleteUrl = 'http://localhost/gestion-transporte/ajax/conductor?action=get_placa'
+const fieldId = '#vehiculo-conductor'
 
 function main(){
     getDatatable(tableUrl, [
@@ -19,6 +21,8 @@ function main(){
         {'data': 'vencimiento_alimento'},
         {'data': 'tipo_nomina'}
     ])
+
+    getPlaca(fieldId, autocompleteUrl)
 }
 
 document.addEventListener('DOMContentLoaded', main)
