@@ -33,7 +33,7 @@ use src\models\uniqueModel;
             $estatus = $this->cleanString($_POST['estatus-vehiculo']);
 
             // Validaciones de los campos de tipo texto
-            if(empty($placa) || empty($tipoVehiculo) || empty($serialCarroceria) || empty($serialMotor) || empty($linkGps) || empty($modelo)){
+            if(empty($placa) || empty($tipoVehiculo) || empty($serialCarroceria) || empty($serialMotor) || empty($modelo)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
@@ -43,17 +43,17 @@ use src\models\uniqueModel;
                 return json_encode($alert);
             }
 
-            if($this->verifyData('[0-9]{8,8}', $placa)){
+            if($this->verifyData('[A-Za-z0-9]{7,8}', $placa)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
                     'title' => 'Ocurrió un error',
-                    'text' => 'La placa solo puede contener números con un rango de 8 digitos.'
+                    'text' => 'La placa solo puede contener números con un rango de 7 a 8 digitos.'
                 ];
                 return json_encode($alert);
             }
 
-            $checkPlaca = $this->executeQuery("SELECT placa FROM vehiculo WHERE placa = '$placa'");
+            $checkPlaca = $this->executeQuery("SELECT id_vehiculo FROM vehiculo WHERE id_vehiculo = '$placa'");
             if($checkPlaca->rowCount()>0){
                 $alert = [
                     'type' => 'simple',
@@ -64,7 +64,7 @@ use src\models\uniqueModel;
                 return json_encode($alert);
             };
 
-            $checkLink = filter_var($linkGps, FILTER_SANITIZE_URL);
+            /* $checkLink = filter_var($linkGps, FILTER_SANITIZE_URL);
             if(filter_var($checkLink, FILTER_VALIDATE_URL)){
                 $alert = [
                     'type' => 'simple',
@@ -73,7 +73,7 @@ use src\models\uniqueModel;
                     'text' => 'El link ingresado es inválido.'
                 ];
                 return json_encode($alert);
-            }
+            } */
 
             $vehiculoDataLog = [
                 [
@@ -192,10 +192,10 @@ use src\models\uniqueModel;
 
             if($saveVehiculo->rowCount() == 1){
                 $alert = [
-                    'type' => 'reload',
+                    'type' => 'clean',
                     'icon' => 'success',
                     'title' => 'Registro exitoso',
-                    'text' => 'El vehículo('.$placa.') se registró correctamente.',
+                    'text' => 'El vehículo ('.$placa.') se registró correctamente.',
                 ];
             }else{
                 $alert = [
@@ -204,8 +204,8 @@ use src\models\uniqueModel;
                     'title' => 'Ocurrió un error',
                     'text' => 'Hubo un problema al registrar el vehículo.'
                 ];
-                return json_encode($alert);
             }
+            return json_encode($alert);
         }
 
         public function tableVehiculo(){
