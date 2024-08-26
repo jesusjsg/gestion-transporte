@@ -11,4 +11,5 @@
     <link rel="stylesheet" href="<?= URL; ?>public/css/libs/bootstrap.min.css">
     <link rel="stylesheet" href="<?= URL; ?>public/css/libs/datatables.min.css">
     <link rel="stylesheet" href="<?= URL; ?>public/css/libs/sweetalert2.min.css">
+    <link rel="stylesheet" href="<?= URL; ?>public/css/libs/jquery-ui.min.css">
 </head>
