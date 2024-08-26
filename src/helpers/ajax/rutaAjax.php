@@ -1,19 +1,23 @@
 <?php
-
-    require_once '../../../config/app.php';
-    require_once '../session_start.php';
-    require_once '../../../autoload.php';
-
     use src\controllers\rutaController;
+    use src\helpers\components\Autocomplete;
 
     if(isset($_POST['model_ruta'])){
 
-        $user = new rutaController();
+        $ruta = new rutaController();
 
         if($_POST['model_ruta'] == 'register'){
-            echo $user->registerRuta();
+            echo $ruta->registerRuta();
         }
         
+    }elseif(isset($_GET['action']) && $_GET['action'] == 'load_ruta'){
+        $ruta = new rutaController;
+        echo $ruta->tableRuta();
+        
+    }elseif(isset($_GET['action']) && $_GET['action'] == 'get_municipio'){
+        $estadoMunicipio = new Autocomplete;
+        echo $estadoMunicipio->autocompleteMunicipio($_GET['term']);
+
     }else{
         session_destroy();
         header('Location: '. URL);
