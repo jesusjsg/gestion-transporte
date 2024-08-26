@@ -116,11 +116,29 @@
         }
 
         
+        public function tableRuta(){
+            $getTableRuta = $this->executeQuery("SELECT * FROM ruta");
+            $data = [];
+
+            if($getTableRuta->rowCount()>0){
+                while($row = $getTableRuta->fetch(PDO::FETCH_ASSOC)){
+                    foreach($row as $key => $value){
+                        if(empty($value)){
+                            $row[$key] = '
+                                <span class="badge text-bg-danger">No definido</span>
+                            ';
+                        }
+                    }
+                    $data[] = $row;
+                }
+            }
+            return json_encode($data);
+        }
+
         public function updateRuta(){}
 
         public function deleteRuta(){}
 
-        public function tableRuta(){}
 
         public function getOrigenDestino(){
             $getMunicipios = $this->executeQuery(
