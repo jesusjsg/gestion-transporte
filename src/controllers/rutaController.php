@@ -114,8 +114,7 @@
                 return json_encode($alert);
             }
         }
-
-        
+ 
         public function tableRuta(){
             $getTableRuta = $this->executeQuery("SELECT * FROM ruta");
             $data = [];
@@ -138,25 +137,4 @@
         public function updateRuta(){}
 
         public function deleteRuta(){}
-
-
-        public function getOrigenDestino(){
-            $getMunicipios = $this->executeQuery(
-                "SELECT id_entidad,
-                    CONCAT(descripcion1, ' | ', descripcion2, ' - ', descripcion3) AS estado_nombre_municipio 
-                FROM general
-                WHERE id_registro = 8
-                AND id_entidad > 0
-                ORDER BY estado_nombre_municipio
-                LIMIT 10"
-            );
-            $estadoRutalMunicipios = [];
-            if($getMunicipios->rowCount()>0){
-                while($row = $getMunicipios->fetch(PDO::FETCH_ASSOC)){
-                    $estadoRutalMunicipios[] = $row;
-                }
-            }
-            return json_encode($estadoRutalMunicipios);
-
-        }
     }
