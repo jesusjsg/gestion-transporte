@@ -1,9 +1,10 @@
 import { getDatatable } from "../components/datatable.js";
 
 const url = 'http://localhost/gestion-transporte/ajax/usuarios?action=load_users'
+const fieldId = document.querySelector('#table-usuario')
 
 function main(){
-    getDatatable(url, [
+    getDatatable(fieldId, url, [
         {'data': 'id_usuario', visible:false},
         {'data': 'nombre_apellido'},
         {'data': 'nombre_usuario'},

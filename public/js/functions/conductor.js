@@ -3,10 +3,10 @@ import { getPlaca } from "../components/autocomplete.js";
 
 const tableUrl = 'http://localhost/gestion-transporte/ajax/conductor?action=load_conductores'
 const autocompleteUrl = 'http://localhost/gestion-transporte/ajax/conductor?action=get_placa'
-const fieldId = '#vehiculo-conductor'
+const fieldId = document.querySelector('#table-conductor')
 
 function main(){
-    getDatatable(tableUrl, [
+    getDatatable(fieldId ,tableUrl, [
         {'data': 'id_conductor'},
         {'data': 'nombre_conductor'},
         {'data': 'cedula_conductor'},
