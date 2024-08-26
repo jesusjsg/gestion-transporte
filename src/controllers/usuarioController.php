@@ -98,9 +98,8 @@
                 $alert = [
                     'type' => 'clean',
                     'icon' => 'success',
-                    'tile' => 'Registro exitoso',
+                    'title' => 'Registro exitoso',
                     'text' => 'El usuario '. ucwords($fullName) .' ha sido registrado correctamente.',
-                    
                 ];
             }else{
                 $alert = [
