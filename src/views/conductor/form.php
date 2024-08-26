@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="vehiculo-conductor" class="form-label">Placa</label>
-                    <input type="text" class="form-control" name="vehiculo-conductor" />
+                    <input type="text" class="form-control" name="vehiculo-conductor" id="vehiculo-conductor" />
                 </div>
                 <div class="col-md-2">
                     <label for="vencimiento-cedula" class="form-label">FV. Cédula</label>
