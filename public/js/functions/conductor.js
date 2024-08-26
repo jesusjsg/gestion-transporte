@@ -14,14 +14,15 @@ function main(){
         {'data': 'cedula_conductor'},
         {'data': 'telefono_conductor'},
         {'data': 'id_vehiculo'},
-        {'data': 'vencimiento_cedula'},
-        {'data': 'vencimiento_licencia'},
-        {'data': 'vencimiento_certificadoMedico'},
-        {'data': 'vencimiento_mppps'},
-        {'data': 'vencimiento_saberes'},
+        {'data': 'vencimiento_cedula', visible:false},
+        {'data': 'vencimiento_licencia', visible:false},
+        {'data': 'vencimiento_certificadoMedico', visible:false},
+        {'data': 'vencimiento_mppps', visible:false},
+        {'data': 'vencimiento_saberes', visible:false},
         {'data': 'vencimiento_manejoSeguro'},
         {'data': 'vencimiento_alimento'},
-        {'data': 'tipo_nomina'}
+        {'data': 'tipo_nomina'},
+        {'data': 'opciones'}
     ])
 
     getPlaca(inputId, autocompleteUrl)
