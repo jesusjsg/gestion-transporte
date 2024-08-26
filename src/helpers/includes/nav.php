@@ -49,7 +49,8 @@
                     <li><a class="treeview-item" href="<?= URL; ?>permisos/"><i class="icon bi bi-lock-fill"></i>Permisos</a></li>
                 </ul>
             </li>
+
+            <li class="treeview"><a class="app-menu__item" href="<?= URL; ?>auth/logout"><i class="app-menu__icon bi bi-box-arrow-right"></i>
+                <span class="app-menu__label">Cerrar sesión</span></a></li>
         </ul>
-        <li><a class="app-menu__item" href="<?= URL; ?>auth/logout"><i class="app-menu__icon bi bi-box-arrow-right"></i>
-        <span class="app-menu__label">Cerrar sesión</span></a></li>
     </aside>
