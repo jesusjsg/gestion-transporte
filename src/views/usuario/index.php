@@ -17,7 +17,7 @@
                         <h6 class="fw-bold mb-4">Listado de los usuarios registrados</h6>
                     </div>
                     <div class="table-responsive">
-                        <table class="datatable table table-striped table-hover" id="table-usuario" style="width: 100%;">
+                        <table class="table table-striped table-hover" id="table-usuario" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>ID-Usuario</th>
@@ -34,5 +34,3 @@
         </div>
     </div>
 </main>
-
-<script type="module" src="<?= URL; ?>public/js/functions/usuario.js"></script>

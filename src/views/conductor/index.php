@@ -16,7 +16,7 @@
                     <h6 class="fw-bold mb-4">Listado de los conductores registrados</h6>
                 </div>
                 <div class="table-responsive">
-                    <table class="datatable table table-striped table-hover" style="width: 100%;">
+                    <table class="table table-striped table-hover" id="table-conductor" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>Ficha</th>
