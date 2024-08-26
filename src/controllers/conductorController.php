@@ -32,7 +32,7 @@ use src\models\uniqueModel;
                 return json_encode($alert);
             }
 
-            if($this->verifyData('[0-9]', $ficha)){
+            if($this->verifyData('[0-9]{8}', $ficha)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
@@ -52,7 +52,7 @@ use src\models\uniqueModel;
                 return json_encode($alert);
             }
 
-            if($this->verifyData('[0-9]', $cedula)){
+            if($this->verifyData('[0-9]{8}', $cedula)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
@@ -62,7 +62,7 @@ use src\models\uniqueModel;
                 return json_encode($alert);
             }
 
-            if($this->verifyData('[0-9]', $telefono)){
+            if($this->verifyData('[0-9]{11}', $telefono)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
@@ -73,7 +73,7 @@ use src\models\uniqueModel;
             }
 
             $checkConductor = $this->executeQuery("SELECT id_conductor FROM conductor WHERE id_conductor = '$ficha'");
-            $checkCedula = $this->executeQuery("SELECT cedula FROM conductor WHERE cedula = '$cedula'");
+            $checkCedula = $this->executeQuery("SELECT cedula_conductor FROM conductor WHERE cedula_conductor = '$cedula'");
 
             if($checkConductor->rowCount()>0){
                 $alert = [
@@ -90,7 +90,7 @@ use src\models\uniqueModel;
                     'type' => 'simple',
                     'icon' => 'error',
                     'title' => 'Ocurrió un error',
-                    'text' => 'La cédula del conductor ya se encuentra registrada.',
+                    'text' => 'La cédula ya se encuentra registrada.',
                 ];
                 return json_encode($alert);
             }
@@ -163,11 +163,11 @@ use src\models\uniqueModel;
                 ]
             ];
 
-            $saveConductor = $this->saveData('condutor', $conductorDataLog);
+            $saveConductor = $this->saveData('conductor', $conductorDataLog);
 
             if($saveConductor->rowCount() == 1){
                 $alert = [
-                    'type' => 'reload',
+                    'type' => 'clean',
                     'icon' => 'success',
                     'title' => 'Registro exitoso',
                     'text' => 'El conductor '.ucwords($fullname).' ha sido registrado correctamente.',
@@ -179,8 +179,8 @@ use src\models\uniqueModel;
                     'title' => 'Ocurrió un error',
                     'text' => 'Hubo un problema al registrar el conductor.',
                 ];
-                return json_encode($alert);
             }
+            return json_encode($alert);
         }
 
         public function tableConductor(){
