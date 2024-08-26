@@ -16,7 +16,7 @@
                     <h6 class="fw-bold mb-4">Listado de los registros generales</h6>
                 </div>
                 <div class="table-responsive">
-                    <table class="datatable table row-border display compact table-hover" id="table-general" style="width: 100%;">
+                    <table class="table table-striped table-hover" id="table-general" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>Registro</th>

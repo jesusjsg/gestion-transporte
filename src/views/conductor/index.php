@@ -32,6 +32,7 @@
                                 <th>FV MS</th>
                                 <th>FV Alimento</th>
                                 <th>Nómina</th>
+                                <th>Opciones</th>
                             </tr>
                         </thead>
                     </table>
