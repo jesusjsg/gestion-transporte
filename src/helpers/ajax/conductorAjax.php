@@ -14,7 +14,7 @@
         $conductor = new conductorController;
         echo $conductor->tableConductor();
 
-    }elseif(isset($_GET['action']) && $_GET['action'] == 'get_placa' && isset($_GET['term'])){
+    }elseif(isset($_GET['action']) && $_GET['action'] == 'get_placa'){
         $placa = new Autocomplete;
         echo $placa->autocompletePlaca($_GET['term']);
 
