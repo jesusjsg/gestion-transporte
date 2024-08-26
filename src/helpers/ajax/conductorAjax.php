@@ -10,6 +10,10 @@
             echo $conductor->registerConductor();
         }
 
+        if($_POST['model_conductor'] == 'delete'){
+            echo $conductor->deleteConductor();
+        }
+
     }elseif(isset($_GET['action']) && $_GET['action'] == 'load_conductores'){
         $conductor = new conductorController;
         echo $conductor->tableConductor();
