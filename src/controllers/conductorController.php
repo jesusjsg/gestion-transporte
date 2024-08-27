@@ -226,7 +226,7 @@ use src\models\uniqueModel;
                     $row['opciones'] .= '
                         <form class="form-ajax d-inline" action="'.URL.'ajax/conductor" method="post" autocomplete="off">
                             <input type="hidden" name="model_conductor" value="delete" />
-                            <input type="hidden" name=id_conductor" value="'.$row['id_conductor'].'" />
+                            <input type="hidden" name="id-conductor" value="'.$row['id_conductor'].'" />
                             <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                         </form>
                     ';
@@ -239,7 +239,7 @@ use src\models\uniqueModel;
         public function updateConductor(){}
         
         public function deleteConductor(){
-            $idConductor = $this->cleanString($_POST['ficha-conductor']);
+            $idConductor = $this->cleanString($_POST['id-conductor']);
 
             $dataConductor = $this->executeQuery("SELECT * FROM conductor WHERE id_conductor='$idConductor'");
             if($dataConductor->rowCount()<=0){
