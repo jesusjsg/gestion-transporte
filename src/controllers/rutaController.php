@@ -6,10 +6,12 @@
     class rutaController extends uniqueModel{
 
         public function registerRuta(){
-            $codigoRuta = $this->cleanString($_POST['codigo-ruta']);
-            $nombreRuta = $this->cleanString($_POST['nombre-ruta']);
-            $origen = $this->cleanString($_POST['origen']);
-            $destino = $this->cleanString($_POST['destino']);
+            $OriginCode = $this->cleanString($_POST['codigo-origen']);
+            $DestinyCode = $this->cleanString($_POST['codigo-destino']);
+            $rutaCode = trim($OriginCode . ' - ' . $DestinyCode);
+            $origen = trim($this->cleanString($_POST['origen']));
+            $destino = trim($this->cleanString($_POST['destino']));
+            $rutaName = trim($origen . ' - ' . $destino);
             $kilometros = $this->cleanString($_POST['kilometros']);
 
             /* Validacion de los campos del formulario */
@@ -24,7 +26,7 @@
                 return json_encode($alert);
             }
 
-            if($this->verifyData("[a-zA-Z ]{5,255}", $origen)){
+            /* if($this->verifyData("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{5,255}", $origen)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
@@ -34,7 +36,7 @@
                 return json_encode($alert);
             }
 
-            if($this->verifyData("[a-zA-Z ]{5,255}", $destino)){
+            if($this->verifyData("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{5,255}", $destino)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
@@ -42,9 +44,10 @@
                     'text' => 'El destino solo puede contener caracteres.'
                 ];
                 return json_encode($alert);
-            }
+            } */
 
-            if(!is_int($kilometros)){
+            $kilometros = intval($kilometros);
+            if(!is_int($kilometros) || $kilometros < 0){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
@@ -54,14 +57,25 @@
                 return json_encode($alert);
             }
 
-            $checkCodigoRuta = $this->executeQuery("SELECT codigo_ruta FROM ruta WHERE codigo_ruta = '$codigoRuta'");
+            $checkRutaCode = $this->executeQuery("SELECT id_ruta FROM ruta WHERE id_ruta = '$rutaCode'");
+            $checkRutaName = $this->executeQuery("SELECT nombre_ruta FROM ruta WHERE nombre_ruta = '$rutaName'");
 
-            if($checkCodigoRuta->rowCount()>0){
+            if($checkRutaCode->rowCount()>0){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
                     'title' => 'Ocurrió un error',
-                    'text' => 'El código de ruta '. $codigoRuta . ' ya se encuentra registrado.'
+                    'text' => 'El código de la ruta '. $rutaCode . ' ya se encuentra registrado.'
+                ];
+                return json_encode($alert);
+            }
+
+            if($checkRutaName->rowCount()>0){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'El nombre de la ruta '. $rutaName . ' ya se encuentra registrado.'
                 ];
                 return json_encode($alert);
             }
@@ -70,12 +84,12 @@
                 [
                     'field_name_database' => 'id_ruta',
                     'field_name_form' => ':codigoRuta',
-                    'field_value' => $codigoRuta
+                    'field_value' => $rutaCode
                 ],
                 [
                     'field_name_database' => 'nombre_ruta',
                     'field_name_form' => ':nombreRuta',
-                    'field_value' => $origen .'-' . $destino,
+                    'field_value' => $rutaName,
                 ],
                 [
                     'field_name_database' => 'origen',
@@ -110,9 +124,8 @@
                     'title' => 'Ocurrió un error',
                     'text' => 'Hubo un problema al registrar la ruta.'
                 ];
-
-                return json_encode($alert);
             }
+            return json_encode($alert);
         }
  
         public function tableRuta(){
