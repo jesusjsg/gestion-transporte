@@ -35,27 +35,28 @@ function autocompleteMunicipio(fieldId, url, hiddenField) {
                     const aData = $.map(data, function(value) {
                         return {
                             id: value.id_entidad,
-                            label: value.estado_nombre_municipio
-                        };
-                    });
-                    console.log(aData);
-                    response(aData);
+                            label: value.estado_nombre_municipio,
+                            select: value.descripcion1
+                        }
+                    })
+                    response(aData)
                 },
                 error: function(xhr, status, error) {
-                    console.error('AJAX Error: ', status, error);
+                    console.error('AJAX Error: ', status, error)
                 }
-            });
+            })
         },
         select: function(event, ui) {
-            $(fieldId).val(ui.item.label);
-            $(hiddenField).val(ui.item.id);
-            return false;
+            $(fieldId).val(ui.item.label)
+            $(hiddenField).val(ui.item.id)
+            $(fieldId).val(ui.item.select)
+            return false
         },
         focus: function(event, ui) {
-            $(fieldId).val(ui.item.label);
-            return false;
+            $(fieldId).val(ui.item.select)
+            return false
         }
-    });
+    })
 }
 
 document.addEventListener('DOMContentLoaded', main)
