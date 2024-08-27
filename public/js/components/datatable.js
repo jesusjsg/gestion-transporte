@@ -26,6 +26,17 @@ export function getDatatable(fieldId, url, columns){
             'url': url,
             'dataSrc':'',
         },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Excel <i class="bi bi-file-earmark-excel"></i>',
+                className: 'btn btn-success btn-sm',
+                exportOptions: {
+                    coluumns: ':all'
+                }
+            }
+        ],
         'columns': columns,
         'responsive': true,
         'bDestroy': true,
