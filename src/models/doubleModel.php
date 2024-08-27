@@ -45,6 +45,10 @@
             $idRegistro = $this->cleanString($idRegistro);
             $idEntidad = $this->cleanString($idEntidad);
 
-            /* if($type == "") */
+            if($type == 'Primary'){
+                $sql = $this->conection()->prepare("SELECT * FROM $table WHERE $idRegistro=:idRegistro AND $idEntidad=:idEntidad");
+                //$sql->bindParam('');
+            }
+
         }
     }
