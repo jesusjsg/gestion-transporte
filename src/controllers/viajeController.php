@@ -46,17 +46,6 @@
                 return json_encode($alert);
             }
 
-            /* $checkViaje = $this->executeQuery("SELECT id_viaje FROM viaje WHERE id_viaje = $idViaje");
-            if($checkViaje->rowCount()>0){
-                $alert = [
-                    'type' => 'simple',
-                    'icon' => 'error',
-                    'title' => 'Ocurrió un error',
-                    'text' => 'El viaje ya se encuentra registrado.'
-                ];
-                return json_encode($alert);
-            } */
-
             $viajeDataLog = [
                 [
                     'field_name_database' => 'id_viaje',
