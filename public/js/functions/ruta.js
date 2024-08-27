@@ -36,7 +36,7 @@ function autocompleteMunicipio(fieldId, url, hiddenField) {
                         return {
                             id: value.id_entidad,
                             label: value.estado_nombre_municipio,
-                            select: value.descripcion1
+                            descripcion1: value.descripcion1
                         }
                     })
                     response(aData)
@@ -49,11 +49,11 @@ function autocompleteMunicipio(fieldId, url, hiddenField) {
         select: function(event, ui) {
             $(fieldId).val(ui.item.label)
             $(hiddenField).val(ui.item.id)
-            $(fieldId).val(ui.item.select)
+            $(fieldId).val(ui.item.descripcion1)
             return false
         },
         focus: function(event, ui) {
-            $(fieldId).val(ui.item.select)
+            $(fieldId).val(ui.item.descripcion1)
             return false
         }
     })
