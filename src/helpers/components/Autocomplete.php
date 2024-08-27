@@ -40,7 +40,8 @@
             $term = '%' . $term . '%';
             $sql = "
                 SELECT id_entidad, 
-                CONCAT(descripcion1, ' | ', descripcion2, ' - ', descripcion3) AS estado_nombre_municipio 
+                CONCAT(descripcion1, ' | ', descripcion2, ' - ', descripcion3) AS estado_nombre_municipio,
+                descripcion1
                 FROM general 
                 WHERE id_registro = 8 
                 AND id_entidad > 0 
@@ -54,7 +55,11 @@
             $data = [];
             if($suggetions->rowCount()>0){
                 while($row = $suggetions->fetch(PDO::FETCH_ASSOC)){
-                    $data[] = $row['estado_nombre_municipio'];
+                    $data[] = [
+                        'id_entidad' => $row['id_entidad'], 
+                        'estado_nombre_municipio' => $row['estado_nombre_municipio'], 
+                        'descripcion1' => $row['descripcion1']
+                    ];
                 }
             }
             return json_encode($data);
