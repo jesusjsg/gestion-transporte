@@ -11,19 +11,19 @@
                 </div>
                 <div class="tile-footer"></div>
                 <input type="hidden" name="model_ruta" value="register" />
-                <input type="hidden" id="codigo-origen" />
-                <input type="hidden" id="codigo-destino" />
+                <input type="hidden" name="codigo-origen" id="codigo-origen" />
+                <input type="hidden" name="codigo-destino" id="codigo-destino" />
                 <div class="col-md-4">
                     <label for="origen" class="form-label">Origen</label>
-                    <input type="text" class="form-control" id="origen" pattern="[a-zA-Z ]{5,255}" maxlength="255" />
+                    <input type="text" class="form-control" name="origen" id="origen" />
                 </div>
                 <div class="col-md-4">
                     <label for="destino" class="form-label">Destino</label>
-                    <input type="text" class="form-control" id="destino" pattern="[a-zA-Z ]{5,255}" maxlength="255"/>
+                    <input type="text" class="form-control" name="destino" id="destino" />
                 </div>
                 <div class="col-md-4">
                     <label for="kilometros" class="form-label">Kilometros</label>
-                    <input type="text" class="form-control" name="kilometros" pattern="[0-9.]{2,2000}" maxlength="255" />
+                    <input type="text" class="form-control" name="kilometros" id="kilometros" pattern="[0-9]{2,2000}" />
                 </div>
                 <div class="tile-footer"></div>
             </form>
