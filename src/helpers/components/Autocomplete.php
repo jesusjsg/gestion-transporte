@@ -64,4 +64,56 @@
             }
             return json_encode($data);
         }
+
+        public function autocompleteConductor($term){
+            $term = '%' . $term . '%';
+            $sql = "
+                SELECT id_conductor,
+                nombre_conductor,
+                id_vehiculo
+                FROM conductor
+                WHERE nombre_conductor
+                LIKE :term
+                ORDER BY nombre_conductor ASC
+                LIMIT 10
+            ";
+            $suggetions = $this->executeQuery($sql, [':term' => $term]);
+            $data = [];
+
+            if($suggetions->rowCount()>0){
+                while($row = $suggetions->fetch(PDO::FETCH_ASSOC)){
+                    $data[] = [
+                        'id_conductor' => $row['id_conductor'],
+                        'nombre_conductor' => $row['nombre_conductor'],
+                        'id_vehiculo' => $row['id_vehiculo']
+                    ];
+                }
+            }
+            return json_encode($data);
+        }
+
+        public function autocompleteCliente($term){
+            $term = '%' . $term . '%';
+            $sql = "
+                SELECT id_entidad, descripcion1 AS cliente
+                FROM general
+                WHERE id_registro = 7
+                AND
+                id_entidad > 0
+                ORDER BY cliente ASC
+                LIMIT 10
+            ";
+            $suggetions = $this->executeQuery($sql, [':term' => $term]);
+            $data = [];
+
+            if($suggetions->rowCount()>0){
+                while($row = $suggetions->fetch(PDO::FETCH_ASSOC)){
+                    $data[] = [
+                        'id_entidad' => $row['id_entidad'],
+                        'cliente' => $row['cliente']
+                    ];
+                }
+            }
+            return json_encode($data);
+        }
     }
