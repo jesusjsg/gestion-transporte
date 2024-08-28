@@ -8,7 +8,7 @@
         public function registerRuta(){
             $OriginCode = $this->cleanString($_POST['codigo-origen']);
             $DestinyCode = $this->cleanString($_POST['codigo-destino']);
-            $rutaCode = trim($OriginCode . ' - ' . $DestinyCode);
+            $rutaCode = trim($OriginCode . '-' . $DestinyCode);
             $origen = trim($this->cleanString($_POST['origen']));
             $destino = trim($this->cleanString($_POST['destino']));
             $rutaName = trim($origen . ' - ' . $destino);
@@ -25,26 +25,6 @@
                 ];
                 return json_encode($alert);
             }
-
-            /* if($this->verifyData("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{5,255}", $origen)){
-                $alert = [
-                    'type' => 'simple',
-                    'icon' => 'error',
-                    'title' => 'Ocurrió un error',
-                    'text' => 'El origen solo puede contener caracteres.',
-                ];
-                return json_encode($alert);
-            }
-
-            if($this->verifyData("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{5,255}", $destino)){
-                $alert = [
-                    'type' => 'simple',
-                    'icon' => 'error',
-                    'title' => 'Ocurrió un error',
-                    'text' => 'El destino solo puede contener caracteres.'
-                ];
-                return json_encode($alert);
-            } */
 
             $kilometros = intval($kilometros);
             if(!is_int($kilometros) || $kilometros < 0){
