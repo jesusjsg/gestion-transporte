@@ -8,10 +8,10 @@
     class usuarioController extends uniqueModel{
         
         public function registerUser(){
-            $fullName = $this->cleanString($_POST['fullname']);
-            $username = $this->cleanString($_POST['user']);
-            $passwordOne = $this->cleanString($_POST['password']);
-            $passwordTwo = $this->cleanString($_POST['valid-password']);
+            $fullName = trim($this->cleanString($_POST['fullname']));
+            $username = trim($this->cleanString($_POST['user']));
+            $passwordOne = trim($this->cleanString($_POST['password']));
+            $passwordTwo = trim($this->cleanString($_POST['valid-password']));
             $rolName = $this->cleanString($_POST['id-rol']);
 
             /* Validacion de los campos del formulario */
@@ -96,7 +96,7 @@
             $saveUser = $this->saveData('usuario', $userDataLog);
             if($saveUser->rowCount() == 1){
                 $alert = [
-                    'type' => 'clean',
+                    'type' => 'reload',
                     'icon' => 'success',
                     'title' => 'Registro exitoso',
                     'text' => 'El usuario '. ucwords($fullName) .' ha sido registrado correctamente.',
@@ -135,21 +135,24 @@
                             $row[$key] = '<span class="badge text-bg-danger">No definido</span>';
                         }
                     }
-
                     $row['opciones'] = '
-                        <a href="edit/'.$row['id_usuario'].'/" class="btn btn-primary btn-sm">Editar</a>
+                        <form class="form-ajax" action="'.URL.'ajax/usuarios" method="post" autocomplete="off">
                     ';
                     $row['opciones'] .= '
-                        <form class="form-ajax d-inline" autocomplete="off">
+                        <input type="hidden" name="model_user" value="delete" />
                     ';
                     $row['opciones'] .= '
-                        <button class="btn btn-danger btn-sm">Eliminar</button>
+                        <input type="hidden" name="id-usuario" value="'.$row['id_usuario'].'" />
                     ';
-                    $row['opciones'] .= '</form>';
+                    $row['opciones'] .= '
+                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                    ';
+                    $row['opciones'] .= '
+                        </form>
+                    ';
                     $data[] = $row;
                 }
             }
-
             return json_encode($data);
         }
 
@@ -157,7 +160,7 @@
 
         public function deleteUser(){
 
-            $id = $this->cleanString($_POST['user_id']);
+            $id = $this->cleanString($_POST['id-usuario']);
 
             if($id == 1){
                 $alert = [
@@ -167,6 +170,7 @@
                     'text' => 'No se puede eliminar el usuario principal.',
                 ];
                 return json_encode($alert);
+                exit();
             }
 
             $dataUser = $this->executeQuery("SELECT * FROM usuario WHERE id_usuario='$id'");
@@ -191,7 +195,6 @@
                     'title' => 'Usuario eliminado',
                     'text' => 'El usuario '.$dataUser['nombre_apellido'].' ha sido eliminado.'
                 ];
-                return json_encode($alert);
             }else{
                 $alert = [
                     'type' => 'simple',
@@ -199,8 +202,8 @@
                     'title' => 'Ocurrrió un error',
                     'text' => 'No se pudo eliminar el usuario '.$dataUser['nombre_apellido'].', intente nuevamente.'
                 ];
-                return json_encode($alert);
             }
+            return json_encode($alert);
         }
 
         public function getRol(){
