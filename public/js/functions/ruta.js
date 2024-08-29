@@ -14,7 +14,8 @@ function main(){
         {'data': 'nombre_ruta'},
         {'data': 'origen'},
         {'data': 'destino'},
-        {'data': 'kilometros'}
+        {'data': 'kilometros'},
+        {'data': 'opciones'}
     ])
 
     autocompleteMunicipio(origen, autocompleteUrl, codeOrigen)

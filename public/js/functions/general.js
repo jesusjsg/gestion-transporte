@@ -10,7 +10,8 @@ function main(){
         {'data': 'descripcion1'},
         {'data': 'descripcion2'},
         {'data': 'descripcion3'},
-        {'data': 'valor', 'className':'dt-right'}
+        {'data': 'valor', 'className':'dt-right'},
+        {'data': 'opciones'}
     ])
 }
 

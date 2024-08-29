@@ -27,6 +27,7 @@ function main(){
         {'data': 'gps'},
         {'data': 'link_gps'},
         {'data': 'estatus'},
+        {'data': 'opciones'}
     ])
 }
 
