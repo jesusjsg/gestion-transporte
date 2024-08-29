@@ -37,18 +37,16 @@
             return $sql;
         }
 
-        public function selectData($type, $table, $field, $idRegistro, $idEntidad){
+        public function selectData($type, $table, $idRegistro, $idEntidad){}
 
-            $type = $this->cleanString($type);
-            $table = $this->cleanString($table);
-            $field = $this->cleanString($field);
-            $idRegistro = $this->cleanString($idRegistro);
-            $idEntidad = $this->cleanString($idEntidad);
+        protected function updateData($table, $data, $condition){}
 
-            if($type == 'Primary'){
-                $sql = $this->conection()->prepare("SELECT * FROM $table WHERE $idRegistro=:idRegistro AND $idEntidad=:idEntidad");
-                //$sql->bindParam('');
-            }
-
+        protected function deleteData($table, $idRegistro, $idEntidad){
+            
+            $sql = $this->conection()->prepare("DELETE FROM $table WHERE id_registro=:idRegistro AND id_entidad=:idEntidad");
+            $sql->bindParam(":idRegistro", $idRegistro);
+            $sql->bindParam(":idEntidad", $idEntidad);
+            $sql->execute();
+            return $sql;
         }
     }
