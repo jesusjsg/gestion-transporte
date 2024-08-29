@@ -9,6 +9,10 @@
         if($_POST['model_ruta'] == 'register'){
             echo $ruta->registerRuta();
         }
+
+        if($_POST['model_ruta'] == 'delete'){
+            echo $ruta->deleteRuta();
+        }
         
     }elseif(isset($_GET['action']) && $_GET['action'] == 'load_ruta'){
         $ruta = new rutaController;

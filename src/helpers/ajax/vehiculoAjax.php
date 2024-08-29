@@ -9,6 +9,10 @@
         if($_POST['model_vehiculo'] == 'register'){
             echo $vehiculo->registerVehiculo();
         }
+
+        if($_POST['model_vehiculo'] == 'delete'){
+            echo $vehiculo->deleteVehiculo();
+        }
     
     }elseif(isset($_GET['action']) && ($_GET['action'] == 'load_vehiculos')){
         $vehiculo = new vehiculoController;
