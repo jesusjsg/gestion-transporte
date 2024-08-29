@@ -64,17 +64,6 @@ use src\models\uniqueModel;
                 return json_encode($alert);
             };
 
-            /* $checkLink = filter_var($linkGps, FILTER_SANITIZE_URL);
-            if(filter_var($checkLink, FILTER_VALIDATE_URL)){
-                $alert = [
-                    'type' => 'simple',
-                    'icon' => 'error',
-                    'title' => 'Ocurrió un error',
-                    'text' => 'El link ingresado es inválido.'
-                ];
-                return json_encode($alert);
-            } */
-
             $vehiculoDataLog = [
                 [
                     'field_name_database' => 'id_vehiculo',
@@ -262,6 +251,17 @@ use src\models\uniqueModel;
                             $row[$key] = '<span class="badge text-bg-danger">No definido</span>';
                         }
                     }
+
+                    $row['opciones'] = '
+                        <a href="edit/'.$row['id_vehiculo'].'/" class="btn btn-primary btn-sm">Editar</a>
+                    ';
+                    $row['opciones'] .= '
+                        <form class="form-ajax d-inline" action="'.URL.'ajax/vehiculo" method="post" autocomplete="off">
+                            <input type="hidden" name="model_vehiculo" value="delete" />
+                            <input type="hidden" name="id-vehiculo" value="'.$row['id_vehiculo'].'" />
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    ';
                     $data[] = $row;
                 }
             }
@@ -270,6 +270,39 @@ use src\models\uniqueModel;
 
         public function updateVehiculo(){}
 
-        public function deleteVehiculo(){}
+        public function deleteVehiculo(){
+            $idVehiculo = $this->cleanString($_POST['id-vehiculo']);
+
+            $dataVehiculo = $this->executeQuery("SELECT * FROM vehiculo WHERE id_vehiculo='$idVehiculo'");
+            if($dataVehiculo->rowCount()<=0){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'No hemos encontrado el vehículo en el sistema.'
+                ];
+                return json_encode($alert);
+            }else{
+                $dataVehiculo = $dataVehiculo->fetch();
+            }
+
+            $deteleVehiculo = $this->deleteData('vehiculo', 'id_vehiculo', $idVehiculo);
+            if($deteleVehiculo->rowCount()==1){
+                $alert = [
+                    'type' => 'reload',
+                    'icon' => 'success',
+                    'title' => 'Vehículo eliminado',
+                    'text' => 'El vehículo '. $dataVehiculo['id_vehiculo'] . ' ha sido eliminado.'
+                ];
+            }else{
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'No se pudo eliminar el conductor '. $dataVehiculo['id?vehiculo'] . ', intente más tarde.'
+                ];
+            }
+            return json_encode($alert);
+        }
 
     }
