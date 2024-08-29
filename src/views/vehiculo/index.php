@@ -41,6 +41,7 @@
                                 <th>GPS</th>
                                 <th>Link GPS</th>
                                 <th>Estatus</th>
+                                <th>Opciones</th>
                             </tr>
                         </thead>
                     </table>
