@@ -6,61 +6,74 @@
 
         public function registerViaje(){
 
-            //agregar el id del viaje,cliente
-            $idViaje = '';
-            $ficha = $this->cleanString($_POST['ficha']);
-            $fullname = $this->cleanString($_POST['nombre-conductor']);
-            $placa = $this->cleanString($_POST['placa-vehiculo']);
-            $operacion = $this->cleanString($_POST['operacion']);
-            $carga = $this->cleanString($_POST['carga']);
-            $aviso = $this->cleanString($_POST['aviso']);
+            $fichaConductor = $this->cleanString($_POST['ficha-conductor']);
+            $nombreConductor = $this->cleanString($_POST['nombre-conductor']);
+            $placaVehiculo = $this->cleanString($_POST['placa-vehiculo']);
+            $operacion = $this->cleanString($_POST['tipo-operacion']);
+            $carga = $this->cleanString($_POST['tipo-carga']);
+            $aviso = intval($this->cleanString($_POST['aviso']));
+            $idCliente = intval($this->cleanString($_POST['id-cliente']));
             $codigoRuta = $this->cleanString($_POST['codigo-ruta']);
             $fechaInicio = $this->cleanString($_POST['fecha-inicio']);
             $fechaCierre = $this->cleanString($_POST['fecha-cierre']);
-            $sabado = $this->cleanString($_POST['cantidad-sabados']);
-            $domingo = $this->cleanString($_POST['cantidad-domingos']);
-            $feriado = $this->cleanString($_POST['cantidad-feriados']);
-            $tasa = $this->cleanString($_POST['tasa-cambio']);
-            $montoUsd = $this->cleanString($_POST['monto-usd']);
-            $montoVes = $this->cleanString($_POST['monto-ves']);
-            $kilometros = $this->cleanString($_POST['total-kilometros']);
+            $sabado = intval($this->cleanString($_POST['sabados']));
+            $domingo = intval($this->cleanString($_POST['domingos']));
+            $feriado = intval($this->cleanString($_POST['feriados']));
+            $tasaCambio = floatval($this->cleanString($_POST['tasa-cambio']));
+            $montoUsd = floatval($this->cleanString($_POST['monto-usd']));
+            $montoVes = floatval($this->cleanString($_POST['monto-ves']));
+            $kilometros = intval($this->cleanString($_POST['kilometros']));
 
-
-            if(empty($placa) || empty($aviso) || empty($fullname)){
+            if(empty($nombreConductor) || empty($placaVehiculo) || empty($aviso) || empty($feriado)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
                     'title' => 'Ocurrió un error',
-                    'text' => 'Todos los campos son obligatorios.'
+                    'text' => 'Todos los campos son necesarios.'
                 ];
                 return json_encode($alert);
             }
 
-            if($this->verifyData('[0-9]{9,9}', $aviso)){
+            if($this->verifyData('[a-zA-Z ]{10,255}',$nombreConductor)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
                     'title' => 'Ocurrió un error',
-                    'text' => 'El aviso solo puede contener números con un mínimo de 9 digitos.'
+                    'text' => 'El nombre del conductor solo puede contener caracteres.'
                 ];
                 return json_encode($alert);
             }
 
-            $viajeDataLog = [
-                [
-                    'field_name_database' => 'id_viaje',
-                    'field_name_form' => ':idViaje',
-                    'field_value' => '' // agregar la variable del viaje 
-                ],
+            if($this->verifyData('[0-9]{10}',$aviso) || $aviso < 0){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'El aviso solo puede contener números enteros con un mínimo de 10 digitos.'
+                ];
+                return json_encode($alert);
+            }
+
+            if($this->verifyData('[0-9]',$feriado) || $feriado < 0){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'El feriado solo puede contener números enteros.'
+                ];
+                return json_encode($alert);
+            }
+
+            $dataViajeLog = [
                 [
                     'field_name_database' => 'id_conductor',
                     'field_name_form' => ':fichaConductor',
-                    'field_value' => $ficha // agregar la variable de la ficha del conductor
+                    'field_value' => $fichaConductor
                 ],
                 [
                     'field_name_database' => 'id_vehiculo',
                     'field_name_form' => ':placaVehiculo',
-                    'field_value' => $placa
+                    'field_value' => $placaVehiculo
                 ],
                 [
                     'field_name_database' => 'id_tipo_operacion',
@@ -79,12 +92,12 @@
                 ],
                 [
                     'field_name_database' => 'id_cliente',
-                    'field_name_form' => ':cliente',
-                    'field_value' => '' // agregar la variable del id del ciente
+                    'field_name_form' => ':idCliente',
+                    'field_value' => $idCliente
                 ],
                 [
                     'field_name_database' => 'id_ruta',
-                    'field_name_form' => ':codigoRuta',
+                    'field_name_form' => ':idRuta',
                     'field_value' => $codigoRuta
                 ],
                 [
@@ -115,7 +128,7 @@
                 [
                     'field_name_database' => 'tasa_cambio',
                     'field_name_form' => ':tasaCambio',
-                    'field_value' => $tasa
+                    'field_value' => $tasaCambio
                 ],
                 [
                     'field_name_database' => 'monto_usd',
@@ -128,29 +141,20 @@
                     'field_value' => $montoVes
                 ],
                 [
-                    'field_name_database' => 'origen',
-                    'field_name_form' => ':origen',
-                    'field_value' => '' // agregar el origen del viaje
-                ],
-                [
-                    'field_name_database' => 'destino',
-                    'field_name_form' => ':destino',
-                    'field_value' => '' // agregar el destino del viaje
-                ],
-                [
-                    'field_name_database' => 'total_kilometros',
+                    'field_name_database' => 'kilometros',
                     'field_name_form' => ':totalKilometros',
                     'field_value' => $kilometros
                 ]
             ];
 
-            $saveViaje = $this->saveData('viaje', $viajeDataLog);
-            if($saveViaje->rowCount() == 1){
+            $saveViaje = $this->saveData('viaje', $dataViajeLog);
+
+            if($saveViaje->rowCount()==1){
                 $alert = [
                     'type' => 'reload',
                     'icon' => 'success',
-                    'title' => 'Registro exitoso',
-                    'text' => 'El viaje se registró correctamente'
+                    'title' => 'Viaje registrado',
+                    'text' => 'El viaje ha sido registrado correctamente.'
                 ];
             }else{
                 $alert = [
@@ -159,13 +163,50 @@
                     'title' => 'Ocurrió un error',
                     'text' => 'Hubo un problema al registrar el viaje.'
                 ];
-                return json_encode($alert);
+            }
+            return json_encode($alert);
+        }
+
+        public function tableViaje(){
+
+            $getTableViaje = $this->executeQuery(
+                "SELECT viaje.*,
+                    operacion.descripcion1 AS tipoOperacion,
+                    carga.descripcion1 AS tipoCarga,
+                    cliente.descripcion1 AS idCliente
+                FROM viaje
+                LEFT JOIN
+                    general AS tipoOperacion ON viaje.id_tipo_operacion = tipoOperacion.id_entidad AND tipoOperacion.id_registro = 3
+                LEFT JOIN
+                    general AS tipoCarga ON viaje.id_tipo_carga = tipoCarga.id_entidad AND tipoOperacion.id_registro = 4
+                LEFT JOIN
+                    general AS idCliente ON viaje.id_cliente = idCliente.id_entidad AND idCliente.id_registro = 7
+                "
+            );
+            $data = [];
+            $dateColumns = [
+                'fecha_inicio',
+                'fecha_cierre'
+            ];
+
+            if($getTableViaje->rowCount()>0){
+                while($row = $getTableViaje->fetch(PDO::FETCH_ASSOC)){
+                    foreach($dateColumns as $column){
+                        if(!empty($row[$column])){
+                            $row[$column] = $this->formatDate($row[$column]);
+                        }
+                    }
+
+                    foreach($row as $key => $value){
+                        if(empty($value)){
+                            $row[$key] = '<span class="badge text-bg-secondary">No definido</span>';
+                        }
+                    }
+                }
             }
         }
 
         public function updateViaje(){}
 
         public function deleteViaje(){}
-
-        public function tableViaje(){}
     }
