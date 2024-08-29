@@ -1,5 +1,3 @@
-const formsAjax = document.querySelectorAll('.form-ajax')
-
 const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: "btn btn-success m-1",
@@ -9,45 +7,48 @@ const swalWithBootstrapButtons = Swal.mixin({
 });
 
 
-formsAjax.forEach(forms => {
-    forms.addEventListener('submit', function(e){
-        e.preventDefault()
-
-        swalWithBootstrapButtons.fire({
-            title: '¿Estás seguro?',
-            text: '¿Deseas realizar la siguiente operación?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: "Sí, Guardar",
-            cancelButtonText: "No, Cancelar",
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed){
-
-                let data = new FormData(this)
-                let method = this.getAttribute('method')
-                let action = this.getAttribute('action')
+export function formAjaxHandler(form){
+    //const formAjax = document.querySelectorAll('.form-ajax')
+    //formAjax.forEach(forms => {
+        form.addEventListener('submit', function(e){
+            e.preventDefault()
     
-                let headers = new Headers()
+            swalWithBootstrapButtons.fire({
+                title: '¿Estás seguro?',
+                text: '¿Deseas realizar la siguiente operación?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: "Sí, Guardar",
+                cancelButtonText: "No, Cancelar",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed){
     
-                let config = {
-                    method: method,
-                    headers: headers,
-                    mode: 'cors',
-                    cache: 'no-cache',
-                    body: data,
+                    let data = new FormData(this)
+                    let method = this.getAttribute('method')
+                    let action = this.getAttribute('action')
+        
+                    let headers = new Headers()
+        
+                    let config = {
+                        method: method,
+                        headers: headers,
+                        mode: 'cors',
+                        cache: 'no-cache',
+                        body: data,
+                    }
+    
+                    fetch(action, config)
+                    .then(response => response.json())
+                    .then(response => {
+                        return alertsAjax(response)
+                    })
                 }
-
-                fetch(action, config)
-                .then(response => response.json())
-                .then(response => {
-                    return alertsAjax(response)
-                })
-            }
-
+    
+            })
         })
-    })
-})
+    //})
+}
 
 function alertsAjax(alert){
     
