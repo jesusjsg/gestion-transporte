@@ -136,18 +136,10 @@
                         }
                     }
                     $row['opciones'] = '
-                        <form class="form-ajax" action="'.URL.'ajax/usuarios" method="post" autocomplete="off">
-                    ';
-                    $row['opciones'] .= '
-                        <input type="hidden" name="model_user" value="delete" />
-                    ';
-                    $row['opciones'] .= '
-                        <input type="hidden" name="id-usuario" value="'.$row['id_usuario'].'" />
-                    ';
-                    $row['opciones'] .= '
-                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                    ';
-                    $row['opciones'] .= '
+                        <form class="form-ajax d-inline" action="'.URL.'ajax/usuarios" method="post" autocomplete="off">
+                            <input type="hidden" name="model_user" value="delete" />
+                            <input type="hidden" name="id-usuario" value="'.$row['id_usuario'].'" />
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                         </form>
                     ';
                     $data[] = $row;
@@ -179,7 +171,7 @@
                     'type' => 'simple',
                     'icon' => 'error',
                     'title' => 'Ocurrrió un error',
-                    'text' => 'El usuario no se encuentra registrado',
+                    'text' => 'El usuario no se encuentra registrado.',
                 ];
                 return json_encode($alert);
             } else {

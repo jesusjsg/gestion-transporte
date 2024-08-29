@@ -121,6 +121,13 @@
                             ';
                         }
                     }
+                    $row['opciones'] = '
+                        <form class="form-ajax d-inline" action="'.URL.'ajax/ruta" method="post" autocomplete="off">
+                            <input type="hidden" name="model_ruta" value="delete" />
+                            <input type="hidden" name="id-ruta" value="'.$row['id_ruta'].'" />
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    ';
                     $data[] = $row;
                 }
             }
@@ -129,5 +136,38 @@
 
         public function updateRuta(){}
 
-        public function deleteRuta(){}
+        public function deleteRuta(){
+            $idRuta = $this->cleanString($_POST['id-ruta']);
+
+            $dataRuta = $this->executeQuery("SELECT * FROM ruta WHERE id_ruta='$idRuta'");
+            if($dataRuta->rowCount()<=0){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'No hemos encontrado la ruta en el sistema.'
+                ];
+                return json_encode($alert);
+            }else{
+                $dataRuta = $dataRuta->fetch();
+            }
+
+            $deleteRuta = $this->deleteData('ruta', 'id_ruta', $idRuta);
+            if($deleteRuta->rowCount()==1){
+                $alert = [
+                    'type' => 'reload',
+                    'icon' => 'success',
+                    'title' => 'Ruta eliminada',
+                    'text' => 'La ruta '. $dataRuta['id_ruta'] . ' ha sido eliminada correctamente.'
+                ];
+            }else{
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'No se pudo eliminar la ruta '. $dataRuta['id_ruta'] .', intente más tarde.'
+                ];
+            }
+            return json_encode($alert);
+        }
     }

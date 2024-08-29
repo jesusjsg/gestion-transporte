@@ -218,12 +218,7 @@ use src\models\uniqueModel;
                             $row[$key] = '<span class="badge text-bg-danger">No definido</span>';
                         }
                     }
-
                     $row['opciones'] = '
-                        <a href="edit/'.$row['id_conductor'].'/" class="btn btn-primary btn-sm">Editar</a>
-                    ';
-
-                    $row['opciones'] .= '
                         <form class="form-ajax d-inline" action="'.URL.'ajax/conductor" method="post" autocomplete="off">
                             <input type="hidden" name="model_conductor" value="delete" />
                             <input type="hidden" name="id-conductor" value="'.$row['id_conductor'].'" />
