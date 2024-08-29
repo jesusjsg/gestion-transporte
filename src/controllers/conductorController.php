@@ -215,14 +215,16 @@ use src\models\uniqueModel;
 
                     foreach($row as $key => $value){
                         if(empty($value)){
-                            $row[$key] = '<span class="badge text-bg-danger">No definido</span>';
+                            $row[$key] = '<span class="badge text-bg-secondary">No definido</span>';
                         }
                     }
                     $row['opciones'] = '
                         <form class="form-ajax d-inline" action="'.URL.'ajax/conductor" method="post" autocomplete="off">
                             <input type="hidden" name="model_conductor" value="delete" />
                             <input type="hidden" name="id-conductor" value="'.$row['id_conductor'].'" />
-                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash3 m-0 p-0"></i>
+                            </button>
                         </form>
                     ';
                     $data[] = $row;

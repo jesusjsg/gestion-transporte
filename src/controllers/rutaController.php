@@ -117,7 +117,7 @@
                     foreach($row as $key => $value){
                         if(empty($value)){
                             $row[$key] = '
-                                <span class="badge text-bg-danger">No definido</span>
+                                <span class="badge text-bg-secondary">No definido</span>
                             ';
                         }
                     }
@@ -125,7 +125,9 @@
                         <form class="form-ajax d-inline" action="'.URL.'ajax/ruta" method="post" autocomplete="off">
                             <input type="hidden" name="model_ruta" value="delete" />
                             <input type="hidden" name="id-ruta" value="'.$row['id_ruta'].'" />
-                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash3 m-0 p-0"></i>
+                            </button>
                         </form>
                     ';
                     $data[] = $row;

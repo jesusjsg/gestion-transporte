@@ -93,6 +93,11 @@ use src\models\doubleModel;
                     'field_name_database' => 'descripcion3',
                     'field_name_form' => ':descripcion3',
                     'field_value' => $terceraDescripcion
+                ],
+                [
+                    'field_name_database' => 'valor',
+                    'field_name_form' => ':valor',
+                    'field_value' => $valor
                 ]
             ];
 
@@ -126,10 +131,20 @@ use src\models\doubleModel;
                     foreach($row as $key => $value){
                         if($value == ''){
                             $row[$key] = '
-                                <span class="badge text-bg-danger">No definido</span>
+                                <span class="badge text-bg-secondary">No definido</span>
                             ';
                         }
                     }
+                    $row['opciones'] = '
+                        <form class="form-ajax d-inline" action="'.URL.'ajax/general" method="post" autocomplete="off">
+                            <input type="hidden" name="model_general" value="delete" />
+                            <input type="hidden" name="id-registro" value="'.$row['id_registro'].'" />
+                            <input type="hidden" name="id-entidad" value="'.$row['id_entidad'].'" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash3 m-0 p-0"></i>
+                            </button>
+                        </form>
+                    ';
                     $data[] = $row;
                 }
             }
@@ -138,5 +153,40 @@ use src\models\doubleModel;
 
         public function updateGeneral(){}
 
-        public function deleteGeneral(){}
+        public function deleteGeneral(){
+
+            $idRegistro = $this->cleanString($_POST['id-registro']);
+            $idEntidad = $this->cleanString($_POST['id-entidad']);
+
+            $dataRegistro = $this->executeQuery("SELECT * FROM general WHERE id_registro='$idRegistro' AND id_entidad='$idEntidad'");
+            if($dataRegistro->rowCount()<=0){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'No hemos encontrado el registro en el sistema'
+                ];
+                return json_encode($alert);
+            }else{
+                $dataRegistro = $dataRegistro->fetch();
+            }
+
+            $deleteRegistro = $this->deleteData('general', $idRegistro, $idEntidad);
+            if($deleteRegistro->rowCount()==1){
+                $alert = [
+                    'type' => 'reload',
+                    'icon' => 'success',
+                    'title' => 'Registro eliminado',
+                    'text' => 'El registro '.$dataRegistro['id_registro'].' - '.$dataRegistro['id_entidad'].' ha sido eliminado correctamente.'
+                ];
+            }else{
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'No se pudo eliminar el registro '.$dataRegistro['id_registro'].' - '.$dataRegistro['id_entidad'].', intente más tarde.'
+                ];
+            }
+            return json_encode($alert);
+        }
     }
