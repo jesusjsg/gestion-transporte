@@ -24,6 +24,7 @@
                                 <th>Origen</th>
                                 <th>Destino</th>
                                 <th>Kilometros</th>
+                                <th>Opciones</th>
                             </tr>
                         </thead>
                     </table>

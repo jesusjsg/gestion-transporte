@@ -25,7 +25,7 @@
                                 <th>Descripción 2</th>
                                 <th>Descripción 3</th>
                                 <th>Valor</th>
-                                <!-- <th>Opciones</th> -->
+                                <th>Opciones</th>
                             </tr>
                         </thead>
                     </table>
