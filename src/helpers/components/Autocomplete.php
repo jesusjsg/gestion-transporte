@@ -95,12 +95,13 @@
         public function autocompleteCliente($term){
             $term = '%' . $term . '%';
             $sql = "
-                SELECT id_entidad, descripcion1 AS cliente
+                SELECT id_entidad, 
+                descripcion1
                 FROM general
                 WHERE id_registro = 7
-                AND
-                id_entidad > 0
-                ORDER BY cliente ASC
+                AND id_entidad > 0
+                AND descripcion1 LIKE :term
+                ORDER BY descripcion1 ASC
                 LIMIT 10
             ";
             $suggetions = $this->executeQuery($sql, [':term' => $term]);
@@ -110,7 +111,7 @@
                 while($row = $suggetions->fetch(PDO::FETCH_ASSOC)){
                     $data[] = [
                         'id_entidad' => $row['id_entidad'],
-                        'cliente' => $row['cliente']
+                        'descripcion1' => $row['descripcion1']
                     ];
                 }
             }
