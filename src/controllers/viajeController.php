@@ -1,5 +1,6 @@
 <?php
-
+    namespace src\controllers;
+    use PDO;
     use src\models\uniqueModel;
 
     class viajeController extends uniqueModel{
@@ -171,14 +172,14 @@
 
             $getTableViaje = $this->executeQuery(
                 "SELECT viaje.*,
-                    operacion.descripcion1 AS tipoOperacion,
-                    carga.descripcion1 AS tipoCarga,
-                    cliente.descripcion1 AS idCliente
+                    tipoOperacion.descripcion1 AS tipoOperacion,
+                    tipoCarga.descripcion1 AS tipoCarga,
+                    idCliente.descripcion1 AS idCliente
                 FROM viaje
                 LEFT JOIN
                     general AS tipoOperacion ON viaje.id_tipo_operacion = tipoOperacion.id_entidad AND tipoOperacion.id_registro = 3
                 LEFT JOIN
-                    general AS tipoCarga ON viaje.id_tipo_carga = tipoCarga.id_entidad AND tipoOperacion.id_registro = 4
+                    general AS tipoCarga ON viaje.id_tipo_carga = tipoCarga.id_entidad AND tipoCarga.id_registro = 4
                 LEFT JOIN
                     general AS idCliente ON viaje.id_cliente = idCliente.id_entidad AND idCliente.id_registro = 7
                 "
@@ -202,8 +203,19 @@
                             $row[$key] = '<span class="badge text-bg-secondary">No definido</span>';
                         }
                     }
+                    $row['opciones'] = '
+                        <form class="form-ajax d-inline" action="'.URL.'ajax/viaje" method="post" autocomplete="off">
+                            <input type="hidden" name="model_viaje" value="delete" />
+                            <input type="hidden" name="id-viaje" value="'.$row['id_viaje'].'" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash3 m-0 p-0"></i>
+                            </button>
+                        </form>
+                    ';
+                    $data[] = $row;
                 }
             }
+            return json_encode($data);
         }
 
         public function updateViaje(){}
