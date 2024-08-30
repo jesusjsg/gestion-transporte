@@ -1,13 +1,43 @@
-const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-      confirmButton: "btn btn-success m-1",
-      cancelButton: "btn btn-secondary m-1"
-    },
-    buttonsStyling: false
-});
+import { confirmAlert, alert } from "./alertMessages"
+
+const formHandler = document.querySelectorAll('.form-ajax')
+
+formHandler.addEventListener('submit', function(e){
+    e.preventDefault()
+
+    alert({
+        icon: 'question',
+        title: '¿Estás seguro?',
+        text: '¿Deseas realizar la siguiente operación?',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, Guardar',
+        cancelButtonText: "No, Cancelar",
+        reverseButtons: true
+    }).then((result) => {
+        if(result.isConfirmed){
+            let data = new FormData(this)
+            let method = this.getAttribute('method')
+            let action = this.getAttribute('action')
+            let headers = new Headers()
+            let config = {
+                method: method,
+                headers: headers,
+                mode: 'cors',
+                cache: 'no-cache',
+                body: data
+            }
+
+            fetch(action, config)
+            .then(response => response.json())
+            .then(response => {
+                return confirmAlert(response)
+            })
+        }
+    })
+})
 
 
-export function formAjaxHandler(form){
+/* export function formAjaxHandler(form){
     //const formAjax = document.querySelectorAll('.form-ajax')
     //formAjax.forEach(forms => {
         form.addEventListener('submit', function(e){
@@ -85,7 +115,7 @@ function alertsAjax(alert){
     } else if(alert.type == 'redirect'){
         window.location.href = alert.url
     }
-}
+} */
 
 // Funcion para el sidebar 
 (function () {
