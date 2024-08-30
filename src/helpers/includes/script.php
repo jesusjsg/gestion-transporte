@@ -11,5 +11,6 @@
         <script type="module" src="<?= URL; ?>public/js/functions/conductor.js"></script>
         <script type="module" src="<?= URL; ?>public/js/functions/ruta.js"></script>
         <script type="module" src="<?= URL; ?>public/js/functions/general.js"></script>
+        <script type="module" src="<?= URL; ?>public/js/functions/viaje.js"></script>
 </body>
 </html>
