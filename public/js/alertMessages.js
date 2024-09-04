@@ -18,7 +18,7 @@ export function confirmAlert(type, values){
     }
 }
 
-export function alert({icon, title, text, ...others}){
+export function alertMessages({icon, title, text, ...others}){
     return swalWithBootstrapButtons.fire({
         icon: icon,
         title: title,
