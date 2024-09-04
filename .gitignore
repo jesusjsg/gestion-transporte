@@ -1,3 +1,4 @@
 vendor
 php-errors.log
 composer.lock
+db
