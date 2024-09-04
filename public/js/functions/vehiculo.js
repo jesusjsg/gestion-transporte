@@ -27,6 +27,10 @@ function main(){
         {'data': 'gps'},
         {'data': 'link_gps'},
         {'data': 'estatus'},
+        {'data': 'id_municipio'},
+        {'data': 'Activo1'},
+        {'data': 'Activo2'},
+        {'data': 'Activo3'},
         {'data': 'opciones'}
     ])
 }
