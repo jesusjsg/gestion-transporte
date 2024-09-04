@@ -31,6 +31,10 @@ use src\models\uniqueModel;
             $gps = $this->cleanString($_POST['gps']);
             $linkGps = $this->cleanString($_POST['link-gps']);
             $estatus = $this->cleanString($_POST['estatus-vehiculo']);
+            $municipio = $this->cleanString($_POST['municipio']);
+            $activoSapUno = $this->cleanString($_POST['activo-uno']);
+            $activoSapDos = $this->cleanString($_POST['activo-dos']);
+            $activoSapTres = $this->cleanString($_POST['activos-tres']);
 
             // Validaciones de los campos de tipo texto
             if(empty($placa) || empty($tipoVehiculo) || empty($serialCarroceria) || empty($serialMotor) || empty($modelo)){
@@ -174,6 +178,26 @@ use src\models\uniqueModel;
                     'field_name_database' => 'estatus',
                     'field_name_form' => ':estatus',
                     'field_value' => $estatus
+                ],
+                [
+                    'field_name_database' => 'id_municipio',
+                    'field_name_form' => ':municipio',
+                    'field_value' => $municipio
+                ],
+                [
+                    'field_name_database' => 'Activo1',
+                    'field_name_form' => ':sap1',
+                    'field_value' => $activoSapUno
+                ],
+                [
+                    'field_name_database' => 'Activo2',
+                    'field_name_form' => ':sap2',
+                    'field_value' => $activoSapDos
+                ],
+                [
+                    'field_name_database' => 'Activo3',
+                    'field_name_form' => ':sap3',
+                    'field_value' => $activoSapTres
                 ]
             ];
 
@@ -208,6 +232,7 @@ use src\models\uniqueModel;
                     usoVehiculo.descripcion1 AS uso,
                     bolipuertos.descripcion1 AS bolipuertos,
                     gps.descripcion1 AS gps
+                    codigoMunicipio.descripcion1 AS codigoMunicipio
                 FROM vehiculo
                 LEFT JOIN
                     general AS tipoVehiculo ON vehiculo.tipo_vehiculo = tipoVehiculo.id_entidad AND tipoVehiculo.id_registro = 9
@@ -225,6 +250,8 @@ use src\models\uniqueModel;
                     general AS bolipuertos ON vehiculo.bolipuertos = bolipuertos.id_entidad AND bolipuertos.id_registro = 15
                 LEFT JOIN
                     general AS gps ON vehiculo.gps = gps.id_entidad AND gps.id_registro = 16
+                LEFT JOIN
+                    general AS codigoMunicipio ON vehiculo.id_municipio = codigoMunicipio.id_entidad AND codigoMunicipio.id_registro = 8
                 "
             );
             $data = [];
