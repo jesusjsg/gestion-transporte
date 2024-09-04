@@ -35,6 +35,7 @@
                     <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                 </div>
                 <div class="tile-footer"></div>
+                <input type="hidden" name="id-municipio" />
                 <input type="hidden" name="model_vehiculo" value="register">
                 <div class="col-md-2">
                     <label for="placa" class="form-label">Placa</label>
@@ -216,13 +217,29 @@
                     <label for="link-gps" class="form-label">Link GPS</label>
                     <input type="text" class="form-control" name="link-gps" />
                 </div>
+                <div class="col-md-3">
+                    <label for="municipio" class="form-label">Municipio</label>
+                    <input type="text" class="form-control" name="municipio" id="municipio" />
+                </div>
                 <div class="col-md-2">
                     <label for="estatus-vehiculo" class="form-label">Estatus</label>
                     <select class="form-select" name="estatus-vehiculo">
                         <option selected disabled>Estatus</option>
                         <option value="1">Activo</option>
-                        <option value="1">Inactivo</option>
+                        <option value="2">Inactivo</option>
                     </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="activo-uno" class="form-label">Activo SAP 1</label>
+                    <input type="text" class="form-control" name="activo-uno" />
+                </div>
+                <div class="col-md-2">
+                    <label for="activo-dos" class="form-label">Activo SAP 2</label>
+                    <input type="text" class="form-control" name="activo-dos" />
+                </div>
+                <div class="col-md-2">
+                    <label for="activo-tres" class="form-label">Activo SAP 3</label>
+                    <input type="text" class="form-control" name="activo-tres" />
                 </div>
                 <div class="tile-footer"></div>
             </form>

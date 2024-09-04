@@ -41,6 +41,10 @@
                                 <th>GPS</th>
                                 <th>Link GPS</th>
                                 <th>Estatus</th>
+                                <th>Municipio</th>
+                                <th>SAP 1</th>
+                                <th>SAP 2</th>
+                                <th>SAP 3</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
