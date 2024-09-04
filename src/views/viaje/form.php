@@ -28,6 +28,7 @@
                 <input type="hidden" id="id-cliente" />
                 <input type="hidden" id="id-origen" />
                 <input type="hidden" id="id-destino" />
+                <input type="hidden" id="tasa-cambio" />
                 <div class="col-md-2">
                     <label for="nombre-conductor" class="form-label">Nombre y apellido</label>
                     <input type="text" class="form-control" id="nombre-conductor" />
@@ -74,6 +75,71 @@
                     <label for="cliente" class="form-label">Cliente</label>
                     <input type="text" class="form-control" id="cliente" />
                 </div>
+                <div class="col-md-2">
+                    <label for="fecha-inicio" class="form-label">Fecha inicio</label>
+                    <input type="date" class="form-control" id="fecha-inicio" />
+                </div>
+                <div class="col-md-2">
+                    <label for="fecha-cierre" class="form-label">Fecha cierre</label>
+                    <input type="date" class="form-control" id="fecha-cierre" />
+                </div>
+                <div class="col-md-1">
+                    <label for="cantidad-feriados" class="form-label">Feriados</label>
+                    <input type="text" class="form-control" id="cantidad-feriados" />
+                </div>
+                <div class="col-md-1">
+                    <label for="cantidad-sabados" class="form-label">Sábados</label>
+                    <input type="text" class="form-control" id="cantidad-sabados" />
+                </div>
+                <div class="col-md-1">
+                    <label for="cantidad-domingos" class="form-label">Domingos</label>
+                    <input type="text" class="form-control" id="cantidad-domingos" />
+                </div>
+                <div class="col-md-1">
+                    <label for="total-kilometros" class="form-label">KM</label>
+                    <input type="text" class="form-control" id="total-kilometros" />
+                </div>
+                <div class="col-md-1">
+                    <label for="monto-usd" class="form-label">USD</label>
+                    <input type="text" class="form-control" id="monto-usd" />
+                </div>
+                <div class="col-md-1">
+                    <label for="monto-ves" class="form-label">VES</label>
+                    <input type="text" class="form-control" id="monto-ves" />
+                </div>
+                <div class="tile-footer"></div>
+            </form>
+        </div>
+    </div>
+    <div class="tile">
+        <div class="tile-body">
+            <form class="row g-3 form-ajax" action="" method="post" autocomplete="off">
+                <div class="d-grip gap-2 d-md-flex justify-content-between">
+                    <h3 class="fw-light">Agregar movimientos</h3>
+                    <div>
+                        <button type="reset" class="btn btn-primary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
+                        <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
+                    </div>
+                </div>
+                <div class="tile-footer"></div>
+                    <div class="col-md-4">
+                        <label for="origen1" class="form-label">Origen</label>
+                        <input type="text" class="form-control" name="origen" id="origen" />
+                    </div>
+                    <div class="col-md-4">
+                        <label for="destino" class="form-label">Origen</label>
+                        <input type="text" class="form-control" name="destino" />
+                    </div>
+                    <div class="col-md-1">
+                        <label for="ruta" class="form-label">Ruta</label>
+                        <input type="text" class="form-control" name="ruta" />
+                    </div>
+                    <div class="col-md-1">
+                        <label for="km" class="form-label">KM</label>
+                        <input type="text" class="form-control" name="km" />
+                    </div>
+                <!-- <div class="add-movimientos"></div> -->
+                <div class="tile-footer"></div>
             </form>
         </div>
     </div>
