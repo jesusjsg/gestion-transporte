@@ -81,6 +81,9 @@ export function autocompleteCliente(inputName, url, hiddenInput){
             $(inputName).val(ui.item.label)
         }
     })
+    if($(inputName).val() === ''){
+        $(hiddenInput).val('')
+    }
 }
 
 export function autocompleteConductor(inputName, url, ...other){
