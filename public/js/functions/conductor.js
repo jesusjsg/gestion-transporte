@@ -14,10 +14,10 @@ function main(){
         {'data': 'id_vehiculo'},
         {'data': 'vencimiento_cedula', visible:false},
         {'data': 'vencimiento_licencia', visible:false},
-        {'data': 'vencimiento_certificadoMedico', visible:false},
+        {'data': 'vencimiento_certificado_medico', visible:false},
         {'data': 'vencimiento_mppps', visible:false},
         {'data': 'vencimiento_saberes', visible:false},
-        {'data': 'vencimiento_manejoSeguro', visible:false},
+        {'data': 'vencimiento_manejo_seguro', visible:false},
         {'data': 'vencimiento_alimento', visible:false},
         {'data': 'tipo_nomina'},
         {'data': 'opciones', 'className': 'dt-center'}
