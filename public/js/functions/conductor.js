@@ -1,4 +1,5 @@
 import { getDatatable } from "../components/datatable.js";
+import { getPlaca } from "../components/autocomplete.js";
 import { AJAX_AUTOCOMPLETE, AJAX_TABLES } from "../apiAjax.js";
 
 const tableConductor = document.querySelector('#table-conductor')

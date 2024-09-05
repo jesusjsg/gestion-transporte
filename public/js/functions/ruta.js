@@ -1,15 +1,14 @@
 import { getDatatable } from "../components/datatable.js";
+import { AJAX_AUTOCOMPLETE, AJAX_TABLES } from "../apiAjax.js"
 
-const tableUrl = 'http://localhost/gestion-transporte/ajax/ruta?action=load_ruta'
 const tableId = document.querySelector('#table-ruta')
 const origen = document.querySelector('#origen')
 const codeOrigen = document.querySelector('#codigo-origen')
 const destino = document.querySelector('#destino')
 const codeDestino = document.querySelector('#codigo-destino')
-const autocompleteUrl = 'http://localhost/gestion-transporte/ajax/ruta?action=get_municipio'
 
 function main(){
-    getDatatable(tableId, tableUrl, [
+    getDatatable(tableId, AJAX_TABLES.ruta, [
         {'data': 'id_ruta'},
         {'data': 'nombre_ruta'},
         {'data': 'origen'},
@@ -18,8 +17,8 @@ function main(){
         {'data': 'opciones'}
     ])
 
-    autocompleteMunicipio(origen, autocompleteUrl, codeOrigen)
-    autocompleteMunicipio(destino, autocompleteUrl, codeDestino)
+    autocompleteMunicipio(origen, AJAX_AUTOCOMPLETE.municipio, codeOrigen)
+    autocompleteMunicipio(destino, AJAX_AUTOCOMPLETE.municipio, codeDestino)
 }
 
 function autocompleteMunicipio(fieldId, url, hiddenField) {

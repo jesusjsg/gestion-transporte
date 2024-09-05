@@ -2,7 +2,7 @@ import { alertMessages} from "../alertMessages.js";
 import { AJAX_AUTOCOMPLETE } from "../apiAjax.js";
 import { autocompleteCliente, autocompleteConductor, autocompleteMunicipio } from "../components/autocomplete.js";
 import { getDatatable } from "../components/datatable.js";
-import { getWeekends } from "../getDay.js";
+import { getWeekends } from "../weekends.js";
 
 const tableUrl = 'http://localhost/gestion-transporte/ajax/viaje?action=load_viaje'
 const tableId = document.querySelector('#table-viaje')
@@ -79,12 +79,6 @@ function calculateWeekends(){
         }
     }
 }
-
-function 
-
-function renderMovements(){}
-
-
 
 
 document.addEventListener('DOMContentLoaded', main)

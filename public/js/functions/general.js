@@ -1,10 +1,10 @@
 import { getDatatable } from "../components/datatable.js"
+import { AJAX_TABLES } from "../apiAjax.js"
 
-const tableUrl = 'http://localhost/gestion-transporte/ajax/general?action=load_general';
 const tableId = document.querySelector('#table-general')
 
 function main(){
-    getDatatable(tableId, tableUrl, [
+    getDatatable(tableId, AJAX_TABLES.general, [
         {'data': 'id_registro'},
         {'data': 'id_entidad'},
         {'data': 'descripcion1'},
