@@ -154,7 +154,7 @@
         public function updateUser(){
             $userId = $this->cleanString($_POST['id_usuario']);
 
-            $data = $this->executeQuery("SELECT * FROM usuario WHERE id_usuario='$userId'");
+            $data = $this->executeQuery("SELECT * FROM usuarios WHERE id_usuario='$userId'");
             if($data->rowCount()<0){
                 $alert = [
                     'type' => 'simple',
