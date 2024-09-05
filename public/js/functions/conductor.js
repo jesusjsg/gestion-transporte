@@ -1,14 +1,11 @@
 import { getDatatable } from "../components/datatable.js";
-import { getPlaca } from "../components/autocomplete.js";
+import { AJAX_AUTOCOMPLETE, AJAX_TABLES } from "../apiAjax.js";
 
-const tableUrl = 'http://localhost/gestion-transporte/ajax/conductor?action=load_conductores'
-const tableId = document.querySelector('#table-conductor')
-
-const autocompleteUrl = 'http://localhost/gestion-transporte/ajax/conductor?action=get_placa'
-const inputId = document.querySelector('#vehiculo-conductor')
+const tableConductor = document.querySelector('#table-conductor')
+const placa = document.querySelector('#vehiculo-conductor')
 
 function main(){
-    getDatatable(tableId ,tableUrl, [
+    getDatatable(tableConductor, AJAX_TABLES.conductor, [
         {'data': 'id_conductor'},
         {'data': 'nombre_conductor'},
         {'data': 'cedula_conductor'},
@@ -19,13 +16,13 @@ function main(){
         {'data': 'vencimiento_certificadoMedico', visible:false},
         {'data': 'vencimiento_mppps', visible:false},
         {'data': 'vencimiento_saberes', visible:false},
-        {'data': 'vencimiento_manejoSeguro'},
-        {'data': 'vencimiento_alimento'},
+        {'data': 'vencimiento_manejoSeguro', visible:false},
+        {'data': 'vencimiento_alimento', visible:false},
         {'data': 'tipo_nomina'},
-        {'data': 'opciones'}
+        {'data': 'opciones', 'className': 'dt-center'}
     ])
 
-    getPlaca(inputId, autocompleteUrl)
+    getPlaca(placa, AJAX_AUTOCOMPLETE.placaVehiculo)
 }
 
 document.addEventListener('DOMContentLoaded', main)
