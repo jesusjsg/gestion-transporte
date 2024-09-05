@@ -72,8 +72,8 @@ use src\models\uniqueModel;
                 return json_encode($alert);
             }
 
-            $checkConductor = $this->executeQuery("SELECT id_conductor FROM conductor WHERE id_conductor = '$ficha'");
-            $checkCedula = $this->executeQuery("SELECT cedula_conductor FROM conductor WHERE cedula_conductor = '$cedula'");
+            $checkConductor = $this->executeQuery("SELECT id_conductor FROM conductores WHERE id_conductor = '$ficha'");
+            $checkCedula = $this->executeQuery("SELECT cedula_conductor FROM conductores WHERE cedula_conductor = '$cedula'");
 
             if($checkConductor->rowCount()>0){
                 $alert = [
@@ -132,7 +132,7 @@ use src\models\uniqueModel;
                     'field_value' => $vencimientoLicencia
                 ],
                 [
-                    'field_name_database' => 'vencimiento_certificadoMedico',
+                    'field_name_database' => 'vencimiento_certificado_medico',
                     'field_name_form' => ':vencimientoCertificadoMedico',
                     'field_value' => $vencimientoCertificadoMedico
                 ],
@@ -147,7 +147,7 @@ use src\models\uniqueModel;
                     'field_value' => $vencimientoSaberes
                 ],
                 [
-                    'field_name_database' => 'vencimiento_manejoSeguro',
+                    'field_name_database' => 'vencimiento_manejo_seguro',
                     'field_name_form' => ':vencimientoManejoSeguro',
                     'field_value' => $vencimientoManejoSeguro
                 ],
@@ -163,7 +163,7 @@ use src\models\uniqueModel;
                 ]
             ];
 
-            $saveConductor = $this->saveData('conductor', $conductorDataLog);
+            $saveConductor = $this->saveData('conductores', $conductorDataLog);
 
             if($saveConductor->rowCount() == 1){
                 $alert = [
@@ -186,11 +186,11 @@ use src\models\uniqueModel;
         public function tableConductor(){
 
             $getTableConductor = $this->executeQuery(
-                "SELECT conductor.*,
+                "SELECT conductores.*,
                     tipoNomina.descripcion1 AS tipo_nomina
-                FROM conductor
+                FROM conductores
                 LEFT JOIN
-                    general AS tipoNomina ON conductor.tipo_nomina = tipoNomina.id_entidad AND tipoNomina.id_registro = 6
+                    general AS tipoNomina ON conductores.tipo_nomina = tipoNomina.id_entidad AND tipoNomina.id_registro = 6
                 "
             );
             $data = [];
@@ -198,10 +198,10 @@ use src\models\uniqueModel;
             $dateColumns = [
                 'vencimiento_cedula',
                 'vencimiento_licencia',
-                'vencimiento_certificadoMedico',
+                'vencimiento_certificado_medico',
                 'vencimiento_mppps',
                 'vencimiento_saberes',
-                'vencimiento_manejoSeguro',
+                'vencimiento_manejo_seguro',
                 'vencimiento_alimento'
             ];
 
@@ -238,7 +238,7 @@ use src\models\uniqueModel;
         public function deleteConductor(){
             $idConductor = $this->cleanString($_POST['id-conductor']);
 
-            $dataConductor = $this->executeQuery("SELECT * FROM conductor WHERE id_conductor='$idConductor'");
+            $dataConductor = $this->executeQuery("SELECT * FROM conductores WHERE id_conductor='$idConductor'");
             if($dataConductor->rowCount()<=0){
                 $alert = [
                     'type' => 'simple',
@@ -251,7 +251,7 @@ use src\models\uniqueModel;
                 $dataConductor = $dataConductor->fetch();
             }
 
-            $deleteConductor = $this->deleteData('conductor', 'id_conductor', $idConductor);
+            $deleteConductor = $this->deleteData('conductores', 'id_conductor', $idConductor);
 
             if($deleteConductor->rowCount()==1){
                 $alert = [

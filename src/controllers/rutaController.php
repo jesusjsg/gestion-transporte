@@ -37,8 +37,8 @@
                 return json_encode($alert);
             }
 
-            $checkRutaCode = $this->executeQuery("SELECT id_ruta FROM ruta WHERE id_ruta = '$rutaCode'");
-            $checkRutaName = $this->executeQuery("SELECT nombre_ruta FROM ruta WHERE nombre_ruta = '$rutaName'");
+            $checkRutaCode = $this->executeQuery("SELECT id_ruta FROM rutas WHERE id_ruta = '$rutaCode'");
+            $checkRutaName = $this->executeQuery("SELECT nombre_ruta FROM rutas WHERE nombre_ruta = '$rutaName'");
 
             if($checkRutaCode->rowCount()>0){
                 $alert = [
@@ -88,7 +88,7 @@
                 ]
             ];
 
-            $saveRuta = $this->saveData('ruta', $rutaDataLog);
+            $saveRuta = $this->saveData('rutas', $rutaDataLog);
 
             if($saveRuta->rowCount() == 1){
                 $alert = [
@@ -109,7 +109,7 @@
         }
  
         public function tableRuta(){
-            $getTableRuta = $this->executeQuery("SELECT * FROM ruta");
+            $getTableRuta = $this->executeQuery("SELECT * FROM rutas");
             $data = [];
 
             if($getTableRuta->rowCount()>0){
@@ -141,7 +141,7 @@
         public function deleteRuta(){
             $idRuta = $this->cleanString($_POST['id-ruta']);
 
-            $dataRuta = $this->executeQuery("SELECT * FROM ruta WHERE id_ruta='$idRuta'");
+            $dataRuta = $this->executeQuery("SELECT * FROM rutas WHERE id_ruta='$idRuta'");
             if($dataRuta->rowCount()<=0){
                 $alert = [
                     'type' => 'simple',
@@ -154,7 +154,7 @@
                 $dataRuta = $dataRuta->fetch();
             }
 
-            $deleteRuta = $this->deleteData('ruta', 'id_ruta', $idRuta);
+            $deleteRuta = $this->deleteData('rutas', 'id_ruta', $idRuta);
             if($deleteRuta->rowCount()==1){
                 $alert = [
                     'type' => 'reload',

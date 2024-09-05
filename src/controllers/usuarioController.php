@@ -41,7 +41,7 @@
                     'type' => 'simple',
                     'icon' => 'error',
                     'title' => 'Ocurrió un error',
-                    'text' => 'La contraseña debe tener entre 6 y 100 caracteres.',
+                    'text' => 'La contraseña deben tener entre 6 y 100 caracteres.',
                 ];
                 return json_encode($alert);
             }
@@ -56,7 +56,7 @@
                 return json_encode($alert);
             }
 
-            $checkUser = $this->executeQuery("SELECT nombre_usuario FROM usuario WHERE nombre_usuario = '$username'");
+            $checkUser = $this->executeQuery("SELECT nombre_usuario FROM usuarios WHERE nombre_usuario = '$username'");
 
             if($checkUser->rowCount()>0){
                 $alert = [
@@ -93,7 +93,7 @@
 
             ];
 
-            $saveUser = $this->saveData('usuario', $userDataLog);
+            $saveUser = $this->saveData('usuarios', $userDataLog);
             if($saveUser->rowCount() == 1){
                 $alert = [
                     'type' => 'reload',
@@ -121,8 +121,8 @@
                     u.nombre_usuario,
                     u.contraseña,
                     r.nombre_rol
-                FROM usuario u 
-                INNER JOIN rol r 
+                FROM usuarios u 
+                INNER JOIN roles r 
                 ON u.id_rol = r.id_rol
                 "
             );
@@ -136,6 +136,7 @@
                         }
                     }
                     $row['opciones'] = '
+                        <a href="'.URL.'usuario/editar/'.$row['id_usuario'].'/" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square m-0 p-0"></i></a>
                         <form class="form-ajax d-inline" action="'.URL.'ajax/usuarios" method="post" autocomplete="off">
                             <input type="hidden" name="model_user" value="delete" />
                             <input type="hidden" name="id-usuario" value="'.$row['id_usuario'].'" />
@@ -150,7 +151,71 @@
             return json_encode($data);
         }
 
-        public function updateUser(){}
+        public function updateUser(){
+            $userId = $this->cleanString($_POST['id_usuario']);
+
+            $data = $this->executeQuery("SELECT * FROM usuario WHERE id_usuario='$userId'");
+            if($data->rowCount()<0){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'No hemos encontrado el usuario en el sistema.'
+                ];
+                return json_encode($alert);
+            }else{
+                $data = $data->fetch();
+            }
+
+            $fullname = trim($this->cleanString($_POST['fullname']));
+            $username = trim($this->cleanString($_POST['username']));
+            $passwordOne = trim($this->cleanString($_POST['password']));
+            $passwordTwo = trim($this->cleanString($_POST['valid-password']));
+            $rolName = $this->cleanString($_POST['id-rol']);
+
+            if(empty($fullname) || empty($username)){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'El nombre y el usuario son obligatorios.'
+                ];
+                return json_encode($alert);
+            }
+
+            if($this->verifyData('[a-zA-Z0-9{3,40}', $username)){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'El usuario solo puede contener letras y números.'
+                ];
+                return json_encode($alert);
+            }
+
+            if($this->verifyData('[a-ZA-Z0-9$.\-]{6,100}', $passwordOne) || $this->verifyData('[a-ZA-Z0-9$.\-]{6,100}', $passwordTwo)){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'Las contraseñas deben tener entre 6 y 100 caracteres.'
+                ];
+                return json_encode($alert);
+            }
+
+            if($passwordOne != $passwordTwo){
+                $alert = [
+                    'type' => 'simple',
+                    'icon' => 'error',
+                    'title' => 'Ocurrió un error',
+                    'text' => 'Las contraseñas no coinciden.',
+                ];
+                return json_encode($alert);
+            }
+
+            
+
+        }
 
         public function deleteUser(){
 
@@ -167,12 +232,12 @@
                 exit();
             }
 
-            $dataUser = $this->executeQuery("SELECT * FROM usuario WHERE id_usuario='$id'");
+            $dataUser = $this->executeQuery("SELECT * FROM usuarios WHERE id_usuario='$id'");
             if($dataUser->rowCount()<=0){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
-                    'title' => 'Ocurrrió un error',
+                    'title' => 'Ocurrió un error',
                     'text' => 'El usuario no se encuentra registrado.',
                 ];
                 return json_encode($alert);
@@ -180,7 +245,7 @@
                 $dataUser = $dataUser->fetch();
             }
 
-            $deleteUser = $this->deleteData('usuario', 'id_usuario', $id);
+            $deleteUser = $this->deleteData('usuarios', 'id_usuario', $id);
 
             if($deleteUser->rowCount()==1){
                 $alert = [
@@ -193,7 +258,7 @@
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
-                    'title' => 'Ocurrrió un error',
+                    'title' => 'Ocurrió un error',
                     'text' => 'No se pudo eliminar el usuario '.$dataUser['nombre_apellido'].', intente nuevamente.'
                 ];
             }
@@ -201,14 +266,13 @@
         }
 
         public function getRol(){
-            $getRol = $this->executeQuery('SELECT id_rol, nombre_rol FROM rol ORDER BY nombre_rol');
+            $getRol = $this->executeQuery('SELECT id_rol, nombre_rol FROM roles ORDER BY nombre_rol');
             $roles = [];
 
             if($getRol->rowCount()>0){
                 while($row = $getRol->fetch(PDO::FETCH_ASSOC)){
                     $roles[] = $row;
                 }
-
             }
             return $roles;
 

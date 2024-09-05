@@ -64,5 +64,6 @@
         public function closeSesion(){
             session_destroy();
             header('Location: '. URL);
+            exit;
         }
     }

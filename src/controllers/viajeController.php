@@ -148,7 +148,7 @@
                 ]
             ];
 
-            $saveViaje = $this->saveData('viaje', $dataViajeLog);
+            $saveViaje = $this->saveData('viajes', $dataViajeLog);
 
             if($saveViaje->rowCount()==1){
                 $alert = [
@@ -171,17 +171,17 @@
         public function tableViaje(){
 
             $getTableViaje = $this->executeQuery(
-                "SELECT viaje.*,
+                "SELECT viajes.*,
                     tipoOperacion.descripcion1 AS tipoOperacion,
                     tipoCarga.descripcion1 AS tipoCarga,
                     idCliente.descripcion1 AS idCliente
-                FROM viaje
+                FROM viajes
                 LEFT JOIN
-                    general AS tipoOperacion ON viaje.id_tipo_operacion = tipoOperacion.id_entidad AND tipoOperacion.id_registro = 3
+                    general AS tipoOperacion ON viajes.id_tipo_operacion = tipoOperacion.id_entidad AND tipoOperacion.id_registro = 3
                 LEFT JOIN
-                    general AS tipoCarga ON viaje.id_tipo_carga = tipoCarga.id_entidad AND tipoCarga.id_registro = 4
+                    general AS tipoCarga ON viajes.id_tipo_carga = tipoCarga.id_entidad AND tipoCarga.id_registro = 4
                 LEFT JOIN
-                    general AS idCliente ON viaje.id_cliente = idCliente.id_entidad AND idCliente.id_registro = 7
+                    general AS idCliente ON viajes.id_cliente = idCliente.id_entidad AND idCliente.id_registro = 7
                 "
             );
             $data = [];

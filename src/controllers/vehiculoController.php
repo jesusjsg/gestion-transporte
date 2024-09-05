@@ -57,7 +57,7 @@ use src\models\uniqueModel;
                 return json_encode($alert);
             }
 
-            $checkPlaca = $this->executeQuery("SELECT id_vehiculo FROM vehiculo WHERE id_vehiculo = '$placa'");
+            $checkPlaca = $this->executeQuery("SELECT id_vehiculo FROM vehiculos WHERE id_vehiculo = '$placa'");
             if($checkPlaca->rowCount()>0){
                 $alert = [
                     'type' => 'simple',
@@ -201,7 +201,7 @@ use src\models\uniqueModel;
                 ]
             ];
 
-            $saveVehiculo = $this->saveData('vehiculo', $vehiculoDataLog);
+            $saveVehiculo = $this->saveData('vehiculos', $vehiculoDataLog);
 
             if($saveVehiculo->rowCount() == 1){
                 $alert = [
@@ -223,7 +223,7 @@ use src\models\uniqueModel;
 
         public function tableVehiculo(){
             $getTableVehiculo = $this->executeQuery(
-                "SELECT vehiculo.*, 
+                "SELECT vehiculos.*, 
                     tipoVehiculo.descripcion1 AS tipo_vehiculo,
                     propiedad.descripcion1 AS propiedad,
                     unidadNegocio.descripcion1 AS unidadNegocio,
@@ -231,27 +231,27 @@ use src\models\uniqueModel;
                     numeroEjes.descripcion1 AS ejes,
                     usoVehiculo.descripcion1 AS uso,
                     bolipuertos.descripcion1 AS bolipuertos,
-                    gps.descripcion1 AS gps
+                    gps.descripcion1 AS gps,
                     codigoMunicipio.descripcion1 AS codigoMunicipio
-                FROM vehiculo
+                FROM vehiculos
                 LEFT JOIN
-                    general AS tipoVehiculo ON vehiculo.tipo_vehiculo = tipoVehiculo.id_entidad AND tipoVehiculo.id_registro = 9
+                    general AS tipoVehiculo ON vehiculos.tipo_vehiculo = tipoVehiculo.id_entidad AND tipoVehiculo.id_registro = 9
                 LEFT JOIN
-                    general AS propiedad ON vehiculo.propiedad = propiedad.id_entidad AND propiedad.id_registro = 10
+                    general AS propiedad ON vehiculos.propiedad = propiedad.id_entidad AND propiedad.id_registro = 10
                 LEFT JOIN
-                    general AS unidadNegocio ON vehiculo.unidad_negocio = unidadNegocio.id_entidad AND unidadNegocio.id_registro = 11
+                    general AS unidadNegocio ON vehiculos.unidad_negocio = unidadNegocio.id_entidad AND unidadNegocio.id_registro = 11
                 LEFT JOIN
-                    general AS marca ON vehiculo.marca = marca.id_entidad AND marca.id_registro = 12
+                    general AS marca ON vehiculos.marca = marca.id_entidad AND marca.id_registro = 12
                 LEFT JOIN
-                    general AS numeroEjes ON vehiculo.numero_ejes = numeroEjes.id_entidad AND numeroEjes.id_registro = 13
+                    general AS numeroEjes ON vehiculos.numero_ejes = numeroEjes.id_entidad AND numeroEjes.id_registro = 13
                 LEFT JOIN
-                    general AS usoVehiculo ON vehiculo.uso = usoVehiculo.id_entidad AND usoVehiculo.id_registro = 14
+                    general AS usoVehiculo ON vehiculos.uso = usoVehiculo.id_entidad AND usoVehiculo.id_registro = 14
                 LEFT JOIN
-                    general AS bolipuertos ON vehiculo.bolipuertos = bolipuertos.id_entidad AND bolipuertos.id_registro = 15
+                    general AS bolipuertos ON vehiculos.bolipuertos = bolipuertos.id_entidad AND bolipuertos.id_registro = 15
                 LEFT JOIN
-                    general AS gps ON vehiculo.gps = gps.id_entidad AND gps.id_registro = 16
+                    general AS gps ON vehiculos.gps = gps.id_entidad AND gps.id_registro = 16
                 LEFT JOIN
-                    general AS codigoMunicipio ON vehiculo.id_municipio = codigoMunicipio.id_entidad AND codigoMunicipio.id_registro = 8
+                    general AS codigoMunicipio ON vehiculos.id_municipio = codigoMunicipio.id_entidad AND codigoMunicipio.id_registro = 8
                 "
             );
             $data = [];
@@ -298,7 +298,7 @@ use src\models\uniqueModel;
         public function deleteVehiculo(){
             $idVehiculo = $this->cleanString($_POST['id-vehiculo']);
 
-            $dataVehiculo = $this->executeQuery("SELECT * FROM vehiculo WHERE id_vehiculo='$idVehiculo'");
+            $dataVehiculo = $this->executeQuery("SELECT * FROM vehiculos WHERE id_vehiculo='$idVehiculo'");
             if($dataVehiculo->rowCount()<=0){
                 $alert = [
                     'type' => 'simple',
@@ -311,7 +311,7 @@ use src\models\uniqueModel;
                 $dataVehiculo = $dataVehiculo->fetch();
             }
 
-            $deteleVehiculo = $this->deleteData('vehiculo', 'id_vehiculo', $idVehiculo);
+            $deteleVehiculo = $this->deleteData('vehiculos', 'id_vehiculo', $idVehiculo);
             if($deteleVehiculo->rowCount()==1){
                 $alert = [
                     'type' => 'reload',
@@ -324,7 +324,7 @@ use src\models\uniqueModel;
                     'type' => 'simple',
                     'icon' => 'error',
                     'title' => 'Ocurrió un error',
-                    'text' => 'No se pudo eliminar el conductor '. $dataVehiculo['id?vehiculo'] . ', intente más tarde.'
+                    'text' => 'No se pudo eliminar el conductor '. $dataVehiculo['id_vehiculo'] . ', intente más tarde.'
                 ];
             }
             return json_encode($alert);
