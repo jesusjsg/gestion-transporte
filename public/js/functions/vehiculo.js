@@ -1,10 +1,10 @@
 import { getDatatable } from "../components/datatable.js";
+import { AJAX_TABLES } from "../apiAjax.js";
 
-const url = 'http://localhost/gestion-transporte/ajax/vehiculo?action=load_vehiculos'
 const fieldId = document.querySelector('#table-vehiculo')
 
 function main(){
-    getDatatable(fieldId, url, [
+    getDatatable(fieldId, AJAX_TABLES.vehiculo, [
         {'data': 'id_vehiculo'},
         {'data': 'tipo_vehiculo'},
         {'data': 'propiedad'},
@@ -23,14 +23,14 @@ function main(){
         {'data': 'vencimiento_rotc', visible:false},
         {'data': 'fecha_fumigacion', visible:false},
         {'data': 'fecha_impuesto', visible:false},
-        {'data': 'bolipuertos'},
+        {'data': 'bolipuertos', visible:false},
         {'data': 'gps', visible:false},
         {'data': 'link_gps', visible:false},
-        {'data': 'estatus'},
+        {'data': 'estatus_vehiculo'},
         {'data': 'id_municipio', visible:false},
-        {'data': 'Activo1'},
-        {'data': 'Activo2'},
-        {'data': 'Activo3'},
+        {'data': 'activo_uno'},
+        {'data': 'activo_dos'},
+        {'data': 'activo_tres'},
         {'data': 'opciones'}
     ])
 }
