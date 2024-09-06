@@ -28,7 +28,7 @@
                 <input type="hidden" id="id-cliente" />
                 <input type="hidden" id="id-origen" />
                 <input type="hidden" id="id-destino" />
-                <input type="hidden" id="tasa-cambio" />
+                <input type="hidden" id="tasa-cambio" value="37.5" />
                 <div class="col-md-2">
                     <label for="nombre-conductor" class="form-label">Nombre y apellido</label>
                     <input type="text" class="form-control" id="nombre-conductor" />
@@ -123,11 +123,11 @@
                 </div>
                 <div class="tile-footer"></div>
                     <div class="col-md-4">
-                        <label for="origen1" class="form-label">Origen</label>
+                        <label for="origen" class="form-label">Origen</label>
                         <input type="text" class="form-control" name="origen" id="origen" />
                     </div>
                     <div class="col-md-4">
-                        <label for="destino" class="form-label">Origen</label>
+                        <label for="destino" class="form-label">Destino</label>
                         <input type="text" class="form-control" name="destino" />
                     </div>
                     <div class="col-md-1">
@@ -138,6 +138,7 @@
                         <label for="km" class="form-label">KM</label>
                         <input type="text" class="form-control" name="km" />
                     </div>
+                </div>
                 <!-- <div class="add-movimientos"></div> -->
                 <div class="tile-footer"></div>
             </form>
