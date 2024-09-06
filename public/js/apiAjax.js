@@ -13,3 +13,7 @@ export const AJAX_AUTOCOMPLETE = {
     conductor: 'http://localhost/gestion-transporte/ajax/viaje?action=get_conductor',
     placaVehiculo: 'http://localhost/gestion-transporte/ajax/viaje?action=get_placa',
 }
+
+export const AJAX_KILOMETERS = {
+    ruta: 'http://localhost/gestion-transporte/ajax/ruta?action=get_kilometers',
+}
