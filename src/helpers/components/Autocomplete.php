@@ -23,7 +23,7 @@
         public function autocompletePlaca($term){
             $term = '%' . $term . '%';
 
-            $sql = "SELECT id_vehiculo FROM vehiculo WHERE id_vehiculo LIKE :term ORDER BY id_vehiculo ASC";
+            $sql = "SELECT id_vehiculo FROM vehiculos WHERE id_vehiculo LIKE :term ORDER BY id_vehiculo ASC";
             $suggetions = $this->executeQuery($sql, [':term' => $term]);
 
             $data = [];
@@ -71,7 +71,7 @@
                 SELECT id_conductor,
                 nombre_conductor,
                 id_vehiculo
-                FROM conductor
+                FROM conductores
                 WHERE nombre_conductor
                 LIKE :term
                 ORDER BY nombre_conductor ASC
