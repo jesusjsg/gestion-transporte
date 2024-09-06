@@ -11,7 +11,7 @@
             $rutaCode = trim($OriginCode . '-' . $DestinyCode);
             $origen = trim($this->cleanString($_POST['origen']));
             $destino = trim($this->cleanString($_POST['destino']));
-            $rutaName = trim($origen . ' - ' . $destino);
+            $rutaName = trim($origen . '-' . $destino);
             $kilometros = $this->cleanString($_POST['kilometros']);
 
             /* Validacion de los campos del formulario */
@@ -38,7 +38,6 @@
             }
 
             $checkRutaCode = $this->executeQuery("SELECT id_ruta FROM rutas WHERE id_ruta = '$rutaCode'");
-            $checkRutaName = $this->executeQuery("SELECT nombre_ruta FROM rutas WHERE nombre_ruta = '$rutaName'");
 
             if($checkRutaCode->rowCount()>0){
                 $alert = [
@@ -46,16 +45,6 @@
                     'icon' => 'error',
                     'title' => 'Ocurrió un error',
                     'text' => 'El código de la ruta '. $rutaCode . ' ya se encuentra registrado.'
-                ];
-                return json_encode($alert);
-            }
-
-            if($checkRutaName->rowCount()>0){
-                $alert = [
-                    'type' => 'simple',
-                    'icon' => 'error',
-                    'title' => 'Ocurrió un error',
-                    'text' => 'El nombre de la ruta '. $rutaName . ' ya se encuentra registrado.'
                 ];
                 return json_encode($alert);
             }
@@ -171,5 +160,17 @@
                 ];
             }
             return json_encode($alert);
+        }
+
+        public function getKilometers($rutaCode){
+            $rutaKilometers = $this->executeQuery("SELECT kilometros FROM rutas WHERE id_ruta = '$rutaCode");
+            $values = [];
+
+            if($rutaKilometers->rowCount()>0){
+                while($row = $rutaKilometers->fetch(PDO::FETCH_ASSOC)){
+                    $values[] = $row['kilometros'];
+                }
+            }
+            return $values;
         }
     }

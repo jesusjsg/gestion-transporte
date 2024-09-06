@@ -22,7 +22,7 @@
                     </script>
                 ";
             } else{
-                $check_user = $this->executeQuery("SELECT * FROM usuario WHERE nombre_usuario = '$username'");
+                $check_user = $this->executeQuery("SELECT * FROM usuarios WHERE nombre_usuario = '$username'");
 
                 if($check_user->rowCount()==1){
                     $check_user = $check_user->fetch();

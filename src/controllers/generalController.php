@@ -36,7 +36,7 @@ use src\models\doubleModel;
                 return json_encode($alert);
             }
 
-            if($this->verifyData('[a-zA-Z ]{0,255}', $primeraDescripcion) || $this->verifyData('[a-zA-Z ]{0,255}', $segundaDescripcion) || $this->verifyData('[a-zA-Z ]{0,255}', $terceraDescripcion)){
+            if($this->verifyData('[a-zA-Z .,]{0,255}', $primeraDescripcion) || $this->verifyData('[a-zA-Z .,]{0,255}', $segundaDescripcion) || $this->verifyData('[a-zA-Z ]{0,255}', $terceraDescripcion)){
                 $alert = [
                     'type' => 'simple',
                     'icon' => 'error',
