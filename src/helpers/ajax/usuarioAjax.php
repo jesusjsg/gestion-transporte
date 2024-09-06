@@ -12,6 +12,10 @@
         if($_POST['model_user'] == 'delete'){
             echo $user->deleteUser();
         }
+
+        if($_POST['model_user'] == 'update'){
+            echo $user->updateUser();
+        }
         
     }elseif(isset($_GET['action']) && $_GET['action'] == 'load_users'){
         $user = new usuarioController;
