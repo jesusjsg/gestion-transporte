@@ -5,12 +5,7 @@
         <script src="<?= URL; ?>public/js/libs/bootstrap.bundle.min.js"></script>
         <script src="<?= URL; ?>public/js/libs/sweetalert2@11.js"></script>
         <script src="<?= URL; ?>public/js/libs/dayjs.min.js"></script>
+        <script src="<?= URL; ?>public/js/sidebar.js"></script>
         <script type="module" src="<?= URL; ?>public/js/main.js"></script>
-        <script type="module" src="<?= URL; ?>public/js/functions/vehiculo.js"></script>
-        <script type="module" src="<?= URL; ?>public/js/functions/usuario.js"></script>
-        <script type="module" src="<?= URL; ?>public/js/functions/conductor.js"></script>
-        <script type="module" src="<?= URL; ?>public/js/functions/ruta.js"></script>
-        <script type="module" src="<?= URL; ?>public/js/functions/general.js"></script>
-        <script type="module" src="<?= URL; ?>public/js/functions/viaje.js"></script>
 </body>
 </html>
