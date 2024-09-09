@@ -9,7 +9,14 @@ const swalWithBootstrapButtons = Swal.mixin({
 export function confirmAlert(type, values){
     switch(type){
         case 'reload':
-            alert({
+            alertMessages({
+                ...values,
+                confirmButton: true,
+                confirmButtonText: 'Aceptar'
+            })
+        break
+        case 'simple':
+            alertMessages({
                 ...values,
                 confirmButton: true,
                 confirmButtonText: 'Aceptar'
