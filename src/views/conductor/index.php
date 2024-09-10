@@ -20,17 +20,10 @@
                         <thead>
                             <tr>
                                 <th>Ficha</th>
-                                <th>Conductor</th>
+                                <th>Nombre y apellido</th>
                                 <th>Cédula</th>
                                 <th>Teléfono</th>
-                                <th>Vehículo</th>
-                                <th>FV Cédula</th>
-                                <th>FV Licencia</th>
-                                <th>FV CM</th>
-                                <th>FV MPPPS</th>
-                                <th>FV Saberes</th>
-                                <th>FV MS</th>
-                                <th>FV Alimento</th>
+                                <th>Placa vehículo</th>
                                 <th>Nómina</th>
                                 <th>Opciones</th>
                             </tr>
@@ -41,5 +34,3 @@
         </div>
     </div>
 </main>
-
-<script type="module" src="<?= URL; ?>public/js/functions/conductor.js"></script>

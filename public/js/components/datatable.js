@@ -1,3 +1,4 @@
+import { formAjaxHandler } from "../main.js"
 
 export function getDatatable(fieldId, url, columns){
     $(fieldId).DataTable({
@@ -19,10 +20,10 @@ export function getDatatable(fieldId, url, columns){
                 'previous': 'Anterior'
             }
         },
-        /* createdRow: function(row, data, dataIndex){
+        createdRow: function(row, data, dataIndex){
             const form = row.querySelector(".form-ajax")
             formAjaxHandler(form)
-        }, */
+        },
         'ajax': {
             'url': url,
             'dataSrc':'',

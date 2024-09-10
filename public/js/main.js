@@ -27,13 +27,6 @@ function initConductorTable(){
         {'data': 'cedula_conductor'},
         {'data': 'telefono_conductor'},
         {'data': 'id_vehiculo'},
-        {'data': 'vencimiento_cedula', visible:false},
-        {'data': 'vencimiento_licencia', visible:false},
-        {'data': 'vencimiento_certificado_medico', visible:false},
-        {'data': 'vencimiento_mppps', visible:false},
-        {'data': 'vencimiento_saberes', visible:false},
-        {'data': 'vencimiento_manejo_seguro', visible:false},
-        {'data': 'vencimiento_alimento', visible:false},
         {'data': 'tipo_nomina'},
         {'data': 'opciones', 'className': 'dt-center'}
     ])
@@ -108,13 +101,17 @@ document.addEventListener('DOMContentLoaded', main)
 
 
 
-
-/* import { alertMessages } from "./alertMessages.js";
-
+const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+        confirmButton: 'btn btn-success m-1',
+        cancelButton: 'btn btn-danger m-1'
+    },
+    buttonsStyling: false
+})
 
 export function formAjaxHandler(form){
-    //const formAjax = document.querySelectorAll('.form-ajax')
-    //formAjax.forEach(form => {
+    const formAjax = document.querySelectorAll('.form-ajax')
+    formAjax.forEach(form => {
         form.addEventListener('submit', function(e){
             e.preventDefault()
     
@@ -146,13 +143,13 @@ export function formAjaxHandler(form){
                     fetch(action, config)
                     .then(response => response.json())
                     .then(response => {
-                        return alertMessages(response)
+                        return alertsAjax(response)
                     })
                 }
     
             })
         })
-    //})
+    })
 }
 
 function alertsAjax(alert){
@@ -191,4 +188,3 @@ function alertsAjax(alert){
         window.location.href = alert.url
     }
 }
- */
