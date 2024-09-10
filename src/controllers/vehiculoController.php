@@ -223,7 +223,8 @@ use src\models\uniqueModel;
 
         public function tableVehiculo(){
             $getTableVehiculo = $this->executeQuery(
-                "SELECT vehiculos.*, 
+                "SELECT 
+                    vehiculos.*, 
                     tipoVehiculo.descripcion1 AS tipo_vehiculo,
                     propiedad.descripcion1 AS propiedad,
                     unidadNegocio.descripcion1 AS unidadNegocio,

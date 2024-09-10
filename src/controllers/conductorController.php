@@ -186,7 +186,13 @@ use src\models\uniqueModel;
         public function tableConductor(){
 
             $getTableConductor = $this->executeQuery(
-                "SELECT conductores.*,
+                "SELECT
+                    conductores.id_conductor,
+                    conductores.nombre_conductor,
+                    conductores.cedula_conductor,
+                    conductores.telefono_conductor,
+                    conductores.id_vehiculo,
+                    conductores.tipo_nomina,
                     tipoNomina.descripcion1 AS tipo_nomina
                 FROM conductores
                 LEFT JOIN
