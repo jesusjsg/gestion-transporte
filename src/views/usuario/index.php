@@ -20,7 +20,6 @@
                         <table class="table table-striped table-hover" id="table-usuario" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>ID-Usuario</th>
                                     <th>Nombre y apellido</th>
                                     <th>Usuario</th>
                                     <th>Rol</th>

@@ -34,7 +34,6 @@ function initConductorTable(){
 
 function initUsuarioTable(){
     getDatatable(tableUsuario, AJAX_TABLES.usuario, [ // usuario table
-        {'data': 'id_usuario', visible:false},
         {'data': 'nombre_apellido'},
         {'data': 'nombre_usuario'},
         {'data': 'nombre_rol', 'className':'dt-center'},

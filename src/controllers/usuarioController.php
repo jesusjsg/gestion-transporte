@@ -115,7 +115,7 @@
         public function tableUser(){
 
             $getTableUser = $this->executeQuery(
-                "SELECT 
+                "SELECT
                     u.id_usuario,
                     u.nombre_apellido,
                     u.nombre_usuario,
