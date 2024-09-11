@@ -224,35 +224,25 @@ use src\models\uniqueModel;
         public function tableVehiculo(){
             $getTableVehiculo = $this->executeQuery(
                 "SELECT 
-                    vehiculos.*, 
+                    vehiculos.id_vehiculo,
+                    vehiculos.tipo_vehiculo,
+                    vehiculos.propiedad,
+                    vehiculos.marca,
+                    vehiculos.uso,
+                    vehiculos.estatus_vehiculo,
                     tipoVehiculo.descripcion1 AS tipo_vehiculo,
                     propiedad.descripcion1 AS propiedad,
-                    unidadNegocio.descripcion1 AS unidadNegocio,
                     marca.descripcion1 AS marca,
-                    numeroEjes.descripcion1 AS ejes,
-                    usoVehiculo.descripcion1 AS uso,
-                    bolipuertos.descripcion1 AS bolipuertos,
-                    gps.descripcion1 AS gps,
-                    codigoMunicipio.descripcion1 AS codigoMunicipio
+                    usoVehiculo.descripcion1 AS uso
                 FROM vehiculos
                 LEFT JOIN
                     general AS tipoVehiculo ON vehiculos.tipo_vehiculo = tipoVehiculo.id_entidad AND tipoVehiculo.id_registro = 9
                 LEFT JOIN
                     general AS propiedad ON vehiculos.propiedad = propiedad.id_entidad AND propiedad.id_registro = 10
                 LEFT JOIN
-                    general AS unidadNegocio ON vehiculos.unidad_negocio = unidadNegocio.id_entidad AND unidadNegocio.id_registro = 11
-                LEFT JOIN
                     general AS marca ON vehiculos.marca = marca.id_entidad AND marca.id_registro = 12
                 LEFT JOIN
-                    general AS numeroEjes ON vehiculos.numero_ejes = numeroEjes.id_entidad AND numeroEjes.id_registro = 13
-                LEFT JOIN
                     general AS usoVehiculo ON vehiculos.uso = usoVehiculo.id_entidad AND usoVehiculo.id_registro = 14
-                LEFT JOIN
-                    general AS bolipuertos ON vehiculos.bolipuertos = bolipuertos.id_entidad AND bolipuertos.id_registro = 15
-                LEFT JOIN
-                    general AS gps ON vehiculos.gps = gps.id_entidad AND gps.id_registro = 16
-                LEFT JOIN
-                    general AS codigoMunicipio ON vehiculos.id_municipio = codigoMunicipio.id_entidad AND codigoMunicipio.id_registro = 8
                 "
             );
             $data = [];

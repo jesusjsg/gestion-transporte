@@ -22,29 +22,9 @@
                                 <th>Placa</th>
                                 <th>Tipo</th>
                                 <th>Propiedad</th>
-                                <th>Unidad</th>
                                 <th>Marca</th>
-                                <th>Modelo</th>
-                                <th>Año</th>
-                                <th>Serial C.</th>
-                                <th>Serial M.</th>
-                                <th>Ejes</th>
-                                <th>Carga</th>
                                 <th>Uso</th>
-                                <th>FV. Poliza</th>
-                                <th>FV. Racda</th>
-                                <th>FV. Sanitario</th>
-                                <th>FV. Rotc</th>
-                                <th>Fumigación</th>
-                                <th>Impuesto</th>
-                                <th>Bolipuertos</th>
-                                <th>GPS</th>
-                                <th>Link GPS</th>
                                 <th>Estatus</th>
-                                <th>Municipio</th>
-                                <th>SAP 1</th>
-                                <th>SAP 2</th>
-                                <th>SAP 3</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
