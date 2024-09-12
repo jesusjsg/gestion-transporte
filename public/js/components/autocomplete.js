@@ -1,4 +1,4 @@
-export function getPlaca(field, url){
+export function autocompletePlaca(field, url){
     $(field).autocomplete({
         source: function(request, response){
             $.ajax({
@@ -32,7 +32,7 @@ export function autocompleteMunicipio(inputName, url, hiddenInput){
                         return {
                             label: value.estado_nombre_municipio,
                             id: value.id_entidad,
-                            municipio: descripcion1
+                            municipio: value.descripcion1
                         }
                     })
                     response(suggestions)
@@ -45,9 +45,12 @@ export function autocompleteMunicipio(inputName, url, hiddenInput){
         select: function(event, ui){
             $(inputName).val(ui.item.label)
             $(hiddenInput).val(ui.item.id)
+            $(inputName).val(ui.item.municipio)
+            return false
         },
         focus: function(event, ui){
             $(inputName).val(ui.item.municipio)
+            return false
         }
     })
 }
