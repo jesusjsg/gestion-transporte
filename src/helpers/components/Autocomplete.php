@@ -9,7 +9,13 @@
     class Autocomplete extends mainModel{
 
         public function autocompleteSelect($idRegistro){
-            $fillOptions = $this->executeQuery("SELECT id_entidad, descripcion1 FROM general WHERE id_registro = $idRegistro AND id_entidad > 0");
+            $fillOptions = $this->executeQuery("
+                SELECT id_entidad, 
+                descripcion1 
+                FROM general 
+                WHERE id_registro = $idRegistro 
+                AND id_entidad > 0
+            ");
             $options = [];
             
             if($fillOptions->rowCount()>0){
@@ -23,7 +29,14 @@
         public function autocompletePlaca($term){
             $term = '%' . $term . '%';
 
-            $sql = "SELECT id_vehiculo FROM vehiculos WHERE id_vehiculo LIKE :term ORDER BY id_vehiculo ASC";
+            $sql = "
+                SELECT id_vehiculo 
+                FROM vehiculos 
+                WHERE estatus_vehiculo = 1
+                AND id_vehiculo
+                LIKE :term 
+                ORDER BY id_vehiculo ASC LIMIT 5
+            ";
             $suggetions = $this->executeQuery($sql, [':term' => $term]);
 
             $data = [];
@@ -40,8 +53,8 @@
             $term = '%' . $term . '%';
             $sql = "
                 SELECT id_entidad, 
-                CONCAT(descripcion1, ' | ', descripcion2, ' - ', descripcion3) AS estado_nombre_municipio,
-                descripcion1
+                descripcion1,
+                CONCAT(descripcion1, ' | ', descripcion2, ' - ', descripcion3) AS estado_nombre_municipio
                 FROM general 
                 WHERE id_registro = 8 
                 AND id_entidad > 0 
