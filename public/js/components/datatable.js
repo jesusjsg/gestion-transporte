@@ -1,4 +1,4 @@
-import { formAjaxHandler } from "../main.js"
+import { alertHandler } from "../alertMessages.js"
 
 export function getDatatable(fieldId, url, columns){
     $(fieldId).DataTable({
@@ -21,8 +21,8 @@ export function getDatatable(fieldId, url, columns){
             }
         },
         createdRow: function(row, data, dataIndex){
-            const form = row.querySelector(".form-ajax")
-            formAjaxHandler(form)
+            const form = row.querySelectorAll(".form-ajax")
+            alertHandler(form)
         },
         'ajax': {
             'url': url,
