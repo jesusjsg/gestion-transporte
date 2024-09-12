@@ -167,7 +167,7 @@ use src\models\uniqueModel;
 
             if($saveConductor->rowCount() == 1){
                 $alert = [
-                    'type' => 'clean',
+                    'type' => 'reload',
                     'icon' => 'success',
                     'title' => 'Registro exitoso',
                     'text' => 'El conductor '.ucwords($fullname).' ha sido registrado correctamente.',

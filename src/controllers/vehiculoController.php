@@ -31,10 +31,10 @@ use src\models\uniqueModel;
             $gps = $this->cleanString($_POST['gps']);
             $linkGps = $this->cleanString($_POST['link-gps']);
             $estatus = $this->cleanString($_POST['estatus-vehiculo']);
-            $municipio = $this->cleanString($_POST['municipio']);
+            $municipio = $this->cleanString($_POST['id-municipio']);
             $activoSapUno = $this->cleanString($_POST['activo-uno']);
             $activoSapDos = $this->cleanString($_POST['activo-dos']);
-            $activoSapTres = $this->cleanString($_POST['activos-tres']);
+            $activoSapTres = $this->cleanString($_POST['activo-tres']);
 
             // Validaciones de los campos de tipo texto
             if(empty($placa) || empty($tipoVehiculo) || empty($serialCarroceria) || empty($serialMotor) || empty($modelo)){
@@ -175,7 +175,7 @@ use src\models\uniqueModel;
                     'field_value' => $linkGps
                 ],
                 [
-                    'field_name_database' => 'estatus',
+                    'field_name_database' => 'estatus_vehiculo',
                     'field_name_form' => ':estatus',
                     'field_value' => $estatus
                 ],
@@ -185,17 +185,17 @@ use src\models\uniqueModel;
                     'field_value' => $municipio
                 ],
                 [
-                    'field_name_database' => 'Activo1',
+                    'field_name_database' => 'activo_uno',
                     'field_name_form' => ':sap1',
                     'field_value' => $activoSapUno
                 ],
                 [
-                    'field_name_database' => 'Activo2',
+                    'field_name_database' => 'activo_dos',
                     'field_name_form' => ':sap2',
                     'field_value' => $activoSapDos
                 ],
                 [
-                    'field_name_database' => 'Activo3',
+                    'field_name_database' => 'activo_tres',
                     'field_name_form' => ':sap3',
                     'field_value' => $activoSapTres
                 ]
@@ -205,7 +205,7 @@ use src\models\uniqueModel;
 
             if($saveVehiculo->rowCount() == 1){
                 $alert = [
-                    'type' => 'clean',
+                    'type' => 'reload',
                     'icon' => 'success',
                     'title' => 'Registro exitoso',
                     'text' => 'El vehículo ('.$placa.') se registró correctamente.',
@@ -269,6 +269,14 @@ use src\models\uniqueModel;
                             $row[$key] = '<span class="badge text-bg-secondary">No definido</span>';
                         }
                     }
+
+                    if($row['estatus_vehiculo'] == 1){
+                        $row['estatus_vehiculo'] = '<span class="badge bg-success text-bg-success">Activo</span>';
+
+                    }elseif($row['estatus_vehiculo'] == 2){
+                        $row['estatus_vehiculo'] = '<span class="badge bg-danger text-bg-danger">Inactivo</span>';
+                    }
+
                     $row['opciones'] = '
                         <form class="form-ajax d-inline" action="'.URL.'ajax/vehiculo" method="post" autocomplete="off">
                             <input type="hidden" name="model_vehiculo" value="delete" />
