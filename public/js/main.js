@@ -1,5 +1,7 @@
 import { getDatatable } from "./components/datatable.js";
-import { AJAX_TABLES } from "./apiAjax.js";
+import { autocompleteMunicipio, autocompletePlaca } from "./components/autocomplete.js";
+import { AJAX_TABLES, AJAX_AUTOCOMPLETE } from "./apiAjax.js";
+import { alertHandler } from "./alertMessages.js";
 
 
 const tableConductor = document.querySelector('#table-conductor')
@@ -7,9 +9,21 @@ const tableUsuario = document.querySelector('#table-usuario')
 const tableGeneral = document.querySelector('#table-general')
 const tableVehiculo = document.querySelector('#table-vehiculo')
 const tableRuta = document.querySelector('#table-ruta')
+const forms = document.querySelectorAll('.form-ajax')
+
+// autocomplete elements
+const origen = document.querySelector('#origen')
+const origenCode = document.querySelector('#codigo-origen')
+const destino = document.querySelector('#destino')
+const destinoCode = document.querySelector('#codigo-destino')
+const placaVehiculo = document.querySelector('#placa-vehiculo')
+const municipioCode = document.querySelector('#id-municipio')
+
 
 function main(){
     renderTables()
+    renderAutocomplete()
+    alertHandler(forms) // handle alert messages
 }
 
 function renderTables(){ // render all tables
@@ -18,6 +32,13 @@ function renderTables(){ // render all tables
     initGeneralTable()
     initVehiculoTable()
     initRutaTable()
+}
+
+function renderAutocomplete(){
+    autocompleteMunicipio(origen, AJAX_AUTOCOMPLETE.municipio, origenCode)
+    autocompleteMunicipio(destino, AJAX_AUTOCOMPLETE.municipio, destinoCode)
+    autocompleteMunicipio(origen, AJAX_AUTOCOMPLETE.municipio, municipioCode)
+    autocompletePlaca(placaVehiculo, AJAX_AUTOCOMPLETE.placaVehiculo)
 }
 
 function initConductorTable(){
@@ -49,7 +70,7 @@ function initGeneralTable(){
         {'data': 'descripcion2'},
         {'data': 'descripcion3'},
         {'data': 'valor', 'className':'dt-right'},
-        {'data': 'opciones'}
+        {'data': 'opciones', 'className':'dt-center'}
     ])
 }
 
@@ -60,8 +81,8 @@ function initVehiculoTable(){
         {'data': 'propiedad'},
         {'data': 'marca'},
         {'data': 'uso'},
-        {'data': 'estatus_vehiculo'},
-        {'data': 'opciones'}
+        {'data': 'estatus_vehiculo', 'className': 'dt-center'},
+        {'data': 'opciones', 'className': 'dt-center'}
     ])
 }
 
@@ -72,98 +93,13 @@ function initRutaTable(){
         {'data': 'origen'},
         {'data': 'destino'},
         {'data': 'kilometros'},
-        {'data': 'opciones'}
+        {'data': 'opciones', 'className': 'dt-center'}
     ])
 }
 
+
+function initAutocomplete(){
+
+}
+
 document.addEventListener('DOMContentLoaded', main)
-
-
-
-const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-        confirmButton: 'btn btn-success m-1',
-        cancelButton: 'btn btn-danger m-1'
-    },
-    buttonsStyling: false
-})
-
-export function formAjaxHandler(form){
-    /* const formAjax = document.querySelectorAll('.form-ajax')
-    formAjax.forEach(form => { */
-        form.addEventListener('submit', function(e){
-            e.preventDefault()
-    
-            swalWithBootstrapButtons.fire({
-                title: '¿Estás seguro?',
-                text: '¿Deseas realizar la siguiente operación?',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: "Sí, Aceptar",
-                cancelButtonText: "No, Cancelar",
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed){
-    
-                    let data = new FormData(this)
-                    let method = this.getAttribute('method')
-                    let action = this.getAttribute('action')
-        
-                    let headers = new Headers()
-        
-                    let config = {
-                        method: method,
-                        headers: headers,
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        body: data,
-                    }
-    
-                    fetch(action, config)
-                    .then(response => response.json())
-                    .then(response => {
-                        return alertsAjax(response)
-                    })
-                }
-    
-            })
-        })
-    //})
-}
-
-function alertsAjax(alert){
-    
-    if(alert.type == 'simple'){
-        swalWithBootstrapButtons.fire({
-            icon: alert.icon,
-            title: alert.title,
-            text: alert.text,
-            confirmButtonText: 'Aceptar'
-        })
-    } else if(alert.type == 'reload'){
-        swalWithBootstrapButtons.fire({
-            icon: alert.icon,
-            title: alert.title,
-            text: alert.text,
-            confirmButtonText: 'Aceptar',
-        }).then((result) => {
-            if(result.isConfirmed){
-                location.reload()
-            }
-        })
-    } else if(alert.type == 'clean'){
-        swalWithBootstrapButtons.fire({
-            icon: alert.icon,
-            title: alert.title,
-            text: alert.text,
-            showCancelButton: true,
-            confirmButtonText: 'Aceptar',
-        }).then((result) => {
-            if(result.isConfirmed){
-                document.querySelector('.form-ajax').reset()
-            }
-        })
-    } else if(alert.type == 'redirect'){
-        window.location.href = alert.url
-    }
-}
