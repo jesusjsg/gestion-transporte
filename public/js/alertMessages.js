@@ -6,30 +6,76 @@ const swalWithBootstrapButtons = Swal.mixin({
     buttonsStyling: false
 })
 
-export function confirmAlert(type, values){
-    switch(type){
-        case 'reload':
-            alertMessages({
-                ...values,
-                confirmButton: true,
-                confirmButtonText: 'Aceptar'
+export function alertHandler(form){
+    form.forEach(form => {
+        form.addEventListener("submit", function(event){
+            event.preventDefault()
+
+            swalWithBootstrapButtons.fire({
+                icon: 'question',
+                title: '¿Estás seguro?',
+                text: '¿Deseas realizar la siguiente operación?',
+                showCancelButton: true,
+                confirmButtonText: "Sí, Aceptar",
+                cancelButtonText: "No, Cancelar",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed){
+                    let data = new FormData(this)
+                    let method = this.getAttribute('method')
+                    let action = this.getAttribute('action')
+
+                    let config = configHeaders(method, action, data)
+
+                    fetch(config.action, config)
+                    .then(response => response.json())
+                    .then(response => {
+                        return alertSimple(response)
+                    })
+                }
             })
-        break
-        case 'simple':
-            alertMessages({
-                ...values,
-                confirmButton: true,
-                confirmButtonText: 'Aceptar'
-            })
-        break
+        })
+    });
+}
+
+function configHeaders(method, action, data){
+    let headers = new Headers()
+
+    return {
+        method: method,
+        headers: headers,
+        mode: 'cors',
+        cache: 'no-cache',
+        body: data,
+        action: action
     }
 }
 
-export function alertMessages({icon, title, text, ...others}){
-    return swalWithBootstrapButtons.fire({
-        icon: icon,
-        title: title,
-        text: text,
-        ...others
-    })
+function alertSimple(alert){
+
+    if(!alert || !alert.type || !alert.title || !alert.icon || !alert.text){
+        console.error('Alert object is missing required properties')
+        return
+    }
+
+    const configAlert = {
+        icon: alert.icon,
+        title: alert.title,
+        text: alert.text,
+        confirmButtonText: 'Aceptar'
+    }
+
+    switch(alert.type){
+        case 'simple':
+            swalWithBootstrapButtons.fire(configAlert)
+            break
+        case 'reload':
+            swalWithBootstrapButtons.fire(configAlert)
+            .then((result) => {
+                if(result.isConfirmed){
+                    location.reload()
+                }
+            })
+            break
+    }
 }
