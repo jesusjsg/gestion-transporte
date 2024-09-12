@@ -9,9 +9,9 @@ export const AJAX_TABLES = {
 
 export const AJAX_AUTOCOMPLETE = {
     cliente: 'http://localhost/gestion-transporte/ajax/viaje?action=get_cliente',
-    municipio: 'http://localhost/gestion-transporte/ajax/viaje?action=get_municipio',
+    municipio: 'http://localhost/gestion-transporte/ajax/ruta?action=get_municipio',
     conductor: 'http://localhost/gestion-transporte/ajax/viaje?action=get_conductor',
-    placaVehiculo: 'http://localhost/gestion-transporte/ajax/viaje?action=get_placa',
+    placaVehiculo: 'http://localhost/gestion-transporte/ajax/conductor?action=get_placa',
 }
 
 export const AJAX_KILOMETERS = {
