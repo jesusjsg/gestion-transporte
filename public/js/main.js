@@ -1,9 +1,10 @@
 import { getDatatable } from "./components/datatable.js";
 import { autocompleteMunicipio, autocompletePlaca } from "./components/autocomplete.js";
 import { AJAX_TABLES, AJAX_AUTOCOMPLETE } from "./apiAjax.js";
-import { alertHandler } from "./alertMessages.js";
+import { alertHandler, alertSimple } from "./alertMessages.js";
+import { getWeekends } from "./weekends.js";
 
-
+// table elements
 const tableConductor = document.querySelector('#table-conductor')
 const tableUsuario = document.querySelector('#table-usuario')
 const tableGeneral = document.querySelector('#table-general')
@@ -17,13 +18,23 @@ const origenCode = document.querySelector('#codigo-origen')
 const destino = document.querySelector('#destino')
 const destinoCode = document.querySelector('#codigo-destino')
 const placaVehiculo = document.querySelector('#placa-vehiculo')
-const municipioCode = document.querySelector('#id-municipio')
+const municipioCode = document.querySelector('#id-municipio') // input para el municipio del vehiculo
+
+//date elements
+const startDate = document.querySelector('#fecha-inicio')
+const endDate = document.querySelector('#fecha-cierre')
+const countSaturdays = document.querySelector('#cantidad-sabados')
+const countSundays = document.querySelector('#cantidad-domingos')
+
 
 
 function main(){
     renderTables()
     renderAutocomplete()
     alertHandler(forms) // handle alert messages
+
+    startDate?.addEventListener('change', calculateWeekends)
+    endDate?.addEventListener('change', calculateWeekends)
 }
 
 function renderTables(){ // render all tables
@@ -35,10 +46,17 @@ function renderTables(){ // render all tables
 }
 
 function renderAutocomplete(){
-    autocompleteMunicipio(origen, AJAX_AUTOCOMPLETE.municipio, origenCode)
-    autocompleteMunicipio(destino, AJAX_AUTOCOMPLETE.municipio, destinoCode)
-    autocompleteMunicipio(origen, AJAX_AUTOCOMPLETE.municipio, municipioCode)
-    autocompletePlaca(placaVehiculo, AJAX_AUTOCOMPLETE.placaVehiculo)
+    autocompleteMunicipio({
+        inputName: origen,
+        ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
+        hiddenInput: origenCode,
+    })
+
+    autocompleteMunicipio({
+        inputName: destino,
+        ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
+        hiddenInput: destinoCode
+    })
 }
 
 function initConductorTable(){
@@ -97,9 +115,33 @@ function initRutaTable(){
     ])
 }
 
+function calculateWeekends(){
+    const start = dayjs(startDate.value)
+    const end = dayjs(endDate.value)
 
-function initAutocomplete(){
+    if(start & end){
+        if(start.isBefore(end) || start.isSame(end)){
+            const weekends = getWeekends({
+                startDate: start,
+                endDate: end,
+            })
 
+            const totalSaturdays = weekends.filter(date => dayjs(date).day() === 6).length
+
+            const totalSundays = weekends.filter(date => dayjs(date).day() === 0).length
+
+            countSaturdays.value = totalSaturdays
+            countSundays.value = totalSundays
+        }else{
+            const alertInfo = {
+                type: 'simple',
+                icon: 'error',
+                title: 'Ocurrió un error',
+                text: 'La fecha de inicio debe ser anterior a la fecha de cierre.'
+            }
+            alertSimple(alertInfo)
+        }
+    }
 }
 
 document.addEventListener('DOMContentLoaded', main)
