@@ -1,9 +1,9 @@
-export function autocompletePlaca(field, url){
-    $(field).autocomplete({
+export function autocompletePlaca(inputName, url){
+    $(inputName).autocomplete({
         source: function(request, response){
             $.ajax({
                 url: url,
-                type: 'GET',
+                type: 'get',
                 dataType: 'json',
                 data:{
                     term: request.term
@@ -11,30 +11,31 @@ export function autocompletePlaca(field, url){
                 success: function(data){
                     console.log(data)
                     response(data)
+                },
+                error: function(xhr, status, error){
+                    console.error('Ajax error: ', status, error)
                 }
             })
         }
     })
 }
 
-export function autocompleteMunicipio(inputName, url, hiddenInput){
+export function autocompleteMunicipio({inputName, ajaxUrl, hiddenInput}){
     $(inputName).autocomplete({
         source: function(request, response){
             $.ajax({
-                url: url,
+                url: ajaxUrl,
                 type: 'get',
                 dataType: 'json',
                 data: {
                     term: request.term
                 },
                 success: function(data){
-                    const suggestions = $.map(data, function(value){
-                        return {
-                            label: value.estado_nombre_municipio,
-                            id: value.id_entidad,
-                            municipio: value.descripcion1
-                        }
-                    })
+                    const suggestions = data.map(value => ({
+                        label: value.estado_nombre_municipio,
+                        id: value.id_entidad,
+                        municipio: value.descripcion1
+                    }))
                     response(suggestions)
                 },
                 error: function(xhr, status, error){
@@ -66,13 +67,14 @@ export function autocompleteCliente(inputName, url, hiddenInput){
                     term: request.term
                 },
                 success: function(data){
-                    const suggestions = $.map(data, function(value){
-                        return {
-                            label: value.descripcion1,
-                            id: value.id_entidad
-                        }
-                    })
+                    const suggestions = data.map(value => ({
+                        label: value.descripcion1,
+                        id: value.id_entidad,
+                    }))
                     response(suggestions)
+                },
+                error: function(xhr, status, error){
+                    console.error('Ajax error: ', status, error)
                 }
             })
         },
@@ -84,9 +86,11 @@ export function autocompleteCliente(inputName, url, hiddenInput){
             $(inputName).val(ui.item.label)
         }
     })
-    if($(inputName).val() === ''){
-        $(hiddenInput).val('')
-    }
+    $(inputName).on('input', function(){
+        if($(this).val() === ''){
+            $(hiddenInput).val('')
+        }
+    })
 }
 
 export function autocompleteConductor(inputName, url, ...other){
@@ -100,14 +104,15 @@ export function autocompleteConductor(inputName, url, ...other){
                     term: request.term
                 },
                 success: function(data){
-                    const suggestions = $.map(data, function(value){
-                        return {
-                            label: value.nombre_conductor,
-                            id: value.id_conductor,
-                            placa: value.id_vehiculo
-                        }
-                    })
+                    const suggestions = data.map(value => ({
+                        label: nombre_conductor,
+                        id: value.id_conductor,
+                        placa: value.id_vehiculo,
+                    }))
                     response(suggestions)
+                },
+                error: function(xhr, status, error){
+                    console.error('Ajax error: ', status, error)
                 }
             })
         },
