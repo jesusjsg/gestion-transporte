@@ -1,15 +1,14 @@
-export function autocompletePlaca(inputName, url){
+export function autocompletePlaca(inputName, ajaxUrl){
     $(inputName).autocomplete({
         source: function(request, response){
             $.ajax({
-                url: url,
+                url: ajaxUrl,
                 type: 'get',
                 dataType: 'json',
                 data:{
                     term: request.term
                 },
                 success: function(data){
-                    console.log(data)
                     response(data)
                 },
                 error: function(xhr, status, error){
@@ -56,11 +55,11 @@ export function autocompleteMunicipio({inputName, ajaxUrl, hiddenInput}){
     })
 }
 
-export function autocompleteCliente(inputName, url, hiddenInput){
+export function autocompleteCliente({inputName, ajaxUrl, hiddenInput}){
     $(inputName).autocomplete({
         source: function(request, response){
             $.ajax({
-                url: url,
+                url: ajaxUrl,
                 type: 'get',
                 dataType: 'json',
                 data: {
@@ -105,7 +104,7 @@ export function autocompleteConductor(inputName, url, ...other){
                 },
                 success: function(data){
                     const suggestions = data.map(value => ({
-                        label: nombre_conductor,
+                        label: value.nombre_conductor,
                         id: value.id_conductor,
                         placa: value.id_vehiculo,
                     }))
@@ -130,6 +129,14 @@ export function autocompleteConductor(inputName, url, ...other){
             if(other.length > 1){
                 $(other[1]).val(ui.item.placa)
             }
+        }
+    })
+
+    $(inputName).on('input', function(){
+        if($(this).val() === ''){
+            other.forEach(input => {
+                $(input).val('')
+            })
         }
     })
 }
