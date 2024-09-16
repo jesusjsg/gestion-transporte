@@ -25,7 +25,7 @@
                 </div>
                 <div class="tile-footer"></div>
                 <input type="hidden" id="ficha-conductor" />
-                <input type="hidden" id="id-cliente" />
+                <input type="hidden" id="codigo-cliente" />
                 <input type="hidden" id="id-origen" />
                 <input type="hidden" id="id-destino" />
                 <input type="hidden" id="tasa-cambio" value="37.5" />
