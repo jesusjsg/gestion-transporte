@@ -3,6 +3,9 @@
 ?>
 <body class="app sidebar-mini">
     <header class="app-header">
+        <a href="<?= URL; ?>home/" class="app-header__logo">
+            <img src="<?= URL;?>public/img/main/logo-header.webp" alt="logo header" class="logo-header" />
+        </a>
         <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="hide sidebar"></a>
         <ul class="app-nav">
             <div class="app-nav__item user-select-none align-items-center">
