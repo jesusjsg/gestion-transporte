@@ -21,6 +21,8 @@
                         })
                     </script>
                 ";
+                return false;
+
             } else{
                 $check_user = $this->executeQuery("SELECT * FROM usuarios WHERE nombre_usuario = '$username'");
 
@@ -31,9 +33,7 @@
                         $_SESSION['id'] = $check_user['id_usuario'];
                         $_SESSION['name'] = $check_user['nombre_apellido'];
                         $_SESSION['username'] = $check_user['nombre_usuario'];
-                        
-                        header('Location: ' . URL . "home/");
-                        exit; // Asegurarse de que no se ejecute más código después de redirigir
+                        return true;
                     }else{
                         echo "
                             <script>
@@ -45,6 +45,7 @@
                                 })
                             </script>
                         ";
+                        return false;
                     }
                 }else{
                     echo "
@@ -57,6 +58,7 @@
                             })
                         </script>
                     ";
+                    return false;
                 }
             }
         }
