@@ -18,10 +18,7 @@ $login = new loginController();
 $viewsController = new viewsController();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    
-    if ($login->loginSesion($username, $password)) {
+    if ($login->loginSesion()) {
         header("Location: " . URL . 'home/');
         exit();
     } else {
@@ -41,7 +38,7 @@ if (isset($_GET['views'])) {
 $viewPath = $viewsController->getViewsController($folder, $view);
 
 // Verificar si el usuario está autenticado para las vistas protegidas
-if ($viewPath != "./src/views/auth/login.php" && !isset($_SESSION['user'])) {
+if ($viewPath != "./src/views/auth/login.php" && !isset($_SESSION['username'])) {
     header("Location: " . URL);
     exit();
 }
