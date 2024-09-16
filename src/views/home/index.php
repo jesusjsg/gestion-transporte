@@ -1,3 +1,22 @@
+<?php
+
+    use src\controllers\conductorController;
+    use src\controllers\viajeController;
+    use src\controllers\rutaController;
+    use src\controllers\vehiculoController;
+
+    $conductorController = new conductorController;
+    $viajeController = new viajeController;
+    $rutaController = new rutaController;
+    $vehiculoController = new vehiculoController;
+
+    $totalConductores = $conductorController->totalConductores();
+    $totalViajes = $viajeController->totalViajes();
+    $totalRutas = $rutaController->totalRutas();
+    $totalVehiculos = $vehiculoController->totalVehiculos()
+
+?>
+
 <main class="app-content">
     <div class="app-title">
         <div>
@@ -18,7 +37,7 @@
                                     <strong>Nro. de viajes</strong>
                                 </div>
                                 <div class="h5 mb-0 font-wight-bold text-gray-800">
-                                    <?= 50 ;?> <!--Aca iran los totales de cada vista-->
+                                    <?= $totalViajes; ?>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -39,7 +58,7 @@
                                     <strong>Nro. de conductores</strong>
                                 </div>
                                 <div class="h5 mb-0 font-wight-bold text-gray-800">
-                                    <!--Aca iran los totales de cada vista-->
+                                    <?= $totalConductores; ?>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -60,7 +79,7 @@
                                     <strong>Nro. de vehiculos</strong>
                                 </div>
                                 <div class="h5 mb-0 font-wight-bold text-gray-800">
-                                    <!--Aca iran los totales de cada vista-->
+                                    <?= $totalVehiculos; ?>
                                 </div>
                             </div>
                             <div class="col-auto">
@@ -81,7 +100,7 @@
                                     <strong>Nro. de rutas</strong>
                                 </div>
                                 <div class="h5 mb-0 font-wight-bold text-gray-800">
-                                    <!--Aca iran los totales de cada vista-->
+                                    <?= $totalRutas; ?>
                                 </div>
                             </div>
                             <div class="col-auto">
