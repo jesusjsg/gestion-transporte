@@ -19,10 +19,10 @@
                     <table class="table table-striped table-hover" id="table-viaje" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th>Viaje</th>
                                 <th>Ficha</th>
                                 <th>Placa</th>
                                 <th>Operación</th>
+                                <th>Carga</th>
                                 <th>Aviso</th>
                                 <th>Cliente</th>
                                 <th>Ruta</th>
@@ -31,13 +31,9 @@
                                 <th>Sabados</th>
                                 <th>Domingos</th>
                                 <th>Feriados</th>
-                                <th>Tasa</th>
-                                <th>Monto USD</th>
-                                <th>Monto VES</th>
-                                <th>Origen</th>
-                                <th>Destino</th>
-                                <th>Nómina</th>
-                                <th>Kilometros</th>
+                                <th>USD</th>
+                                <th>VES</th>
+                                <th>KM</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
