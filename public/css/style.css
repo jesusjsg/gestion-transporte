@@ -1,20 +1,23 @@
-.app .app .app-nav, .app .app-header{
-    background: #222d32 !important
-}
-.app .app-header__logo{
-    background: #222d32
-}
-
-.app .app-header__logo{
-    font-family: 'Nunito Sans', sans-serif;
-}
-
 img {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
     border-radius: 8px;
+}
+.app .app .app-nav, .app .app-header{
+    background: #212529 !important
+}
+.app .app-header__logo{
+    background: #212529
+}
+
+.app .app-header__logo{
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.app-sidebar {
+    background-color: #252a2e;
 }
 
 .app-menu__item.active, .app-menu__item:hover, .app-menu__item:focus {
@@ -35,13 +38,6 @@ img {
     background-color: #0d1214;
     text-decoration: none;
 }
-
-/* ul.ui-autocomplete {
-    z-index: 1100;
-    max-height: 200px;
-    overflow-y: auto;
-
-} */
 
 .card-hover:hover {
     background-color: rgba(25, 255, 255, 0.8);
@@ -86,4 +82,12 @@ img {
 .block-input{
     cursor: not-allowed;
     background-color: #c5c1c1;
+}
+
+.logo-header{
+    width: 6rem;
+    height: 3rem;
+    padding-top: 0.1rem;
+    justify-content: center;
+    align-items: center;
 }
