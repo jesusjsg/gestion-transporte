@@ -7,6 +7,7 @@ import { getWeekends } from "./weekends.js";
 const forms = document.querySelectorAll('.form-ajax')
 
 // table elements
+const tableViaje = document.querySelector('#table-viaje')
 const tableConductor = document.querySelector('#table-conductor')
 const tableUsuario = document.querySelector('#table-usuario')
 const tableGeneral = document.querySelector('#table-general')
@@ -52,6 +53,7 @@ function renderTables(){ // render all tables
     initGeneralTable()
     initVehiculoTable()
     initRutaTable()
+    initViajeTable()
 }
 
 function renderAutocomplete(){
@@ -76,6 +78,35 @@ function renderAutocomplete(){
         ajaxUrl: AJAX_AUTOCOMPLETE.cliente,
         hiddenInput: clienteCode,
     })
+}
+
+function calculateWeekends(){
+    const start = dayjs(startDate.value)
+    const end = dayjs(endDate.value)
+
+    if(start & end){
+        if(start.isBefore(end) || start.isSame(end)){
+            const weekends = getWeekends({
+                startDate: start,
+                endDate: end,
+            })
+
+            const totalSaturdays = weekends.filter(date => dayjs(date).day() === 6).length
+
+            const totalSundays = weekends.filter(date => dayjs(date).day() === 0).length
+
+            countSaturdays.value = totalSaturdays
+            countSundays.value = totalSundays
+        }else{
+            const alertInfo = {
+                type: 'simple',
+                icon: 'error',
+                title: 'Ocurrió un error',
+                text: 'La fecha de inicio debe ser anterior a la fecha de cierre.'
+            }
+            alertSimple(alertInfo)
+        }
+    }
 }
 
 function initConductorTable(){
@@ -134,33 +165,25 @@ function initRutaTable(){
     ])
 }
 
-function calculateWeekends(){
-    const start = dayjs(startDate.value)
-    const end = dayjs(endDate.value)
-
-    if(start & end){
-        if(start.isBefore(end) || start.isSame(end)){
-            const weekends = getWeekends({
-                startDate: start,
-                endDate: end,
-            })
-
-            const totalSaturdays = weekends.filter(date => dayjs(date).day() === 6).length
-
-            const totalSundays = weekends.filter(date => dayjs(date).day() === 0).length
-
-            countSaturdays.value = totalSaturdays
-            countSundays.value = totalSundays
-        }else{
-            const alertInfo = {
-                type: 'simple',
-                icon: 'error',
-                title: 'Ocurrió un error',
-                text: 'La fecha de inicio debe ser anterior a la fecha de cierre.'
-            }
-            alertSimple(alertInfo)
-        }
-    }
+function initViajeTable(){
+    getDatatable(tableViaje, AJAX_TABLES.viaje, [
+        {'data': 'id_conductor'},
+        {'data': 'id_vehiculo'},
+        {'data': 'id_tipo_operacion'},
+        {'data': 'id_tipo_carga'},
+        {'data': 'aviso'},
+        {'data': 'id_cliente'},
+        {'data': 'nombre_ruta'},
+        {'data': 'fecha_inicio'},
+        {'data': 'fecha_cierre'},
+        {'data': 'sabados'},
+        {'data': 'domingos'},
+        {'data': 'feriados'},
+        {'data': 'monto_usd'},
+        {'data': 'monto_ves'},
+        {'data': 'total_kilometros'},
+        {'data': 'opciones', 'className': 'dt-center'}
+    ])
 }
 
 document.addEventListener('DOMContentLoaded', main)
