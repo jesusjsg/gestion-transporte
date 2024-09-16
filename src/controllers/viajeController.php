@@ -171,7 +171,23 @@
         public function tableViaje(){
 
             $getTableViaje = $this->executeQuery(
-                "SELECT viajes.*,
+                "SELECT
+                    viajes.id_viaje,
+                    viajes.id_conductor,
+                    viajes.id_vehiculo,
+                    viajes.id_tipo_operacion,
+                    viajes.id_tipo_carga,
+                    viajes.aviso,
+                    viajes.id_cliente,
+                    viajes.id_ruta,
+                    viajes.fecha_inicio,
+                    viajes.fecha_cierre,
+                    viajes.sabados,
+                    viajes.domingos,
+                    viajes.feriados,
+                    viajes.monto_usd,
+                    viajes.monto_ves,
+                    viajes.total_kilometros,
                     tipoOperacion.descripcion1 AS tipoOperacion,
                     tipoCarga.descripcion1 AS tipoCarga,
                     idCliente.descripcion1 AS idCliente
@@ -182,6 +198,8 @@
                     general AS tipoCarga ON viajes.id_tipo_carga = tipoCarga.id_entidad AND tipoCarga.id_registro = 4
                 LEFT JOIN
                     general AS idCliente ON viajes.id_cliente = idCliente.id_entidad AND idCliente.id_registro = 7
+                LEFT JOIN
+                    rutas ON viajes.id_ruta = rutas.id_ruta
                 "
             );
             $data = [];
