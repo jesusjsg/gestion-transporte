@@ -1,8 +1,10 @@
 import { getDatatable } from "./components/datatable.js";
-import { autocompleteMunicipio, autocompletePlaca } from "./components/autocomplete.js";
+import { autocompleteCliente, autocompleteConductor, autocompleteMunicipio, autocompletePlaca } from "./components/autocomplete.js";
 import { AJAX_TABLES, AJAX_AUTOCOMPLETE } from "./apiAjax.js";
-import { alertHandler, alertSimple } from "./alertMessages.js";
+import { alertHandler ,alertSimple } from "./alertMessages.js";
 import { getWeekends } from "./weekends.js";
+
+const forms = document.querySelectorAll('.form-ajax')
 
 // table elements
 const tableConductor = document.querySelector('#table-conductor')
@@ -10,15 +12,21 @@ const tableUsuario = document.querySelector('#table-usuario')
 const tableGeneral = document.querySelector('#table-general')
 const tableVehiculo = document.querySelector('#table-vehiculo')
 const tableRuta = document.querySelector('#table-ruta')
-const forms = document.querySelectorAll('.form-ajax')
 
-// autocomplete elements
+// autocomplete municipio elements
 const origen = document.querySelector('#origen')
 const origenCode = document.querySelector('#codigo-origen')
 const destino = document.querySelector('#destino')
 const destinoCode = document.querySelector('#codigo-destino')
-const placaVehiculo = document.querySelector('#placa-vehiculo')
-const municipioCode = document.querySelector('#id-municipio') // input para el municipio del vehiculo
+
+//autocomplete conductor elements
+const conductor = document.querySelector('#nombre-conductor')
+const conductorCode = document.querySelector('#ficha-conductor')
+const vehiculo = document.querySelector('#placa-vehiculo')
+
+// autocomplete cliente elements
+const cliente = document.querySelector('#cliente')
+const clienteCode = document.querySelector('#codigo-cliente')
 
 //date elements
 const startDate = document.querySelector('#fecha-inicio')
@@ -28,10 +36,11 @@ const countSundays = document.querySelector('#cantidad-domingos')
 
 
 
+
 function main(){
+    alertHandler(forms) // handle alert messages
     renderTables()
     renderAutocomplete()
-    alertHandler(forms) // handle alert messages
 
     startDate?.addEventListener('change', calculateWeekends)
     endDate?.addEventListener('change', calculateWeekends)
@@ -46,6 +55,10 @@ function renderTables(){ // render all tables
 }
 
 function renderAutocomplete(){
+
+    autocompletePlaca(vehiculo, AJAX_AUTOCOMPLETE.placaVehiculo)
+    autocompleteConductor(conductor, AJAX_AUTOCOMPLETE.conductor, conductorCode, vehiculo)
+
     autocompleteMunicipio({
         inputName: origen,
         ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
@@ -55,7 +68,13 @@ function renderAutocomplete(){
     autocompleteMunicipio({
         inputName: destino,
         ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
-        hiddenInput: destinoCode
+        hiddenInput: destinoCode,
+    })
+
+    autocompleteCliente({
+        inputName: cliente,
+        ajaxUrl: AJAX_AUTOCOMPLETE.cliente,
+        hiddenInput: clienteCode,
     })
 }
 
