@@ -6,8 +6,8 @@ const swalWithBootstrapButtons = Swal.mixin({
     buttonsStyling: false
 })
 
-export function alertHandler(form){
-    form.forEach(form => {
+export function alertHandler(forms){
+    forms.forEach(form => {
         form.addEventListener("submit", function(event){
             event.preventDefault()
 
@@ -28,9 +28,22 @@ export function alertHandler(form){
                     let config = configHeaders(method, action, data)
 
                     fetch(config.action, config)
-                    .then(response => response.json())
+                    .then(response => {
+                        if(!response.ok){
+                            throw new Error('Network response was not ok')
+                        }
+                        return response.json()
+                    })
                     .then(response => {
                         return alertSimple(response)
+                    })
+                    .catch(error => {
+                        console.error('Hubo un problema con el fetch: ', error)
+                        swalWithBootstrapButtons.fire({
+                            icon: 'error',
+                            title: 'Ocurrió un error',
+                            text: 'Hubo un problema al procesar la solicitud.'
+                        })
                     })
                 }
             })
@@ -51,7 +64,7 @@ function configHeaders(method, action, data){
     }
 }
 
-function alertSimple(alert){
+export function alertSimple(alert){
 
     if(!alert || !alert.type || !alert.title || !alert.icon || !alert.text){
         console.error('Alert object is missing required properties')
