@@ -276,5 +276,11 @@ use src\models\uniqueModel;
             }
             return json_encode($alert);
         }
+
+        public function totalConductores(){
+            $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM conductores");
+            $totalConductores = $sql->fetchColumn();
+            return $totalConductores;
+        }
         
     }

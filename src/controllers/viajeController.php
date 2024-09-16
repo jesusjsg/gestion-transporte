@@ -179,7 +179,7 @@
                     viajes.id_tipo_carga,
                     viajes.aviso,
                     viajes.id_cliente,
-                    viajes.id_ruta,
+                    ruta.nombre_ruta,
                     viajes.fecha_inicio,
                     viajes.fecha_cierre,
                     viajes.sabados,
@@ -188,18 +188,18 @@
                     viajes.monto_usd,
                     viajes.monto_ves,
                     viajes.total_kilometros,
-                    tipoOperacion.descripcion1 AS tipoOperacion,
-                    tipoCarga.descripcion1 AS tipoCarga,
-                    idCliente.descripcion1 AS idCliente
+                    id_operacion.descripcion1 AS id_tipo_operacion,
+                    id_carga.descripcion1 AS id_tipo_carga,
+                    cliente.descripcion1 AS id_cliente
                 FROM viajes
                 LEFT JOIN
-                    general AS tipoOperacion ON viajes.id_tipo_operacion = tipoOperacion.id_entidad AND tipoOperacion.id_registro = 3
+                    general AS id_operacion ON viajes.id_tipo_operacion = id_operacion.id_entidad AND id_operacion.id_registro = 3
                 LEFT JOIN
-                    general AS tipoCarga ON viajes.id_tipo_carga = tipoCarga.id_entidad AND tipoCarga.id_registro = 4
+                    general AS id_carga ON viajes.id_tipo_carga = id_carga.id_entidad AND id_carga.id_registro = 4
                 LEFT JOIN
-                    general AS idCliente ON viajes.id_cliente = idCliente.id_entidad AND idCliente.id_registro = 7
-                LEFT JOIN
-                    rutas ON viajes.id_ruta = rutas.id_ruta
+                    general AS cliente ON viajes.id_cliente = cliente.id_entidad AND cliente.id_registro = 7
+                INNER JOIN
+                    rutas AS ruta ON viajes.id_ruta = ruta.id_ruta
                 "
             );
             $data = [];
@@ -239,4 +239,10 @@
         public function updateViaje(){}
 
         public function deleteViaje(){}
+
+        public function totalViajes(){
+            $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM viajes");
+            $totalViajes = $sql->fetchColumn();
+            return $totalViajes;
+        }
     }

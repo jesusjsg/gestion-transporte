@@ -173,4 +173,10 @@
             }
             return $values;
         }
+
+        public function totalRutas(){
+            $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM rutas");
+            $totalRutas = $sql->fetchColumn();
+            return $totalRutas;
+        }
     }

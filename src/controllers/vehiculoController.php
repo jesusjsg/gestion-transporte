@@ -329,4 +329,10 @@ use src\models\uniqueModel;
             return json_encode($alert);
         }
 
+        public function totalVehiculos(){
+            $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM vehiculos");
+            $totalVehiculos = $sql->fetchColumn();
+            return $totalVehiculos;
+        }
+
     }
