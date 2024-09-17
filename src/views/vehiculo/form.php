@@ -25,7 +25,11 @@
 
 <main class="app-content">
     <div class="app-title align-items-center">
-        <a class="text-decoration-none btn btn-secondary btn-sm" href="<?= URL; ?>vehiculo/"><i class="bi bi-box-arrow-left me-1"></i>Salir</a>
+        <h1 class="fw-light mb-3"><i class="bi bi-car-front-fill me-2"></i>Agregar vehículo</h1>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="bi bi-car-front-fill"></i></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="<?=URL;?>vehiculo/">Vehículos registrados</a></li>
+        </ul>
     </div>
     <div class="tile">
         <div class="tile-body">

@@ -11,7 +11,11 @@ $tipoNomina = $autocomplete->autocompleteSelect($registros['nominas']);
 
 <main class="app-content">
     <div class="app-title align-items-center">
-        <a class="text-decoration-none btn btn-secondary btn-sm" href="<?=URL;?>conductor/"><i class="bi bi-box-arrow-left me-1"></i>Salir</a>
+        <h1 class="fw-light mb-3"><i class="bi bi-people-fill me-2"></i>Agregar conductor</h1>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="bi bi-people-fill"></i></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="<?=URL;?>conductor/">Conductores registrados</a></li>
+        </ul>
     </div>
     <div class="tile">
         <div class="tile-body">

@@ -6,7 +6,11 @@
 
 <main class="app-content">
     <div class="app-title align-items-center">
-    <h1 class="fw-light mb-4"><i class="bi bi-people-fill me-2"></i>Agregar usuario</h1>
+        <h1 class="fw-light mb-3"><i class="bi bi-people-fill me-2"></i>Agregar usuario</h1>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="bi bi-people-fill"></i></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="<?=URL;?>usuario/">Usuarios registrados</a></li>
+        </ul>
     </div>
     <div class="tile">
         <div class="tile-body">

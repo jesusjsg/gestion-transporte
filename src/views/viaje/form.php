@@ -1,24 +1,28 @@
 <?php
-    use src\helpers\components\Autocomplete;
-    $autocomplete = new Autocomplete();
+use src\helpers\components\Autocomplete;
+$autocomplete = new Autocomplete();
 
-    $registros = [
-        'tipoOperacion' => 3,
-        'tipoCarga' => 4,
-    ];
+$registros = [
+    'tipoOperacion' => 3,
+    'tipoCarga' => 4,
+];
 
-    $tipoOperacion = $autocomplete->autocompleteSelect($registros['tipoOperacion']);
-    $tipocarga = $autocomplete->autocompleteSelect($registros['tipoCarga']);
+$tipoOperacion = $autocomplete->autocompleteSelect($registros['tipoOperacion']);
+$tipocarga = $autocomplete->autocompleteSelect($registros['tipoCarga']);
 
 ?>
 
 <main class="app-content">
     <div class="app-title align-items-center">
         <h1 class="fw-light mb-3"><i class="bi bi-cursor-fill me-2"></i>Agregar viaje</h1>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><i class="bi bi-cursor-fill"></i></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="<?=URL;?>viaje/">Viajes registrados</a></li>
+        </ul>
     </div>
     <div class="tile">
         <div class="tile-body">
-            <form class="row g-3 form-ajax" action="<?= URL; ?>ajax/viaje" method="post" autocapitalize="off">
+            <form class="row g-3 form-ajax" action="<?=URL;?>ajax/viaje" method="post" autocapitalize="off">
                 <div class="d-grip gap-2 d-md-flex justify-content-end">
                     <button type="reset" class="btn btn-primary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
                     <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
@@ -42,11 +46,11 @@
                     <select name="tipo-operacion" id="tipo-operacion" class="form-select">
                         <option disabled selected>Tipo de operación</option>
                         <?php
-                            if(!empty($tipoOperacion)){
-                                foreach($tipoOperacion as $key){
-                                    echo '<option value="'.$key['id_entidad'].'">'.$key['descripcion1'].'</option>';
+                            if (!empty($tipoOperacion)) {
+                                foreach ($tipoOperacion as $key) {
+                                    echo '<option value="' . $key['id_entidad'] . '">' . $key['descripcion1'] . '</option>';
                                 }
-                            }else{
+                            } else {
                                 echo '<option disabled>No hay datos registrados</option>';
                             }
                         ?>
@@ -57,11 +61,11 @@
                     <select name="tipo-carga" id="tipo-carga" class="form-select">
                         <option disabled selected>Tipo de carga</option>
                         <?php
-                            if(!empty($tipocarga)){
-                                foreach($tipocarga as $key){
-                                    echo '<option value="'.$key['id_entidad'].'">'.$key['descripcion1'].'</option>';
+                            if (!empty($tipocarga)) {
+                                foreach ($tipocarga as $key) {
+                                    echo '<option value="' . $key['id_entidad'] . '">' . $key['descripcion1'] . '</option>';
                                 }
-                            }else{
+                            } else {
                                 echo '<option disabled>No hay datos registrados</option>';
                             }
                         ?>
@@ -89,23 +93,23 @@
                 </div>
                 <div class="col-md-1">
                     <label for="cantidad-sabados" class="form-label">Sábados</label>
-                    <input type="text" class="form-control" id="cantidad-sabados" />
+                    <input type="text" class="form-control block-input" id="cantidad-sabados" disabled/>
                 </div>
                 <div class="col-md-1">
                     <label for="cantidad-domingos" class="form-label">Domingos</label>
-                    <input type="text" class="form-control" id="cantidad-domingos" />
+                    <input type="text" class="form-control block-input" id="cantidad-domingos" disabled/>
                 </div>
                 <div class="col-md-1">
                     <label for="total-kilometros" class="form-label">KM</label>
-                    <input type="text" class="form-control" id="total-kilometros" />
+                    <input type="text" class="form-control block-input" id="total-kilometros" disabled/>
                 </div>
                 <div class="col-md-1">
                     <label for="monto-usd" class="form-label">USD</label>
-                    <input type="text" class="form-control" id="monto-usd" />
+                    <input type="text" class="form-control block-input" id="monto-usd" disabled/>
                 </div>
                 <div class="col-md-1">
                     <label for="monto-ves" class="form-label">VES</label>
-                    <input type="text" class="form-control" id="monto-ves" />
+                    <input type="text" class="form-control block-input" id="monto-ves" disabled/>
                 </div>
                 <div class="tile-footer"></div>
             </form>
@@ -132,11 +136,11 @@
                     </div>
                     <div class="col-md-1">
                         <label for="ruta" class="form-label">Ruta</label>
-                        <input type="text" class="form-control" name="ruta" />
+                        <input type="text" class="form-control block-input" name="ruta" disabled/>
                     </div>
                     <div class="col-md-1">
                         <label for="km" class="form-label">KM</label>
-                        <input type="text" class="form-control" name="km" />
+                        <input type="text" class="form-control block-input" name="km" disabled/>
                     </div>
                 </div>
                 <!-- <div class="add-movimientos"></div> -->

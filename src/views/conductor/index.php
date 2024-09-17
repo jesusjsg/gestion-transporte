@@ -14,6 +14,7 @@
             <div class="tile">
                 <div class="tile-body">
                     <h6 class="fw-bold mb-4">Listado de los conductores registrados</h6>
+                    <div class="tile-footer"></div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-hover" id="table-conductor" style="width: 100%;">
