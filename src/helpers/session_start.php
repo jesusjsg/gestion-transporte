@@ -1,3 +1,3 @@
 <?php
-    session_name(APP_SESION_NAME);
-    session_start();
+session_name(APP_SESION_NAME);
+session_start();

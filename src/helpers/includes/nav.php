@@ -5,10 +5,10 @@
 ?>
 <body class="app sidebar-mini">
     <header class="app-header">
+        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="hide sidebar"></a>
         <a href="<?= URL; ?>home/" class="app-header__logo">
             <img src="<?= URL;?>public/img/main/logo-header.webp" alt="logo header" class="logo-header" />
         </a>
-        <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="hide sidebar"></a>
         <ul class="app-nav">
             <div class="app-nav__item user-select-none align-items-center">
                 <i class="bi bi-person-fill me-2"></i><span class="me-2 text-capitalize"><?= $fullname; ?></span>
@@ -51,7 +51,6 @@
                     <span class="app-menu__label">Configuración</span><i class="treeview-indicator bi bi-chevron-right"></i></a>
                     <ul class="treeview-menu">
                         <li><a class="treeview-item" href="<?= URL; ?>usuario/"><i class="icon bi bi-person-fill"></i>Usuarios</a></li>
-                        <li><a class="treeview-item" href="<?= URL; ?>permisos/"><i class="icon bi bi-lock-fill"></i>Permisos</a></li>
                     </ul>
                 </li>
             <?php endif; ?>

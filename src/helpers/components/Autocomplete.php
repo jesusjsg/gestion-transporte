@@ -1,86 +1,90 @@
-<?php 
-    
-    namespace src\helpers\components;
+<?php
 
-    use PDO;
-    use src\models\mainModel;
+namespace src\helpers\components;
 
-    
-    class Autocomplete extends mainModel{
+use PDO;
+use src\models\mainModel;
 
-        public function autocompleteSelect($idRegistro){
-            $fillOptions = $this->executeQuery("
-                SELECT id_entidad, 
-                descripcion1 
-                FROM general 
-                WHERE id_registro = $idRegistro 
+class Autocomplete extends mainModel
+{
+
+    public function autocompleteSelect($idRegistro)
+    {
+        $fillOptions = $this->executeQuery("
+                SELECT id_entidad,
+                descripcion1
+                FROM general
+                WHERE id_registro = $idRegistro
                 AND id_entidad > 0
             ");
-            $options = [];
-            
-            if($fillOptions->rowCount()>0){
-                while($row = $fillOptions->fetch(PDO::FETCH_ASSOC)){
-                    $options[] = $row;
-                }
+        $options = [];
+
+        if ($fillOptions->rowCount() > 0) {
+            while ($row = $fillOptions->fetch(PDO::FETCH_ASSOC)) {
+                $options[] = $row;
             }
-            return $options;
         }
+        return $options;
+    }
 
-        public function autocompletePlaca($term){
-            $term = '%' . $term . '%';
+    public function autocompletePlaca($term)
+    {
+        $term = '%' . $term . '%';
 
-            $sql = "
-                SELECT id_vehiculo 
-                FROM vehiculos 
+        $sql = "
+                SELECT id_vehiculo
+                FROM vehiculos
                 WHERE estatus_vehiculo = 1
                 AND id_vehiculo
-                LIKE :term 
+                LIKE :term
                 ORDER BY id_vehiculo ASC LIMIT 5
             ";
-            $suggetions = $this->executeQuery($sql, [':term' => $term]);
+        $suggetions = $this->executeQuery($sql, [':term' => $term]);
 
-            $data = [];
+        $data = [];
 
-            if($suggetions->rowCount()>0){
-                while($row = $suggetions->fetch(PDO::FETCH_ASSOC)){
-                    $data[] = $row['id_vehiculo'];
-                }
+        if ($suggetions->rowCount() > 0) {
+            while ($row = $suggetions->fetch(PDO::FETCH_ASSOC)) {
+                $data[] = $row['id_vehiculo'];
             }
-            return json_encode($data);
         }
+        return json_encode($data);
+    }
 
-        public function autocompleteMunicipio($term){
-            $term = '%' . $term . '%';
-            $sql = "
-                SELECT id_entidad, 
+    public function autocompleteMunicipio($term)
+    {
+        $term = '%' . $term . '%';
+        $sql = "
+                SELECT id_entidad,
                 descripcion1,
                 CONCAT(descripcion1, ' | ', descripcion2, ' - ', descripcion3) AS estado_nombre_municipio
-                FROM general 
-                WHERE id_registro = 8 
-                AND id_entidad > 0 
+                FROM general
+                WHERE id_registro = 8
+                AND id_entidad > 0
                 AND CONCAT(descripcion1, ' | ', descripcion2, ' - ', descripcion3)
                 LIKE :term
                 ORDER BY estado_nombre_municipio ASC
                 LIMIT 10
             ";
 
-            $suggetions = $this->executeQuery($sql, [':term' => $term]);
-            $data = [];
-            if($suggetions->rowCount()>0){
-                while($row = $suggetions->fetch(PDO::FETCH_ASSOC)){
-                    $data[] = [
-                        'id_entidad' => $row['id_entidad'], 
-                        'estado_nombre_municipio' => $row['estado_nombre_municipio'], 
-                        'descripcion1' => $row['descripcion1']
-                    ];
-                }
+        $suggetions = $this->executeQuery($sql, [':term' => $term]);
+        $data = [];
+        if ($suggetions->rowCount() > 0) {
+            while ($row = $suggetions->fetch(PDO::FETCH_ASSOC)) {
+                $data[] = [
+                    'id_entidad' => $row['id_entidad'],
+                    'estado_nombre_municipio' => $row['estado_nombre_municipio'],
+                    'descripcion1' => $row['descripcion1'],
+                ];
             }
-            return json_encode($data);
         }
+        return json_encode($data);
+    }
 
-        public function autocompleteConductor($term){
-            $term = '%' . $term . '%';
-            $sql = "
+    public function autocompleteConductor($term)
+    {
+        $term = '%' . $term . '%';
+        $sql = "
                 SELECT id_conductor,
                 nombre_conductor,
                 id_vehiculo
@@ -90,25 +94,26 @@
                 ORDER BY nombre_conductor ASC
                 LIMIT 10
             ";
-            $suggetions = $this->executeQuery($sql, [':term' => $term]);
-            $data = [];
+        $suggetions = $this->executeQuery($sql, [':term' => $term]);
+        $data = [];
 
-            if($suggetions->rowCount()>0){
-                while($row = $suggetions->fetch(PDO::FETCH_ASSOC)){
-                    $data[] = [
-                        'id_conductor' => $row['id_conductor'],
-                        'nombre_conductor' => $row['nombre_conductor'],
-                        'id_vehiculo' => $row['id_vehiculo']
-                    ];
-                }
+        if ($suggetions->rowCount() > 0) {
+            while ($row = $suggetions->fetch(PDO::FETCH_ASSOC)) {
+                $data[] = [
+                    'id_conductor' => $row['id_conductor'],
+                    'nombre_conductor' => $row['nombre_conductor'],
+                    'id_vehiculo' => $row['id_vehiculo'],
+                ];
             }
-            return json_encode($data);
         }
+        return json_encode($data);
+    }
 
-        public function autocompleteCliente($term){
-            $term = '%' . $term . '%';
-            $sql = "
-                SELECT id_entidad, 
+    public function autocompleteCliente($term)
+    {
+        $term = '%' . $term . '%';
+        $sql = "
+                SELECT id_entidad,
                 descripcion1
                 FROM general
                 WHERE id_registro = 7
@@ -117,17 +122,17 @@
                 ORDER BY descripcion1 ASC
                 LIMIT 10
             ";
-            $suggetions = $this->executeQuery($sql, [':term' => $term]);
-            $data = [];
+        $suggetions = $this->executeQuery($sql, [':term' => $term]);
+        $data = [];
 
-            if($suggetions->rowCount()>0){
-                while($row = $suggetions->fetch(PDO::FETCH_ASSOC)){
-                    $data[] = [
-                        'id_entidad' => $row['id_entidad'],
-                        'descripcion1' => $row['descripcion1']
-                    ];
-                }
+        if ($suggetions->rowCount() > 0) {
+            while ($row = $suggetions->fetch(PDO::FETCH_ASSOC)) {
+                $data[] = [
+                    'id_entidad' => $row['id_entidad'],
+                    'descripcion1' => $row['descripcion1'],
+                ];
             }
-            return json_encode($data);
         }
+        return json_encode($data);
     }
+}

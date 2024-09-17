@@ -1,5 +1,17 @@
+<?php
+
+use src\controllers\loginController;
+
+$login = new loginController();
+
+if (isset($_POST['username']) && isset($_POST['pass'])) {
+    $login->loginSesion();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="<?= CHARSET; ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +23,7 @@
     <link rel="stylesheet" href="<?= URL; ?>public/css/libs/bootstrap.min.css">
     <link rel="stylesheet" href="<?= URL; ?>public/css/libs/sweetalert2.min.css" rel="stylesheet">
 </head>
+
 <body>
     <main>
         <section class="login-content shadow-sm">
@@ -37,12 +50,4 @@
     </main>
     <script src="<?= URL; ?>public/js/libs/bootstrap.bundle.min.js"></script>
     <script src="<?= URL; ?>public/js/libs/sweetalert2@11.js"></script>
-    <?php
-        use src\controllers\loginController;
-        $login = new loginController();
-    
-        if(isset($_POST['username']) && isset($_POST['pass'])){
-            $login->loginSesion();
-        }
-    ?>
 </body>

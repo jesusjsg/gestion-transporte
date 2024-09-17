@@ -1,21 +1,21 @@
 <?php
-    use src\helpers\components\Autocomplete;
-    $autocomplete = new Autocomplete();
+use src\helpers\components\Autocomplete;
+$autocomplete = new Autocomplete();
 
-    $registros = [
-        'nominas' => 6,
-    ];
+$registros = [
+    'nominas' => 6,
+];
 
-    $tipoNomina = $autocomplete->autocompleteSelect($registros['nominas']);
+$tipoNomina = $autocomplete->autocompleteSelect($registros['nominas']);
 ?>
 
 <main class="app-content">
     <div class="app-title align-items-center">
-        <a class="text-decoration-none btn btn-secondary btn-sm" href="<?= URL; ?>conductor/"><i class="bi bi-box-arrow-left me-1"></i>Salir</a>
+        <a class="text-decoration-none btn btn-secondary btn-sm" href="<?=URL;?>conductor/"><i class="bi bi-box-arrow-left me-1"></i>Salir</a>
     </div>
     <div class="tile">
         <div class="tile-body">
-            <form class="row g-3 form-ajax" action="<?= URL; ?>ajax/conductor" method="post" autocomplete="off">
+            <form class="row g-3 form-ajax" action="<?=URL;?>ajax/conductor" method="post" autocomplete="off">
                 <div class="d-grid gap-2 d-md-flex justify-content-end">
                     <button type="reset" class="btn btn-primary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
                     <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
@@ -75,9 +75,9 @@
                     <select class="form-select" name="tipo-nomina">
                         <option selected disabled>Tipo de nómina</option>
                         <?php
-                            if(!empty($tipoNomina)){
-                                foreach($tipoNomina as $key){
-                                    echo '<option value="' . $key['id_entidad'] .'">' . $key['descripcion1']. '</option>';
+                            if (!empty($tipoNomina)) {
+                                foreach ($tipoNomina as $key) {
+                                    echo '<option value="' . $key['id_entidad'] . '">' . $key['descripcion1'] . '</option>';
                                 }
                             } else {
                                 '<option disabled>No hay datos registrados</option>';

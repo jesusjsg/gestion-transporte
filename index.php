@@ -11,8 +11,8 @@ require_once 'autoload.php';
 require_once 'config/app.php';
 require_once 'src/helpers/session_start.php';
 
-use src\controllers\viewsController;
 use src\controllers\loginController;
+use src\controllers\viewsController;
 
 $login = new loginController();
 $viewsController = new viewsController();
@@ -32,7 +32,7 @@ if (isset($_GET['views'])) {
     $view = $url[1] ?? 'index';
 } else {
     $folder = 'auth';
-    $view = 'login'; 
+    $view = 'login';
 }
 
 $viewPath = $viewsController->getViewsController($folder, $view);
@@ -53,4 +53,3 @@ require_once $viewPath;
 if ($viewPath != "./src/views/auth/login.php" && $viewPath != "./src/views/errors/404.php") {
     require_once "./src/helpers/includes/script.php";
 }
-?>

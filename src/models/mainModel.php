@@ -1,71 +1,78 @@
 <?php
 
-    namespace src\models;
-    use \PDO;
+namespace src\models;
 
-    if(file_exists(__DIR__."/../../config/server.php")){ // Validar si el archivo existe
-        require_once __DIR__."/../../config/server.php";
+use \PDO;
+
+if (file_exists(__DIR__ . "/../../config/server.php")) { // Validar si el archivo existe
+    require_once __DIR__ . "/../../config/server.php";
+}
+
+class mainModel
+{
+
+    private $host = HOST;
+    private $db = DB;
+    private $user = USER;
+    private $pass = PASSWORD;
+
+    protected function conection()
+    { //Funcion para la conexión a la base de datos
+        $connection = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db, $this->user, $this->pass);
+        $connection->exec("SET CHARACTER SET utf8");
+        return $connection;
     }
 
-    class mainModel{
-
-        private $host = HOST;
-        private $db = DB;
-        private $user = USER;
-        private $pass = PASSWORD;
-
-        protected function conection(){ //Funcion para la conexión a la base de datos
-            $connection = new PDO('mysql:host='.$this->host.';dbname='.$this->db, $this->user, $this->pass);
-            $connection->exec("SET CHARACTER SET utf8");
-            return $connection;
-        }
-
-        protected function executeQuery($query, $params = []){ // Función para ejecutar las consultas preparadas
-            $sql = $this->conection()->prepare($query);
-            if(!empty($params)){
-                foreach($params as $key => &$value){
-                    $sql->bindParam($key, $value);
-                }
-            }
-            $sql->execute();
-            return $sql;
-        }
-
-        // Uso de funciones para evitar la inyección SQL y validar los datos
-        public function cleanString($string){
-
-            $words = [
-                "<script>","</script>","<script src",
-                "<script type=","SELECT * FROM","DELETE FROM",
-                "INSERT INTO","DROP TABLE","DROP DATABASE",
-                "TRUNCATE TABLE","SHOW TABLES","SHOW DATABASES",
-                "<?php","?>","--","^","<",">","==","=",";","::"
-            ];
-            
-            $string = trim($string);
-            $string = stripslashes($string);
-
-            foreach($words as $word){
-                $string = str_ireplace($word, "", $string);
-            };
-
-            $string = trim($string);
-            $string = stripslashes($string);
-            return $string;
-        }
-
-        protected function verifyData($filter, $string){
-            if(preg_match("/^".$filter."$/", $string)){
-                return false;
-            }else {
-                return true;
+    protected function executeQuery($query, $params = [])
+    { // Función para ejecutar las consultas preparadas
+        $sql = $this->conection()->prepare($query);
+        if (!empty($params)) {
+            foreach ($params as $key => &$value) {
+                $sql->bindParam($key, $value);
             }
         }
+        $sql->execute();
+        return $sql;
+    }
 
-        protected function formatDate(string $date){
-            if(!empty($date)){
-                return date('d/m/Y', strtotime($date));
-            }
-            return '';
+    // Uso de funciones para evitar la inyección SQL y validar los datos
+    public function cleanString($string)
+    {
+
+        $words = [
+            "<script>", "</script>", "<script src",
+            "<script type=", "SELECT * FROM", "DELETE FROM",
+            "INSERT INTO", "DROP TABLE", "DROP DATABASE",
+            "TRUNCATE TABLE", "SHOW TABLES", "SHOW DATABASES",
+            "<?php", "?>", "--", "^", "<", ">", "==", "=", ";", "::",
+        ];
+
+        $string = trim($string);
+        $string = stripslashes($string);
+
+        foreach ($words as $word) {
+            $string = str_ireplace($word, "", $string);
+        };
+
+        $string = trim($string);
+        $string = stripslashes($string);
+        return $string;
+    }
+
+    protected function verifyData($filter, $string)
+    {
+        if (preg_match("/^" . $filter . "$/", $string)) {
+            return false;
+        } else {
+            return true;
         }
     }
+
+    protected function formatDate(string $date)
+    {
+        if (!empty($date)) {
+            return date('d/m/Y', strtotime($date));
+        }
+        return '';
+    }
+}
