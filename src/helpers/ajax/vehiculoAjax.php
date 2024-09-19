@@ -15,7 +15,7 @@ if (isset($_POST['model_vehiculo'])) {
     }
 
 } elseif (isset($_GET['action']) && ($_GET['action'] == 'load_vehiculos')) {
-    $vehiculo = new vehiculoController;
+    $vehiculo = new vehiculoController();
     echo $vehiculo->tableVehiculo();
 
 } else {

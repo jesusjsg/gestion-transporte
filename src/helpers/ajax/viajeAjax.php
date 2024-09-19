@@ -1,7 +1,9 @@
 <?php
 
 use src\controllers\viajeController;
-use src\helpers\components\Autocomplete;
+use src\controllers\vehiculoController;
+use src\controllers\generalController;
+use src\controllers\conductorController;
 
 if (isset($_POST['model_viaje'])) {
 
@@ -16,20 +18,20 @@ if (isset($_POST['model_viaje'])) {
     }
 
 } elseif (isset($_GET['action']) && $_GET['action'] == 'load_viaje') {
-    $viaje = new viajeController;
+    $viaje = new viajeController();
     echo $viaje->tableViaje();
 
 } elseif (isset($_GET['action']) && $_GET['action'] == 'get_cliente') {
-    $cliente = new Autocomplete;
-    echo $cliente->autocompleteCliente($_GET['term']);
+    $cliente = new generalController();
+    echo $cliente->getCliente($_GET['term']);
 
 } elseif (isset($_GET['action']) && $_GET['action'] == 'get_conductor') {
-    $conductor = new Autocomplete;
-    echo $conductor->autocompleteConductor($_GET['term']);
+    $conductor = new conductorController();
+    echo $conductor->getConductorInfo($_GET['term']);
 
 } elseif (isset($_GET['action']) && $_GET['action'] == 'get_placa') {
-    $placa = new Autocomplete;
-    echo $placa->autocompletePlaca($_GET['term']);
+    $placa = new vehiculoController();
+    echo $placa->getPlaca($_GET['term']);
 
 } else {
     session_destroy();
