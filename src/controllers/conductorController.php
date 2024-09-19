@@ -282,6 +282,35 @@ class conductorController extends uniqueModel
         return json_encode($alert);
     }
 
+    public function getConductorInfo($term)
+    {
+        $term = '%' . $term . '%';
+        $sql = "
+            SELECT id_conductor,
+            nombre_conductor,
+            id_vehiculo
+            FROM conductores
+            WHERE nombre_conductor
+            LIKE :term
+            ORDER BY nombre_conductor ASC
+            LIMIT 10
+            
+        ";
+        $suggetions = $this->executeQuery($sql, [':term' => $term]);
+        $data = [];
+
+        if ($suggetions->rowCount() > 0) {
+            while ($row = $suggetions->fetch(PDO::FETCH_ASSOC)) {
+                $data[] = [
+                    'id_conductor' => $row['id_conductor'],
+                    'nombre_conductor' => $row['nombre_conductor'],
+                    'id_vehiculo' => $row['id_vehiculo'],
+                ];
+            }
+        }
+        return json_encode($data);
+    }
+
     public function totalConductores()
     {
         $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM conductores");
