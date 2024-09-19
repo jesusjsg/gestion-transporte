@@ -1,14 +1,14 @@
 <?php
-use src\helpers\components\Autocomplete;
-$autocomplete = new Autocomplete();
+use src\controllers\generalController;
+$generalController = new generalController();
 
 $registros = [
     'tipoOperacion' => 3,
     'tipoCarga' => 4,
 ];
 
-$tipoOperacion = $autocomplete->autocompleteSelect($registros['tipoOperacion']);
-$tipocarga = $autocomplete->autocompleteSelect($registros['tipoCarga']);
+$tipoOperacion = $generalController->getRegistro($registros['tipoOperacion']);
+$tipocarga = $generalController->getRegistro($registros['tipoCarga']);
 
 ?>
 
@@ -117,7 +117,7 @@ $tipocarga = $autocomplete->autocompleteSelect($registros['tipoCarga']);
     </div>
     <div class="tile">
         <div class="tile-body">
-            <form class="row g-3 form-ajax" action="" method="post" autocomplete="off">
+            <form class="row g-3 form-ajax" action="" method="post" $generalController="off">
                 <div class="d-grip gap-2 d-md-flex justify-content-between">
                     <h3 class="fw-light">Agregar movimientos</h3>
                     <div>
