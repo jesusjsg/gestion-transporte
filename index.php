@@ -17,15 +17,6 @@ use src\controllers\viewsController;
 $login = new loginController();
 $viewsController = new viewsController();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if ($login->loginSesion()) {
-        header("Location: " . URL . 'home/');
-        exit();
-    } else {
-        echo "Credenciales incorrectas";
-    }
-}
-
 if (isset($_GET['views'])) {
     $url = explode("/", $_GET['views']);
     $folder = $url[0] ?? 'home';
