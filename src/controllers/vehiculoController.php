@@ -333,6 +333,30 @@ class vehiculoController extends uniqueModel
         return json_encode($alert);
     }
 
+    public function getPlaca($term) 
+    {
+        $term = '%' . $term . '%';
+        $sql = "
+            SELECT id_vehiculo
+            FROM vehiculos
+            WHERE estatus_vehiculo = 1
+            AND id_vehiculo
+            LIKE :term
+            ORDER BY id_vehiculo ASC 
+            LIMIT 5
+        ";
+        
+        $suggetions = $this->executeQuery($sql, [':term' => $term]);
+        $data = [];
+
+        if ($suggetions->rowCount() > 0) {
+            while ($row = $suggetions->fetch(PDO::FETCH_ASSOC)) {
+                $data[] = $row;
+            }
+        }
+        return json_encode($data);
+    }
+
     public function totalVehiculos()
     {
         $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM vehiculos");
