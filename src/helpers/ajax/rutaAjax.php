@@ -1,6 +1,6 @@
 <?php
 use src\controllers\rutaController;
-use src\helpers\components\Autocomplete;
+use src\controllers\generalController;
 
 if (isset($_POST['model_ruta'])) {
 
@@ -19,8 +19,8 @@ if (isset($_POST['model_ruta'])) {
     echo $ruta->tableRuta();
 
 } elseif (isset($_GET['action']) && $_GET['action'] == 'get_municipio') {
-    $estadoMunicipio = new Autocomplete;
-    echo $estadoMunicipio->autocompleteMunicipio($_GET['term']);
+    $estadoMunicipio = new generalController;
+    echo $estadoMunicipio->getMunicipios($_GET['term']);
 
 } else {
     session_destroy();
