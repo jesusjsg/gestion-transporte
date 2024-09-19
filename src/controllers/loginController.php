@@ -2,6 +2,8 @@
 
 namespace src\controllers;
 
+use PDO;
+use PDOException;
 use src\models\mainModel;
 
 class loginController extends mainModel
@@ -13,57 +15,30 @@ class loginController extends mainModel
         $username = $this->cleanString($_POST['username']);
         $password = $this->cleanString($_POST['pass']);
 
-        if ($username == '' || $password == '') {
-            echo "
-                    <script>
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Ocurrió un error inesperado',
-                            text: 'Todos los campos son obligatorios',
-                            confirmButtonText: 'Aceptar',
-                        })
-                    </script>
-                ";
-            return false;
+        if ($username === '' || $password === '') {
+            $this->errorAlert('Por favor, rellene todos los campos.');
+        }
 
-        } else {
-            $check_user = $this->executeQuery("SELECT * FROM usuarios WHERE nombre_usuario = '$username'");
+        try {
+            $checkUser = $this->executeQuery("SELECT * FROM usuarios WHERE nombre_usuario = '$username'");
+            if ($checkUser->rowCount() === 1) {
+                $checkUser = $checkUser->fetch(PDO::FETCH_ASSOC);
+                if ($checkUser['contraseña'] == $password) {
 
-            if ($check_user->rowCount() == 1) {
-                $check_user = $check_user->fetch();
-                if ($check_user['contraseña'] == $password) {
+                    $_SESSION['id'] = $checkUser['id_usuario'];
+                    $_SESSION['name'] = $checkUser['nombre_apellido'];
+                    $_SESSION['username'] = $checkUser['nombre_usuario'];
+                    $_SESSION['rol_id'] = $checkUser['id_rol'];
 
-                    $_SESSION['id'] = $check_user['id_usuario'];
-                    $_SESSION['name'] = $check_user['nombre_apellido'];
-                    $_SESSION['username'] = $check_user['nombre_usuario'];
-                    $_SESSION['rol_id'] = $check_user['id_rol'];
-                    return true;
+                    header('Location: ' . URL . 'home/');
                 } else {
-                    echo "
-                            <script>
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Ocurrió un error inesperado',
-                                    text: 'Usuario o clave incorrectos',
-                                    confirmButtonText: 'Aceptar',
-                                })
-                            </script>
-                        ";
-                    return false;
+                    $this->errorAlert('Usuario o clave incorrectos');
                 }
             } else {
-                echo "
-                        <script>
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Ocurrió un error inesperado',
-                                text: 'Usuario o clave incorrectos',
-                                confirmButtonText: 'Aceptar',
-                            })
-                        </script>
-                    ";
-                return false;
+                $this->errorAlert('Usuario o clave incorrectos');
             }
+        } catch (PDOException $error) {
+            error_log('Login error: ' . $error->getMessage());
         }
     }
 
@@ -71,7 +46,22 @@ class loginController extends mainModel
     {
         session_destroy();
         header('Location: ' . URL);
-        exit;
+        exit();
     }
 
+    private function errorAlert($message)
+    {
+        error_log('Error: ' . $message);
+        echo "
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ocurrió un error',
+                    text: '$message',
+                    confirmButtonText: 'Aceptar',
+                })
+            </script>
+        ";
+        exit();
+    }
 }
