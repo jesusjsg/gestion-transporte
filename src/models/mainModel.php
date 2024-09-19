@@ -2,6 +2,8 @@
 
 namespace src\models;
 
+use Exception;
+use PDOException;
 use \PDO;
 
 if (file_exists(__DIR__ . "/../../config/server.php")) { // Validar si el archivo existe
@@ -15,12 +17,20 @@ class mainModel
     private $db = DB;
     private $user = USER;
     private $pass = PASSWORD;
+    private $charset = CHARSET;
 
-    protected function conection()
+    protected function conection(): PDO
     { //Funcion para la conexión a la base de datos
-        $connection = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db, $this->user, $this->pass);
-        $connection->exec("SET CHARACTER SET utf8");
-        return $connection;
+        try {
+            $connection = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db, $this->user, $this->pass);
+            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $connection->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, $this->charset);
+
+            return $connection;
+        } catch (PDOException $error) {
+            error_log('Error en la conexión a la base de datos: ' . $error->getMessage());
+            throw new Exception('Error en la conexión a la base de datos');
+        }
     }
 
     protected function executeQuery($query, $params = [])
