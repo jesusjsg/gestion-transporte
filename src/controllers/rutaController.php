@@ -20,36 +20,18 @@ class rutaController extends uniqueModel
         /* Validacion de los campos del formulario */
 
         if (empty($origen) || empty($destino) || empty($kilometros)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Todos los campos son obligatorios.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
-        $kilometros = intval($kilometros);
-        if (!is_int($kilometros) || $kilometros < 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Los kilometros deben ser un número entero.',
-            ];
-            return json_encode($alert);
+        $kilometros = filter_var($kilometros, FILTER_VALIDATE_INT);
+        if ($kilometros === false || $kilometros < 0) {
+            return $this->errorHandler('Los kilometros deben ser un número entero.');
         }
 
         $checkRutaCode = $this->executeQuery("SELECT id_ruta FROM rutas WHERE id_ruta = '$rutaCode'");
 
         if ($checkRutaCode->rowCount() > 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El código de la ruta ' . $rutaCode . ' ya se encuentra registrado.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('El código de la ruta ' . $rutaCode . ' ya se encuentra registrado.');
         }
 
         $rutaDataLog = [
@@ -83,21 +65,10 @@ class rutaController extends uniqueModel
         $saveRuta = $this->saveData('rutas', $rutaDataLog);
 
         if ($saveRuta->rowCount() == 1) {
-            $alert = [
-                'type' => 'reload',
-                'icon' => 'success',
-                'title' => 'Registro exitoso',
-                'text' => 'La ruta ha sido registrada correctamente.',
-            ];
+            return $this->successHandler('reload', 'Registro exitoso', 'La ruta ha sido registrada correctamente.');
         } else {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Hubo un problema al registrar la ruta.',
-            ];
+            return $this->errorHandler('Hubo un problema al registrar la ruta.');
         }
-        return json_encode($alert);
     }
 
     public function tableRuta()
@@ -138,34 +109,17 @@ class rutaController extends uniqueModel
 
         $dataRuta = $this->executeQuery("SELECT * FROM rutas WHERE id_ruta='$idRuta'");
         if ($dataRuta->rowCount() <= 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'No hemos encontrado la ruta en el sistema.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('No hemos encontrado la ruta en el sistema.');
         } else {
             $dataRuta = $dataRuta->fetch();
         }
 
         $deleteRuta = $this->deleteData('rutas', 'id_ruta', $idRuta);
         if ($deleteRuta->rowCount() == 1) {
-            $alert = [
-                'type' => 'reload',
-                'icon' => 'success',
-                'title' => 'Ruta eliminada',
-                'text' => 'La ruta ' . $dataRuta['id_ruta'] . ' ha sido eliminada correctamente.',
-            ];
+            return $this->successHandler('reload', 'Ruta eliminada', 'La ruta ' . $dataRuta['id_ruta'] . ' ha sido eliminada correctamente.');
         } else {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'No se pudo eliminar la ruta ' . $dataRuta['id_ruta'] . ', intente más tarde.',
-            ];
+            return $this->errorHandler('No se pudo eliminar la ruta ' . $dataRuta['id_ruta'] . ', intente más tarde.');
         }
-        return json_encode($alert);
     }
 
     public function getKilometers($rutaCode)
