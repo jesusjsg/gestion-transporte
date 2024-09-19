@@ -98,7 +98,7 @@ class mainModel
         exit();
     }
 
-    protected function successHandler($type, $title, $text)
+    protected function successHandler($type, $text, $title = 'Registro exitoso')
     {
         return json_encode([
             'type' => $type,
