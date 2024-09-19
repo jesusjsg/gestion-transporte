@@ -2,6 +2,7 @@
 
 namespace src\controllers;
 
+use Exception;
 use PDO;
 use src\models\uniqueModel;
 
@@ -19,55 +20,26 @@ class usuarioController extends uniqueModel
         /* Validacion de los campos del formulario */
 
         if (empty($fullName) || empty($username) || empty($passwordOne) || empty($passwordTwo) || empty($rolName)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrio un error',
-                'text' => 'Todos los campos son obligatorios.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
         if ($this->verifyData("[a-zA-Z0-9]{3,40}", $username)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El usuario solo puede contener letras y números.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('El usuario solo puede contener letras y números.');
         }
 
         if ($this->verifyData("[a-zA-Z0-9$@.\-]{6,100}", $passwordOne) || $this->verifyData("[a-zA-Z0-9$@.\-]{6,100}", $passwordTwo)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'La contraseña deben tener entre 6 y 100 caracteres.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('La contraseña deben tener entre 6 y 100 caracteres.');
         }
 
         if ($passwordOne != $passwordTwo) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Las contraseñas no coinciden.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('Las contraseñas no coinciden.');
         }
 
+        /* Validacion si el usuario ya existe */
         $checkUser = $this->executeQuery("SELECT nombre_usuario FROM usuarios WHERE nombre_usuario = '$username'");
 
         if ($checkUser->rowCount() > 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El usuario ya se encuentra registrado.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('El usuario ya se encuentra registrado.');
         }
 
         $userDataLog = [
@@ -97,21 +69,14 @@ class usuarioController extends uniqueModel
 
         $saveUser = $this->saveData('usuarios', $userDataLog);
         if ($saveUser->rowCount() == 1) {
-            $alert = [
-                'type' => 'reload',
-                'icon' => 'success',
-                'title' => 'Registro exitoso',
-                'text' => 'El usuario ' . ucwords($fullName) . ' ha sido registrado correctamente.',
-            ];
+            return $this->successHandler(
+                'reload', 
+                'Registro exitoso', 
+                'El usuario ' . ucwords($fullName) . ' ha sido registrado correctamente.'
+            );
         } else {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Hubo un problema al registrar el usuario.',
-            ];
+            return $this->errorHandler('Hubo un problema al registrar el usuario.');
         }
-        return json_encode($alert);
     }
 
     public function tableUser()
@@ -160,13 +125,8 @@ class usuarioController extends uniqueModel
 
         $data = $this->executeQuery("SELECT * FROM usuarios WHERE id_usuario='$userId'");
         if ($data->rowCount() < 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'No hemos encontrado el usuario en el sistema.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('No hemos encontrado el usuario en el sistema.');
+
         } else {
             $data = $data->fetch();
         }
@@ -225,25 +185,12 @@ class usuarioController extends uniqueModel
         $id = $this->cleanString($_POST['id-usuario']);
 
         if ($id == 1) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'No se puede eliminar el usuario principal.',
-            ];
-            return json_encode($alert);
-            exit();
+            return $this->errorHandler('No se puede eliminar el usuario principal.');
         }
 
         $dataUser = $this->executeQuery("SELECT * FROM usuarios WHERE id_usuario='$id'");
         if ($dataUser->rowCount() <= 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El usuario no se encuentra registrado.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('El usuario no se encuentra registrado.');
         } else {
             $dataUser = $dataUser->fetch();
         }
@@ -251,34 +198,24 @@ class usuarioController extends uniqueModel
         $deleteUser = $this->deleteData('usuarios', 'id_usuario', $id);
 
         if ($deleteUser->rowCount() == 1) {
-            $alert = [
-                'type' => 'reload',
-                'icon' => 'success',
-                'title' => 'Usuario eliminado',
-                'text' => 'El usuario ' . $dataUser['nombre_apellido'] . ' ha sido eliminado.',
-            ];
+            return $this->successHandler(
+                'reload',
+                'Usuario eliminado',
+                'El usuario ' . $dataUser['nombre_apellido'] . ' ha sido eliminado.'
+            );
         } else {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'No se pudo eliminar el usuario ' . $dataUser['nombre_apellido'] . ', intente nuevamente.',
-            ];
+            return $this->errorHandler('No se pudo eliminar el usuario');
         }
-        return json_encode($alert);
     }
 
-    public function getRol()
+    public function getRol(): array
     {
-        $getRol = $this->executeQuery('SELECT id_rol, nombre_rol FROM roles ORDER BY nombre_rol');
-        $roles = [];
+        try {
+            $getRol = $this->executeQuery('SELECT id_rol, nombre_rol FROM roles ORDER BY nombre_rol');
+            return $getRol->fetchAll(PDO::FETCH_ASSOC);
 
-        if ($getRol->rowCount() > 0) {
-            while ($row = $getRol->fetch(PDO::FETCH_ASSOC)) {
-                $roles[] = $row;
-            }
+        } catch (Exception $error) {
+            error_log('Error: ' . $error->getMessage());
         }
-        return $roles;
-
     }
 }

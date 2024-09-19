@@ -85,4 +85,27 @@ class mainModel
         }
         return '';
     }
+
+    protected function errorHandler($text, $title = 'Ocurrió un error'): string
+    {
+        error_log('Error: ' . $text);
+        return json_encode([
+            'type' => 'simple',
+            'icon' => 'error',
+            'title' => $title,
+            'text' => $text,
+        ]);
+        exit();
+    }
+
+    protected function successHandler($type, $title, $text)
+    {
+        return json_encode([
+            'type' => $type,
+            'icon' => 'success',
+            'title' => $title,
+            'text' => $text,
+        ]);
+        exit();
+    }
 }
