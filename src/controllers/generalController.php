@@ -26,6 +26,7 @@ class generalController extends doubleModel
                 'text' => 'El código de registro y entidad son obligatorios.',
             ];
             return json_encode($alert);
+            exit();
         }
 
         if (!is_int($codigoRegistro) || !is_int($codigoEntidad) || $codigoRegistro < 0 || $codigoEntidad < 0) {
@@ -36,6 +37,7 @@ class generalController extends doubleModel
                 'text' => 'El código de registro y entidad deben ser números enteros.',
             ];
             return json_encode($alert);
+            exit();
         }
 
         if ($this->verifyData('[a-zA-Z .,]{0,255}', $primeraDescripcion) || $this->verifyData('[a-zA-Z .,]{0,255}', $segundaDescripcion) || $this->verifyData('[a-zA-Z ]{0,255}', $terceraDescripcion)) {
@@ -213,13 +215,59 @@ class generalController extends doubleModel
 
         $suggetions = $this->executeQuery($sql, [':term' => $term]);
         $data = [];
-        if($suggetions->rowCount() > 0) {
+        if ($suggetions->rowCount() > 0) {
             while ($row = $suggetions->fetch(PDO::FETCH_ASSOC)) {
                 $data[] = [
                     'id_entidad' => $row['id_entidad'],
                     'estado_nombre_municipio' => $row['estado_nombre_municipio'],
                     'descripcion1' => $row['descripcion1'],
                 ];
+            }
+        }
+        return json_encode($data);
+    }
+
+    public function getRegistro($idRegistro)
+    {
+        $options = $this->executeQuery("
+            SELECT id_entidad,
+            descripcion1
+            FROM general
+            WHERE id_registro = $idRegistro
+            AND id_entidad > 0
+        ");
+
+        $registros = [];
+
+        if ($options->rowCount() > 0) {
+            while ($row = $options->fetch(PDO::FETCH_ASSOC)) {
+                $registros[] = $row;
+            }
+        }
+        return $registros;
+    }
+
+    public function getCliente($term)
+    {
+        $term = '%' . $term . '%';
+        $sql = $this->executeQuery("
+            SELECT id_entidad,
+            descripcion1
+            FROM general
+            WHERE id_registro = 7
+            AND id_entidad > 0
+            AND descripion1
+            LIKE :term
+            ORDER BY descripcion1 ASC
+            LIMIT 10
+        ");
+
+        $suggetions = $this->executeQuery($sql, [':term' => $term]);
+        $data = [];
+
+        if ($suggetions->rowCount() > 0) {
+            while ($row = $suggetions->fetch(PDO::FETCH_ASSOC)) {
+                $data[] = $row;
             }
         }
         return json_encode($data);
