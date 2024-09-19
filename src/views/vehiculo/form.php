@@ -1,6 +1,6 @@
 <?php
-    use src\helpers\components\Autocomplete;
-    $autocomplete = new Autocomplete();
+    use src\controllers\generalController;
+    $generalController = new generalController();
 
     $registros = [
         'tipoVehiculo' => 9,
@@ -13,14 +13,14 @@
         'gps' => 16,
     ];
 
-    $tipoVehiculo = $autocomplete->autocompleteSelect($registros['tipoVehiculo']);
-    $propiedad = $autocomplete->autocompleteSelect($registros['propiedad']);
-    $unidadNegocio = $autocomplete->autocompleteSelect($registros['unidadNegocio']);
-    $marcaVehiculo = $autocomplete->autocompleteSelect($registros['marcaVehiculo']);
-    $numeroEjes = $autocomplete->autocompleteSelect($registros['numeroEjes']);
-    $uso = $autocomplete->autocompleteSelect($registros['uso']);
-    $bolipuertos = $autocomplete->autocompleteSelect($registros['bolipuertos']);
-    $gps = $autocomplete->autocompleteSelect($registros['gps']);
+    $tipoVehiculo = $generalController->getRegistro($registros['tipoVehiculo']);
+    $propiedad = $generalController->getRegistro($registros['propiedad']);
+    $unidadNegocio = $generalController->getRegistro($registros['unidadNegocio']);
+    $marcaVehiculo = $generalController->getRegistro($registros['marcaVehiculo']);
+    $numeroEjes = $generalController->getRegistro($registros['numeroEjes']);
+    $uso = $generalController->getRegistro($registros['uso']);
+    $bolipuertos = $generalController->getRegistro($registros['bolipuertos']);
+    $gps = $generalController->getRegistro($registros['gps']);
 ?>
 
 <main class="app-content">

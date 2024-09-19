@@ -1,12 +1,12 @@
 <?php
-use src\helpers\components\Autocomplete;
-$autocomplete = new Autocomplete();
+use src\controllers\generalController;
+$generalController = new generalController();
 
 $registros = [
     'nominas' => 6,
 ];
 
-$tipoNomina = $autocomplete->autocompleteSelect($registros['nominas']);
+$tipoNomina = $generalController->getRegistro($registros['nominas']);
 ?>
 
 <main class="app-content">
