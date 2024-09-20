@@ -2,6 +2,7 @@
 namespace src\controllers;
 
 use PDO;
+use Exception;
 use src\models\uniqueModel;
 
 class rutaController extends uniqueModel
@@ -137,8 +138,13 @@ class rutaController extends uniqueModel
 
     public function totalRutas()
     {
-        $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM rutas");
-        $totalRutas = $sql->fetchColumn();
-        return $totalRutas;
+        try {
+            $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM rutas");
+            $totalRutas = $sql->fetchColumn();
+            return $totalRutas;
+
+        } catch (Exception $error) {
+            error_log('Error totales rutas: ' . $error->getMessage());
+        }
     }
 }
