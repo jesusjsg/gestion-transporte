@@ -3,6 +3,7 @@
 namespace src\controllers;
 
 use PDO;
+use Exception;
 use src\models\uniqueModel;
 
 class vehiculoController extends uniqueModel
@@ -39,34 +40,22 @@ class vehiculoController extends uniqueModel
 
         // Validaciones de los campos de tipo texto
         if (empty($placa) || empty($tipoVehiculo) || empty($serialCarroceria) || empty($serialMotor) || empty($modelo)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Todos los campos son obligatorios.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
         if ($this->verifyData('[A-Za-z0-9]{7,8}', $placa)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'La placa solo puede contener números con un rango de 7 a 8 digitos.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('La placa solo puede contener números con un rango de 7 a 8 digitos.');
+        }
+
+        if (!empty($linkGps)) {
+            if (!filter_var($linkGps, FILTER_VALIDATE_URL)) {
+                return $this->errorHandler('El link del GPS solo puede contener URLs.');
+            }
         }
 
         $checkPlaca = $this->executeQuery("SELECT id_vehiculo FROM vehiculos WHERE id_vehiculo = '$placa'");
         if ($checkPlaca->rowCount() > 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'La placa del vehículo se encuentra registrada.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('La placa del vehículo se encuentra registrada.');
         };
 
         $vehiculoDataLog = [
@@ -205,21 +194,10 @@ class vehiculoController extends uniqueModel
         $saveVehiculo = $this->saveData('vehiculos', $vehiculoDataLog);
 
         if ($saveVehiculo->rowCount() == 1) {
-            $alert = [
-                'type' => 'reload',
-                'icon' => 'success',
-                'title' => 'Registro exitoso',
-                'text' => 'El vehículo (' . $placa . ') se registró correctamente.',
-            ];
+            return $this->successHandler('reload', 'El vehículo (' . $placa . ') se registró correctamente.');
         } else {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Hubo un problema al registrar el vehículo.',
-            ];
+            return $this->errorHandler('Hubo un problema al registrar el vehículo.');
         }
-        return json_encode($alert);
     }
 
     public function tableVehiculo()
@@ -302,35 +280,21 @@ class vehiculoController extends uniqueModel
         $idVehiculo = $this->cleanString($_POST['id-vehiculo']);
 
         $dataVehiculo = $this->executeQuery("SELECT * FROM vehiculos WHERE id_vehiculo='$idVehiculo'");
+
         if ($dataVehiculo->rowCount() <= 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'No hemos encontrado el vehículo en el sistema.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('No hemos encontrado el vehículo en el sistema.');
         } else {
             $dataVehiculo = $dataVehiculo->fetch();
         }
 
         $deteleVehiculo = $this->deleteData('vehiculos', 'id_vehiculo', $idVehiculo);
+
         if ($deteleVehiculo->rowCount() == 1) {
-            $alert = [
-                'type' => 'reload',
-                'icon' => 'success',
-                'title' => 'Vehículo eliminado',
-                'text' => 'El vehículo ' . $dataVehiculo['id_vehiculo'] . ' ha sido eliminado.',
-            ];
+            return $this->successHandler('reload', 'El vehículo ' . $dataVehiculo['id_vehiculo'] . ' ha sido eliminado.');
+
         } else {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'No se pudo eliminar el conductor ' . $dataVehiculo['id_vehiculo'] . ', intente más tarde.',
-            ];
+            return $this->errorHandler('No se pudo eliminar el conductor ' . $dataVehiculo['id_vehiculo'] . ', intente más tarde.');
         }
-        return json_encode($alert);
     }
 
     public function getPlaca($term) 
@@ -359,9 +323,13 @@ class vehiculoController extends uniqueModel
 
     public function totalVehiculos()
     {
-        $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM vehiculos");
-        $totalVehiculos = $sql->fetchColumn();
-        return $totalVehiculos;
-    }
+        try {
+            $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM vehiculos");
+            $totalVehiculos = $sql->fetchColumn();
+            return $totalVehiculos;
 
+        } catch(Exception $error) {
+            error_log('Error totales vehiculos: ' . $error->getMessage());
+        }
+    }
 }
