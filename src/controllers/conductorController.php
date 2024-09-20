@@ -3,6 +3,7 @@
 namespace src\controllers;
 
 use PDO;
+use Exception;
 use src\models\uniqueModel;
 
 class conductorController extends uniqueModel
@@ -25,76 +26,34 @@ class conductorController extends uniqueModel
         $tipoNomina = $this->cleanString($_POST['tipo-nomina']);
 
         if (empty($ficha) || empty($fullname) || empty($cedula) || empty($telefono) || empty($placa)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Todos los campos son necesarios.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
         if ($this->verifyData('[0-9]{8}', $ficha)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'La ficha del conductor solo puede contener números.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('La ficha del conductor solo puede contener números.');
         }
 
         if ($this->verifyData('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,255}', $fullname)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El nombre y apellido solo puede contener caracteres.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('El nombre y apellido solo puede contener caracteres.');
         }
 
         if ($this->verifyData('[0-9]{8}', $cedula)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'La cédula del conductor solo puede contener números.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('La cédula del conductor solo puede contener números.');
         }
 
         if ($this->verifyData('[0-9]{11}', $telefono)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El teléfono del conductor solo puede contener números.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('El teléfono del conductor solo puede contener números.');
         }
 
         $checkConductor = $this->executeQuery("SELECT id_conductor FROM conductores WHERE id_conductor = '$ficha'");
         $checkCedula = $this->executeQuery("SELECT cedula_conductor FROM conductores WHERE cedula_conductor = '$cedula'");
 
         if ($checkConductor->rowCount() > 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El conductor ya se encuentra registrado.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('El conductor ya se encuentra registrado.');
         }
 
         if ($checkCedula->rowCount() > 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'La cédula ya se encuentra registrada.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('La cédula ya se encuentra registrada.');
         }
 
         $conductorDataLog = [
@@ -168,21 +127,10 @@ class conductorController extends uniqueModel
         $saveConductor = $this->saveData('conductores', $conductorDataLog);
 
         if ($saveConductor->rowCount() == 1) {
-            $alert = [
-                'type' => 'reload',
-                'icon' => 'success',
-                'title' => 'Registro exitoso',
-                'text' => 'El conductor ' . ucwords($fullname) . ' ha sido registrado correctamente.',
-            ];
+            return $this->successHandler('reload', 'El conductor ' . ucwords($fullname) . ' ha sido registrado correctamente.');
         } else {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Hubo un problema al registrar el conductor.',
-            ];
+            return $this->errorHandler('Hubo un problema al registrar el conductor.');
         }
-        return json_encode($alert);
     }
 
     public function tableConductor()
@@ -250,14 +198,10 @@ class conductorController extends uniqueModel
         $idConductor = $this->cleanString($_POST['id-conductor']);
 
         $dataConductor = $this->executeQuery("SELECT * FROM conductores WHERE id_conductor='$idConductor'");
+
         if ($dataConductor->rowCount() <= 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'No hemos encontrado el conductor en el sistema.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('No hemos encontrado el conductor en el sistema.');
+
         } else {
             $dataConductor = $dataConductor->fetch();
         }
@@ -265,21 +209,11 @@ class conductorController extends uniqueModel
         $deleteConductor = $this->deleteData('conductores', 'id_conductor', $idConductor);
 
         if ($deleteConductor->rowCount() == 1) {
-            $alert = [
-                'type' => 'reload',
-                'icon' => 'success',
-                'title' => 'Conductor eliminado',
-                'text' => 'El conductor ' . $dataConductor['nombre_conductor'] . ' ha sido eliminado.',
-            ];
+            return $this->successHandler('reload', 'El conductor ' . $dataConductor['nombre_conductor'] . ' ha sido eliminado.');
+
         } else {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'No se pudo eliminar el conductor ' . $dataConductor['nombre_conductor'] . ', intente más tarde.',
-            ];
+            return $this->errorHandler('No se pudo eliminar el conductor ' . $dataConductor['nombre_conductor'] . ', intente más tarde.');
         }
-        return json_encode($alert);
     }
 
     public function getConductorInfo($term)
@@ -313,9 +247,14 @@ class conductorController extends uniqueModel
 
     public function totalConductores()
     {
-        $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM conductores");
-        $totalConductores = $sql->fetchColumn();
-        return $totalConductores;
+        try {
+            $sql = $this->executeQuery("SELECT COUNT(*) AS total FROM conductores");
+            $totalConductores = $sql->fetchColumn();
+            return $totalConductores;
+
+        } catch (Exception $error) {
+            error_log('Error totales conductores: ' . $error->getMessage());
+        }
     }
 
 }
