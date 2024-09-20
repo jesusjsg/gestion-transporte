@@ -3,6 +3,7 @@
 namespace src\controllers;
 
 use PDO;
+use Exception;
 use src\models\doubleModel;
 
 class generalController extends doubleModel
@@ -19,57 +20,25 @@ class generalController extends doubleModel
         $valor = $this->cleanString($_POST['valor']);
 
         if ($codigoRegistro == '' || $codigoEntidad == '') {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El código de registro y entidad son obligatorios.',
-            ];
-            return json_encode($alert);
-            exit();
+            return $this->errorHandler('El código de registro y entidad son obligatorios.');
         }
 
         if (!is_int($codigoRegistro) || !is_int($codigoEntidad) || $codigoRegistro < 0 || $codigoEntidad < 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El código de registro y entidad deben ser números enteros.',
-            ];
-            return json_encode($alert);
-            exit();
+            return $this->errorHandler('El código de registro y entidad deben ser números enteros.');
         }
 
         if ($this->verifyData('[a-zA-Z .,]{0,255}', $primeraDescripcion) || $this->verifyData('[a-zA-Z .,]{0,255}', $segundaDescripcion) || $this->verifyData('[a-zA-Z ]{0,255}', $terceraDescripcion)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Las descripciones no permiten caracteres especiales.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('Las descripciones no permiten caracteres especiales.');
         }
 
         if (!is_numeric($valor)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El valor debe ser un valor numérico.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('El valor debe ser un valor numérico.');
         }
 
         $checkRegistroEntidad = $this->executeQuery("SELECT id_registro, id_entidad FROM general WHERE id_registro = $codigoRegistro AND id_entidad = $codigoEntidad");
 
         if ($checkRegistroEntidad->rowCount() > 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El registro y entidad ya se encuentran registrados.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('El registro y entidad ya se encuentran registrados.');
         }
 
         $registroDataLog = [
@@ -108,21 +77,10 @@ class generalController extends doubleModel
         $saveRegistro = $this->saveData('general', $registroDataLog);
 
         if ($saveRegistro->rowCount() == 1) {
-            $alert = [
-                'type' => 'reload',
-                'icon' => 'success',
-                'title' => 'Registro exitoso',
-                'text' => 'La entidad ha sido registrado correctamente.',
-            ];
+            return $this->errorHandler('Hubo un problema al registrar la entidad.');
         } else {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Hubo un problema al registrar la entidad.',
-            ];
+            return $this->successHandler('reload', 'La entidad ha sido registrado correctamente.');
         }
-        return json_encode($alert);
     }
 
     public function tableGeneral()
@@ -167,34 +125,17 @@ class generalController extends doubleModel
 
         $dataRegistro = $this->executeQuery("SELECT * FROM general WHERE id_registro='$idRegistro' AND id_entidad='$idEntidad'");
         if ($dataRegistro->rowCount() <= 0) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'No hemos encontrado el registro en el sistema',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('No hemos encontrado el registro en el sistema');
         } else {
             $dataRegistro = $dataRegistro->fetch();
         }
 
         $deleteRegistro = $this->deleteData('general', $idRegistro, $idEntidad);
         if ($deleteRegistro->rowCount() == 1) {
-            $alert = [
-                'type' => 'reload',
-                'icon' => 'success',
-                'title' => 'Registro eliminado',
-                'text' => 'El registro ' . $dataRegistro['id_registro'] . ' - ' . $dataRegistro['id_entidad'] . ' ha sido eliminado correctamente.',
-            ];
+            return $this->successHandler('reload', 'El registro ' . $dataRegistro['id_registro'] . ' - ' . $dataRegistro['id_entidad'] . ' ha sido eliminado correctamente.');
         } else {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'No se pudo eliminar el registro ' . $dataRegistro['id_registro'] . ' - ' . $dataRegistro['id_entidad'] . ', intente más tarde.',
-            ];
+            return $this->errorHandler('No se pudo eliminar el registro ' . $dataRegistro['id_registro'] . ' - ' . $dataRegistro['id_entidad'] . ', intente más tarde.');
         }
-        return json_encode($alert);
     }
 
     public function getMunicipios($term)
