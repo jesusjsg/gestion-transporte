@@ -290,10 +290,14 @@ class vehiculoController extends uniqueModel
         $deteleVehiculo = $this->deleteData('vehiculos', 'id_vehiculo', $idVehiculo);
 
         if ($deteleVehiculo->rowCount() == 1) {
-            return $this->successHandler('reload', 'El vehículo ' . $dataVehiculo['id_vehiculo'] . ' ha sido eliminado.');
+            return $this->successHandler(
+                'reload', 
+                'El vehículo ' . $dataVehiculo['id_vehiculo'] . ' ha sido eliminado.',
+                'Vehículo eliminado',
+            );
 
         } else {
-            return $this->errorHandler('No se pudo eliminar el conductor ' . $dataVehiculo['id_vehiculo'] . ', intente más tarde.');
+            return $this->errorHandler('No se pudo eliminar el vehículo ' . $dataVehiculo['id_vehiculo'] . ', intente más tarde.');
         }
     }
 

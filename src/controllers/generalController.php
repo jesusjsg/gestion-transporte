@@ -132,7 +132,11 @@ class generalController extends doubleModel
 
         $deleteRegistro = $this->deleteData('general', $idRegistro, $idEntidad);
         if ($deleteRegistro->rowCount() == 1) {
-            return $this->successHandler('reload', 'El registro ' . $dataRegistro['id_registro'] . ' - ' . $dataRegistro['id_entidad'] . ' ha sido eliminado correctamente.');
+            return $this->successHandler(
+                'reload', 
+                'El registro ' . $dataRegistro['id_registro'] . ' - ' . $dataRegistro['id_entidad'] . ' ha sido eliminado correctamente.',
+                'Entidad eliminada',
+            );
         } else {
             return $this->errorHandler('No se pudo eliminar el registro ' . $dataRegistro['id_registro'] . ' - ' . $dataRegistro['id_entidad'] . ', intente más tarde.');
         }

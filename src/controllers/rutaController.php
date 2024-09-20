@@ -66,7 +66,10 @@ class rutaController extends uniqueModel
         $saveRuta = $this->saveData('rutas', $rutaDataLog);
 
         if ($saveRuta->rowCount() == 1) {
-            return $this->successHandler('reload', 'Registro exitoso', 'La ruta ha sido registrada correctamente.');
+            return $this->successHandler(
+                'reload', 
+                'La ruta ha sido registrada correctamente.'
+            );
         } else {
             return $this->errorHandler('Hubo un problema al registrar la ruta.');
         }
@@ -117,7 +120,11 @@ class rutaController extends uniqueModel
 
         $deleteRuta = $this->deleteData('rutas', 'id_ruta', $idRuta);
         if ($deleteRuta->rowCount() == 1) {
-            return $this->successHandler('reload', 'Ruta eliminada', 'La ruta ' . $dataRuta['id_ruta'] . ' ha sido eliminada correctamente.');
+            return $this->successHandler(
+                'reload', 
+                'La ruta ' . $dataRuta['id_ruta'] . ' ha sido eliminada correctamente.',
+                'Ruta eliminada', 
+        );
         } else {
             return $this->errorHandler('No se pudo eliminar la ruta ' . $dataRuta['id_ruta'] . ', intente más tarde.');
         }

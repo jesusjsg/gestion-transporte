@@ -209,7 +209,11 @@ class conductorController extends uniqueModel
         $deleteConductor = $this->deleteData('conductores', 'id_conductor', $idConductor);
 
         if ($deleteConductor->rowCount() == 1) {
-            return $this->successHandler('reload', 'El conductor ' . $dataConductor['nombre_conductor'] . ' ha sido eliminado.');
+            return $this->successHandler(
+                'reload', 
+                'El conductor ' . $dataConductor['nombre_conductor'] . ' ha sido eliminado.',
+                'Conductor eliminado',
+            );
 
         } else {
             return $this->errorHandler('No se pudo eliminar el conductor ' . $dataConductor['nombre_conductor'] . ', intente más tarde.');

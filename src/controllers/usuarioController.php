@@ -19,7 +19,7 @@ class usuarioController extends uniqueModel
 
         /* Validacion de los campos del formulario */
 
-        if (empty($fullName) || empty($username) || empty($passwordOne) || empty($passwordTwo) || empty($rolName)) {
+        if (empty($fullName) || empty($username) || empty($passwordOne) || empty($passwordTwo)) {
             return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
@@ -71,7 +71,6 @@ class usuarioController extends uniqueModel
         if ($saveUser->rowCount() == 1) {
             return $this->successHandler(
                 'reload', 
-                'Registro exitoso', 
                 'El usuario ' . ucwords($fullName) . ' ha sido registrado correctamente.'
             );
         } else {
@@ -200,8 +199,8 @@ class usuarioController extends uniqueModel
         if ($deleteUser->rowCount() == 1) {
             return $this->successHandler(
                 'reload',
+                'El usuario ' . $dataUser['nombre_apellido'] . ' ha sido eliminado.',
                 'Usuario eliminado',
-                'El usuario ' . $dataUser['nombre_apellido'] . ' ha sido eliminado.'
             );
         } else {
             return $this->errorHandler('No se pudo eliminar el usuario');
