@@ -12,12 +12,20 @@ if (file_exists(__DIR__ . "/../../config/server.php")) { // Validar si el archiv
 
 class mainModel
 {
+    private $host;
+    private $db;
+    private $user;
+    private $pass;
+    private $charset;
 
-    private $host = HOST;
-    private $db = DB;
-    private $user = USER;
-    private $pass = PASSWORD;
-    private $charset = CHARSET;
+
+    public function __construct() {
+        $this->host = $_ENV['DB_HOST'];
+        $this->db = $_ENV['DB_NAME'];
+        $this->user = $_ENV['DB_USER'];
+        $this->pass = $_ENV['DB_PASSWORD'];
+        $this->charset = $_ENV['DB_CHARSET'];
+    }
 
     protected function conection(): PDO
     { //Funcion para la conexión a la base de datos
