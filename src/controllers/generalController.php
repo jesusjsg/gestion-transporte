@@ -77,9 +77,9 @@ class generalController extends doubleModel
         $saveRegistro = $this->saveData('general', $registroDataLog);
 
         if ($saveRegistro->rowCount() == 1) {
-            return $this->errorHandler('Hubo un problema al registrar la entidad.');
-        } else {
             return $this->successHandler('reload', 'La entidad ha sido registrado correctamente.');
+        } else {
+            return $this->errorHandler('Hubo un problema al registrar la entidad.');
         }
     }
 
@@ -195,17 +195,16 @@ class generalController extends doubleModel
     public function getCliente($term)
     {
         $term = '%' . $term . '%';
-        $sql = $this->executeQuery("
+        $sql = "
             SELECT id_entidad,
             descripcion1
             FROM general
             WHERE id_registro = 7
             AND id_entidad > 0
-            AND descripion1
-            LIKE :term
-            ORDER BY descripcion1 ASC
+            AND descripcion1 LIKE :term 
+            ORDER BY descripcion1 ASC 
             LIMIT 10
-        ");
+        ";
 
         $suggetions = $this->executeQuery($sql, [':term' => $term]);
         $data = [];
