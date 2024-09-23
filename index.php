@@ -8,11 +8,16 @@ ini_set('error_log', '/laragon/www/gestion-transporte/php-errors.log');
 error_log('Inicio del sistema de gestión de transporte');
 
 require_once 'autoload.php';
+require_once 'vendor/autoload.php';
 require_once 'config/app.php';
 require_once 'src/helpers/session_start.php';
 
+use Dotenv\Dotenv;
 use src\controllers\loginController;
 use src\controllers\viewsController;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 $login = new loginController();
 $viewsController = new viewsController();
