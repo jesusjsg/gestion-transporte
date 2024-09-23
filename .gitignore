@@ -2,3 +2,6 @@ vendor
 php-errors.log
 composer.lock
 db
+.env
+env
+.htaccess
