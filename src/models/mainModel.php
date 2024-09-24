@@ -6,10 +6,6 @@ use Exception;
 use PDOException;
 use \PDO;
 
-if (file_exists(__DIR__ . "/../../config/server.php")) { // Validar si el archivo existe
-    require_once __DIR__ . "/../../config/server.php";
-}
-
 class mainModel
 {
     private $host;
