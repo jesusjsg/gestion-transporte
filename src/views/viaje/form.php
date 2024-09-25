@@ -9,6 +9,7 @@ $registros = [
 
 $tipoOperacion = $generalController->getRegistro($registros['tipoOperacion']);
 $tipocarga = $generalController->getRegistro($registros['tipoCarga']);
+$tasaCambio = $generalController->getTasa()
 
 ?>
 
@@ -32,7 +33,7 @@ $tipocarga = $generalController->getRegistro($registros['tipoCarga']);
                 <input type="hidden" id="codigo-cliente" />
                 <input type="hidden" id="id-origen" />
                 <input type="hidden" id="id-destino" />
-                <input type="hidden" id="tasa-cambio" value="37.5" />
+                <input type="hidden" id="tasa-cambio" value=<?= $tasaCambio ?> />
                 <div class="col-md-2">
                     <label for="nombre-conductor" class="form-label">Nombre y apellido</label>
                     <input type="text" class="form-control" id="nombre-conductor" />
@@ -126,7 +127,7 @@ $tipocarga = $generalController->getRegistro($registros['tipoCarga']);
                         <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                     </div>
                 </div>
-                <div id="add-movements" class="row g-3">
+                <div id="add-movements">
 
                 </div>
                 <div class="tile-footer"></div>
