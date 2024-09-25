@@ -216,4 +216,20 @@ class generalController extends doubleModel
         }
         return json_encode($data);
     }
+
+    public function getTasa()
+    {
+        $query = $this->executeQuery("
+            SELECT valor
+            FROM general
+            WHERE id_registro = 2
+            AND id_entidad > 0
+        ");
+
+        if ($query->rowCount() > 0) {
+            $row = $query->fetch(PDO::FETCH_ASSOC);
+            return $row['valor'];
+        }
+        return null;
+    }
 }
