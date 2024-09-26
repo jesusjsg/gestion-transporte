@@ -3,7 +3,7 @@ import { autocompleteCliente, autocompleteConductor, autocompleteMunicipio, auto
 import { AJAX_TABLES, AJAX_AUTOCOMPLETE } from "./apiAjax.js";
 import { alertHandler ,alertSimple } from "./alertMessages.js";
 import { getWeekends } from "./weekends.js";
-import { deleteRow, Row } from "./components/Row.js";
+import { Row } from "./components/Row.js";
 
 const forms = document.querySelectorAll('.form-ajax')
 
@@ -39,7 +39,8 @@ const countSundays = document.querySelector('#cantidad-domingos')
 // movements elements
 const movementsButton = document.querySelector('#add-row')
 const rowsContainer = document.querySelector('#add-movements')
-
+const deleteRowButton = document.querySelector('.remove-row')
+let numberMovements = 1
 
 
 
@@ -51,7 +52,6 @@ function main(){
     startDate?.addEventListener('change', calculateWeekends)
     endDate?.addEventListener('change', calculateWeekends)
     movementsButton?.addEventListener('click', renderRows)
-    deleteRow(rowsContainer)
 }
 
 function renderTables(){ // render all tables
@@ -88,8 +88,12 @@ function renderAutocomplete(){
 }
 
 function renderRows(){
-    const newRow = Row()
+    const newRow = Row(numberMovements++)
     rowsContainer.insertAdjacentHTML('beforeend', newRow)
+}
+
+function deleteRow(){
+    
 }
 
 function calculateWeekends(){
