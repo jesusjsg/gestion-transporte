@@ -123,7 +123,7 @@ class usuarioController extends uniqueModel
         $userId = $this->cleanString($_POST['id_usuario']);
 
         $data = $this->executeQuery("SELECT * FROM usuarios WHERE id_usuario='$userId'");
-        if ($data->rowCount() < 0) {
+        if ($data->rowCount() <= 0) {
             return $this->errorHandler('No hemos encontrado el usuario en el sistema.');
 
         } else {
@@ -137,45 +137,50 @@ class usuarioController extends uniqueModel
         $rolName = $this->cleanString($_POST['id-rol']);
 
         if (empty($fullname) || empty($username)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El nombre y el usuario son obligatorios.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
         if ($this->verifyData('[a-zA-Z0-9{3,40}', $username)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'El usuario solo puede contener letras y números.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('El usuario solo puede contener letras y números.');
         }
 
         if ($this->verifyData('[a-ZA-Z0-9$.\-]{6,100}', $passwordOne) || $this->verifyData('[a-ZA-Z0-9$.\-]{6,100}', $passwordTwo)) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Las contraseñas deben tener entre 6 y 100 caracteres.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('Las contraseñas deben tener entre 6 y 100 caracteres.');
         }
 
         if ($passwordOne != $passwordTwo) {
-            $alert = [
-                'type' => 'simple',
-                'icon' => 'error',
-                'title' => 'Ocurrió un error',
-                'text' => 'Las contraseñas no coinciden.',
-            ];
-            return json_encode($alert);
+            return $this->errorHandler('Las contraseñas no coinciden.');
         }
 
+        if($data['nombre_usuario'] != $username) {
+            $checkUser = $this->executeQuery("SELECT nombre_usuario FROM usuarios WHERE nombre_usuario = '$username");
+            if ($checkUser->rowCount() > 0) {
+                return $this->errorHandler('El usuario ya se encuentra registrado.');
+            }
+        }
+
+        $userDataUpdate = [
+            [
+                'field_name_database' => 'nombre_apellido',
+                'field_name_form' => ':fullname',
+                'field_value' => ucwords($fullname),
+            ],
+            [
+                'field_name_database' => 'nombre_usuario',
+                'field_name_form' => ':username',
+                'field_value' => $username,
+            ],
+            [
+                'field_name_database' => 'contraseña',
+                'field_name_form' => ':password',
+                'field_value' => $passwordOne,
+            ],
+            [
+                'field_name_database' => 'id_rol',
+                'field_name_form' => ':rolName',
+                'field_value' => $rolName,
+            ]
+        ];
     }
 
     public function deleteUser()
