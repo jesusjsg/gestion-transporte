@@ -36,7 +36,7 @@ $tasaCambio = $generalController->getTasa()
                 <input type="hidden" id="tasa-cambio" value=<?= $tasaCambio ?> />
                 <div class="col-md-2">
                     <label for="nombre-conductor" class="form-label">Nombre y apellido</label>
-                    <input type="text" class="form-control" id="nombre-conductor" />
+                    <input type="text" class="form-control" id="nombre-conductor" autofocus/>
                 </div>
                 <div class="col-md-1">
                     <label for="placa-vehiculo" class="form-label">Placa</label>
@@ -101,6 +101,10 @@ $tasaCambio = $generalController->getTasa()
                     <input type="text" class="form-control block-input" id="cantidad-domingos" disabled/>
                 </div>
                 <div class="col-md-1">
+                    <label for="main-ruta" class="form-label">Ruta</label>
+                    <input type="text" class="form-control block-input" id="main-ruta" disabled/>
+                </div>
+                <div class="col-md-1">
                     <label for="total-kilometros" class="form-label">KM</label>
                     <input type="text" class="form-control block-input" id="total-kilometros" disabled/>
                 </div>
@@ -127,6 +131,7 @@ $tasaCambio = $generalController->getTasa()
                         <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                     </div>
                 </div>
+                <div class="tile-footer"></div>
                 <div id="add-movements">
 
                 </div>
