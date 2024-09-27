@@ -39,8 +39,8 @@ const countSundays = document.querySelector('#cantidad-domingos')
 // movements elements
 const movementsButton = document.querySelector('#add-row')
 const rowsContainer = document.querySelector('#add-movements')
-const deleteRowButton = document.querySelector('.remove-row')
 let numberMovements = 1
+let listLength = 1
 
 
 
@@ -88,12 +88,28 @@ function renderAutocomplete(){
 }
 
 function renderRows(){
-    const newRow = Row(numberMovements++)
+    const newRow = Row(listLength++, numberMovements++)
     rowsContainer.insertAdjacentHTML('beforeend', newRow)
+
+    const deleteRowButton = document.querySelector(`#delete-row-${numberMovements - 1}`)
+    deleteRowButton?.addEventListener('click', deleteRow)
 }
 
-function deleteRow(){
-    
+function deleteRow(event){
+    const row = event.target.closest('.movements')
+    row.remove()
+    updateRow()
+    listLength--
+}
+
+function updateRow(){
+    const rows = document.querySelectorAll('.movements .row')
+    rows.forEach((row, index) => {
+        const badgeCount = row.querySelector('.badge')
+        const inputs = row.querySelector('.form-control')
+        badgeCount.textContent = `N° ${index + 1}`
+        inputs.textContent = `Ingrese el origen ${index + 1}`
+    })
 }
 
 function calculateWeekends(){
