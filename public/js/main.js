@@ -106,9 +106,7 @@ function updateRow(){
     const rows = document.querySelectorAll('.movements .row')
     rows.forEach((row, index) => {
         const badgeCount = row.querySelector('.badge')
-        const inputs = row.querySelector('.form-control')
         badgeCount.textContent = `N° ${index + 1}`
-        inputs.textContent = `Ingrese el origen ${index + 1}`
     })
 }
 

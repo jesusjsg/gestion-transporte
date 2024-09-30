@@ -9,10 +9,10 @@ export function Row(listLength, numberMovements){
                     <span class="badge text-bg-secondary">N° ${listLength}</span>
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" name="origen[]" placeholder="Ingrese el origen ${listLength}" />
+                    <input type="text" class="form-control" name="origen[]" placeholder="Ingrese el origen" />
                 </div>
                 <div class="col-md-4">
-                    <input type="text" class="form-control" name="destino[]" placeholder="Ingrese el destino ${listLength}" />
+                    <input type="text" class="form-control" name="destino[]" placeholder="Ingrese el destino" />
                 </div>
                 <div class="col-md-1">
                     <input type="text" class="form-control block-input" name="codigo-ruta[]" placeholder="Ruta" disabled />
