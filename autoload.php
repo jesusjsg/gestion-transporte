@@ -8,6 +8,4 @@ spl_autoload_register(function ($clase) {
     if (is_file($archivo)) {
         require_once $archivo;
     }
-    /* echo $archivo;
-echo '<br>'; */
 });
