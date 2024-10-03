@@ -127,7 +127,7 @@ $tasaCambio = $generalController->getTasa()
                     <h3 class="fw-light">Agregar movimientos</h3>
                     <div>
                         <button type="button" class="btn btn-primary btn-sm" id="add-row">Agregar fila<i class="bi bi-plus-circle ms-1"></i></button>
-                        <button type="reset" class="btn btn-secondary btn-sm" disabled>Limpiar<i class="bi bi-archive ms-1"></i></button>
+                        <button type="reset" class="btn btn-secondary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
                         <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                     </div>
                 </div>
