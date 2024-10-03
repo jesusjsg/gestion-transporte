@@ -120,7 +120,7 @@ class usuarioController extends uniqueModel
 
     public function updateUser()
     {
-        $userId = $this->cleanString($_POST['id_usuario']);
+        $userId = $this->cleanString($_POST['id-usuario']);
 
         $data = $this->executeQuery("SELECT * FROM usuarios WHERE id_usuario='$userId'");
         if ($data->rowCount() <= 0) {
@@ -140,20 +140,21 @@ class usuarioController extends uniqueModel
             return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
-        if ($this->verifyData('[a-zA-Z0-9{3,40}', $username)) {
+        if ($this->verifyData('[a-zA-Z0-9]{3,40}', $username)) {
             return $this->errorHandler('El usuario solo puede contener letras y números.');
         }
-
-        if ($this->verifyData('[a-ZA-Z0-9$.\-]{6,100}', $passwordOne) || $this->verifyData('[a-ZA-Z0-9$.\-]{6,100}', $passwordTwo)) {
-            return $this->errorHandler('Las contraseñas deben tener entre 6 y 100 caracteres.');
-        }
-
-        if ($passwordOne != $passwordTwo) {
-            return $this->errorHandler('Las contraseñas no coinciden.');
+        if (!empty($passwordOne) || !empty($passwordTwo)) {
+            if ($this->verifyData('[a-zA-Z0-9$.\-]{6,100}', $passwordOne) || $this->verifyData('[a-zA-Z0-9$.\-]{6,100}', $passwordTwo)) {
+                return $this->errorHandler('Las contraseñas deben tener entre 6 y 100 caracteres.');
+            }
+    
+            if ($passwordOne != $passwordTwo) {
+                return $this->errorHandler('Las contraseñas no coinciden.');
+            }
         }
 
         if($data['nombre_usuario'] != $username) {
-            $checkUser = $this->executeQuery("SELECT nombre_usuario FROM usuarios WHERE nombre_usuario = '$username");
+            $checkUser = $this->executeQuery("SELECT nombre_usuario FROM usuarios WHERE nombre_usuario = '$username'");
             if ($checkUser->rowCount() > 0) {
                 return $this->errorHandler('El usuario ya se encuentra registrado.');
             }
@@ -162,25 +163,49 @@ class usuarioController extends uniqueModel
         $userDataUpdate = [
             [
                 'field_name_database' => 'nombre_apellido',
-                'field_name_form' => ':fullname',
+                'field_name_form' => 'fullname',
                 'field_value' => ucwords($fullname),
             ],
             [
                 'field_name_database' => 'nombre_usuario',
-                'field_name_form' => ':username',
+                'field_name_form' => 'username',
                 'field_value' => $username,
             ],
             [
-                'field_name_database' => 'contraseña',
-                'field_name_form' => ':password',
-                'field_value' => $passwordOne,
-            ],
-            [
                 'field_name_database' => 'id_rol',
-                'field_name_form' => ':rolName',
+                'field_name_form' => 'rolName',
                 'field_value' => $rolName,
             ]
         ];
+
+        if (!empty($passwordOne)) {
+            $userDataUpdate[] = [
+                'field_name_database' => 'contraseña',
+                'field_name_form' => 'password',
+                'field_value' => $passwordOne,
+            ];
+        }
+
+        $condition = [
+            "condition_field" => "id_usuario",
+            "condition_marker" => "id_usuario",
+            "condition_value" => $userId,
+        ];
+
+        if($this->updateData('usuarios', $userDataUpdate, $condition)) {
+            if($userId == isset($_SESSION['id_usuario'])) {
+                $_SESSION['nombre_apellido'] = $fullname;
+                $_SESSION['nombre_usuario'] = $username;
+            }
+
+            return $this->successHandler(
+                'reload',
+                'El usuario ' . ucwords($fullname) . ' ha sido actualizado correctamente.',
+                'Usuario actualizado',
+            );
+        } else {
+            return $this->errorHandler('No se pudo actualizar el usuario');
+        }
     }
 
     public function deleteUser()
