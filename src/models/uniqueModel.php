@@ -2,6 +2,8 @@
 
 namespace src\models;
 
+use PDO;
+
 // Clase para el modelo de las tablas que cuenten con solo una llave primaria
 class uniqueModel extends mainModel
 {
@@ -44,7 +46,6 @@ class uniqueModel extends mainModel
 
     public function selectData($type, $table, $field, $id)
     {
-
         $type = $this->cleanString($type);
         $table = $this->cleanString($table);
         $field = $this->cleanString($field);
@@ -52,7 +53,7 @@ class uniqueModel extends mainModel
 
         if ($type == "Primary") {
             $sql = $this->conection()->prepare("SELECT * FROM $table WHERE $field=:ID");
-            $sql->bindParam(":ID", $id);
+            $sql->bindParam(":ID", $id, PDO::PARAM_STR);
         } elseif ($type == "Normal") {
             $sql = $this->conection()->prepare("SELECT $field FROM $table");
         }
@@ -62,29 +63,29 @@ class uniqueModel extends mainModel
 
     protected function updateData($table, $data, $condition)
     {
-
         $query = "UPDATE $table SET ";
         $count = 0;
 
         foreach ($data as $key) {
             if ($count >= 1) {
-                $query .= ",";
+                $query .= ", ";
             }
-            $query .= $key["field_name_database"] . "=" . $key["field_name_form"];
+            $query .= $key["field_name_database"] . " = :" . $key["field_name_form"];
             $count++;
         }
 
-        $query .= " WHERE " . $condition["condition_field"] . "=" . $condition["condition_marker"];
+        $query .= " WHERE " . $condition["condition_field"] . " = :" . $condition["condition_marker"];
         $sql = $this->conection()->prepare($query);
 
         foreach ($data as $key) {
-            $sql->bindParam($key["field_name_database"], $key["field_value"]);
+            $sql->bindParam(":" . $key["field_name_form"], $key["field_value"]);
         }
 
-        $sql->bindParam($condition["condition_marker"], $condition["condition_value"]);
+        $sql->bindParam(":" . $condition["condition_marker"], $condition["condition_value"]);
         $sql->execute();
         return $sql;
     }
+
 
     protected function deleteData($table, $field, $id)
     {

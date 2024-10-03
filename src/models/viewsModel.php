@@ -6,7 +6,7 @@ class viewsModel
 {
     protected $folderList = ["conductor", "viaje", "general", "ruta", "usuario", "vehiculo", "home", "auth", "errors", "nomina"];
 
-    protected $viewList = ["dashboard", "form", "index", "edit", 'login', "logout"];
+    protected $viewList = ["dashboard", "form", "index", "editar", 'login', "logout"];
 
     protected $ajaxList = [
         'usuarios' => 'usuarioAjax',
