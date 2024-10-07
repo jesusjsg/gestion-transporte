@@ -10,6 +10,10 @@ if (isset($_POST['model_vehiculo'])) {
         echo $vehiculo->registerVehiculo();
     }
 
+    if ($_POST['model_vehiculo'] == 'update') {
+        echo $vehiculo->updateVehiculo();
+    }
+
     if ($_POST['model_vehiculo'] == 'delete') {
         echo $vehiculo->deleteVehiculo();
     }
