@@ -176,6 +176,7 @@ class conductorController extends uniqueModel
                     }
                 }
                 $row['opciones'] = '
+                        <a href="'.URL.'conductor/editar/'.$row['id_conductor'].'/" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square m-0 p-0"></i></a>
                         <form class="form-ajax d-inline" action="' . URL . 'ajax/conductor" method="post" autocomplete="off">
                             <input type="hidden" name="model_conductor" value="delete" />
                             <input type="hidden" name="id-conductor" value="' . $row['id_conductor'] . '" />
@@ -191,7 +192,145 @@ class conductorController extends uniqueModel
     }
 
     public function updateConductor()
-    {}
+    {
+        $conductorId = $this->cleanString($_POST['id-conductor']);
+
+        $data = $this->executeQuery("SELECT * FROM conductores WHERE id_conductor='$conductorId'");
+
+        if ($data->rowCount() <= 0) {
+            return $this->errorHandler('No hemos encontrado el conductor en el sistema.');
+        } else {
+            $data = $data->fetch();
+        }
+
+        $ficha = $this->cleanString($_POST['ficha-conductor']);
+        $fullname = $this->cleanString($_POST['name-conductor']);
+        $cedula = $this->cleanString($_POST['cedula-conductor']);
+        $telefono = $this->cleanString($_POST['phone-conductor']);
+        $placa = $this->cleanString($_POST['vehiculo-conductor']);
+        $tipoNomina = $this->cleanString($_POST['tipo-nomina']);
+        
+        $vencimientoCedula = !empty($_POST['vencimiento-cedula']) ? $this->cleanString($_POST['vencimiento-cedula']) : null;
+        $vencimientoLicencia = !empty($_POST['vencimiento-licencia']) ? $this->cleanString($_POST['vencimiento-licencia']) : null;
+        $vencimientoCertificadoMedico = !empty($_POST['vencimiento-medico']) ? $this->cleanString($_POST['vencimiento-medico']) : null;
+        $vencimientoMppps = !empty($_POST['vencimiento-mppps']) ? $this->cleanString($_POST['vencimiento-mppps']) : null;
+        $vencimientoSaberes = !empty($_POST['vencimiento-saberes']) ? $this->cleanString($_POST['vencimiento-saberes']) : null;
+        $vencimientoManejoSeguro = !empty($_POST['vencimiento-seguro']) ? $this->cleanString($_POST['vencimiento-seguro']) : null;
+        $vencimientoAlimento = !empty($_POST['vencimiento-alimento']) ? $this->cleanString($_POST['vencimiento-alimento']) : null;
+
+        if (empty($ficha) || empty($fullname) || empty($cedula) || empty($telefono) || empty($placa)) {
+            return $this->errorHandler('Todos los campos son obligatorios.');
+        }
+
+        if ($this->verifyData('[0-9]{8}', $ficha)) {
+            return $this->errorHandler('La ficha del conductor solo puede contener números.');
+        }
+
+        if ($this->verifyData('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,255}', $fullname)) {
+            return $this->errorHandler('El nombre y apellido solo puede contener caracteres.');
+        }
+
+        if ($this->verifyData('[0-9]{4,8}', $cedula)) {
+            return $this->errorHandler('La cédula del conductor solo puede contener números.');
+        }
+
+        if ($data['id_conductor'] != $ficha) {
+            $checkFicha = $this->executeQuery("SELECT id_conductor FROM conductores WHERE id_conductor = '$ficha'");
+            if ($checkFicha->rowCount() > 0) {
+                return $this->errorHandler('El conductor ya se encuentra registrado.');
+            }
+        }
+
+        $conductorDataUpdate = [
+
+            [
+                'field_name_database' => 'id_conductor',
+                'field_name_form' => 'ficha',
+                'field_value' => $ficha,
+            ],
+            [
+                'field_name_database' => 'nombre_conductor',
+                'field_name_form' => 'fullname',
+                'field_value' => ucwords($fullname),
+            ],
+            [
+                'field_name_database' => 'cedula_conductor',
+                'field_name_form' => 'cedula',
+                'field_value' => $cedula,
+            ],
+            [
+                'field_name_database' => 'telefono_conductor',
+                'field_name_form' => 'telefono',
+                'field_value' => $telefono,
+            ],
+            [
+                'field_name_database' => 'id_vehiculo',
+                'field_name_form' => 'placa',
+                'field_value' => $placa,
+            ],
+            [
+                'field_name_database' => 'vencimiento_cedula',
+                'field_name_form' => 'vencimientoCedula',
+                'field_value' => $vencimientoCedula,
+            ],
+            [
+                'field_name_database' => 'vencimiento_licencia',
+                'field_name_form' => 'vencimientoLicencia',
+                'field_value' => $vencimientoLicencia,
+            ],
+            [
+                'field_name_database' => 'vencimiento_certificado_medico',
+                'field_name_form' => 'vencimientoCertificadoMedico',
+                'field_value' => $vencimientoCertificadoMedico,
+            ],
+            [
+                'field_name_database' => 'vencimiento_mppps',
+                'field_name_form' => 'vencimientoMppps',
+                'field_value' => $vencimientoMppps,
+            ],
+            [
+                'field_name_database' => 'vencimiento_saberes',
+                'field_name_form' => 'vencimientoSaberes',
+                'field_value' => $vencimientoSaberes,
+            ],
+            [
+                'field_name_database' => 'vencimiento_manejo_seguro',
+                'field_name_form' => 'vencimientoManejoSeguro',
+                'field_value' => $vencimientoManejoSeguro,
+            ],
+            [
+                'field_name_database' => 'vencimiento_alimento',
+                'field_name_form' => 'vencimientoAlimento',
+                'field_value' => $vencimientoAlimento,
+            ],
+            [
+                'field_name_database' => 'tipo_nomina',
+                'field_name_form' => 'tipoNomina',
+                'field_value' => $tipoNomina,
+            ],
+        ];
+
+        $condition = [
+            "condition_field" => "id_conductor",
+            "condition_marker" => "id_conductor",
+            "condition_value" => $ficha,
+        ];
+
+        if ($this->updateData('conductores', $conductorDataUpdate, $condition)) {
+            if ($ficha == isset($_SESSION['id_conductor'])) {
+                $_SESSION['nombre_conductor'] = $fullname;
+            }
+
+            return $this->successHandler(
+                'reload',
+                'El conductor ' . ucwords($fullname) . ' ha sido actualizado correctamente.',
+                'Conductor actualizado',
+            );
+        } else {
+            return $this->errorHandler('No se pudo actualizar el conductor');
+        }
+
+    }
 
     public function deleteConductor()
     {
