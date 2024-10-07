@@ -14,6 +14,10 @@ if (isset($_POST['model_conductor'])) {
         echo $conductor->deleteConductor();
     }
 
+    if ($_POST['model_conductor'] == 'update') {
+        echo $conductor->updateConductor();
+    }
+
 } elseif (isset($_GET['action']) && $_GET['action'] == 'load_conductores') {
     $conductor = new conductorController;
     echo $conductor->tableConductor();
