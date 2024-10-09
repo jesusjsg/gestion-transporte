@@ -32,6 +32,8 @@ $data = $vehiculoController->selectData('Primary', 'vehiculos', 'id_vehiculo', $
 if ($data->rowCount() == 1) {
     $data = $data->fetch();
 }
+
+$municipioName = $generalController->getMunicipioById($data['id_municipio'])
 ?>
 
 <main class="app-content">
@@ -196,7 +198,7 @@ if ($data->rowCount() == 1) {
                 </div>
                 <div class="col-md-4">
                     <label for="origen" class="form-label">Municipio</label>
-                    <input type="text" class="form-control" name="origen" id="origen" <?=$data['id_municipio']?>/>
+                    <input type="text" class="form-control" name="origen" id="origen" value="<?=$municipioName?>"/>
                 </div>
                 <div class="col-md-2">
                     <label for="activo-uno" class="form-label">Activo SAP 1</label>
