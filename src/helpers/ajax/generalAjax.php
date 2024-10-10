@@ -12,6 +12,11 @@ if (isset($_POST['model_general'])) {
     if ($_POST['model_general'] == 'delete') {
         echo $general->deleteGeneral();
     }
+
+    if ($_POST['model_general'] == 'update') {
+        echo $general->updateGeneral();
+    }
+    
 } elseif (isset($_GET['action']) && $_GET['action'] == 'load_general') {
     $general = new generalController;
     echo $general->tableGeneral();
