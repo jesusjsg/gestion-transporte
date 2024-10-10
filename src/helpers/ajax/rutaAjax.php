@@ -14,6 +14,10 @@ if (isset($_POST['model_ruta'])) {
         echo $ruta->deleteRuta();
     }
 
+    if ($_POST['model_ruta'] == 'update') {
+        echo $ruta->updateRuta();
+    }
+
 } elseif (isset($_GET['action']) && $_GET['action'] == 'load_ruta') {
     $ruta = new rutaController();
     echo $ruta->tableRuta();
