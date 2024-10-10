@@ -191,6 +191,46 @@ class generalController extends doubleModel
         return null;
     }
 
+    public function getRuralById($id_entidad)
+    {
+        $sql = "
+            SELECT descripcion1
+            FROM general
+            WHERE id_entidad = :id_entidad
+            AND id_registro = 8
+            LIMIT 1
+        ";
+
+        $result = $this->executeQuery($sql, [
+            ':id_entidad' => $id_entidad,
+        ]);
+
+        if ($result->rowCount() > 0) {
+            return $result->fetch(PDO::FETCH_ASSOC)['descripcion1'];
+        }
+        return null;
+    }
+
+    public function getEstadoById($id_entidad)
+    {
+        $sql = "
+            SELECT descripcion3
+            FROM general
+            WHERE id_entidad = :id_entidad
+            AND id_registro = 8
+            LIMIT 1
+        ";
+
+        $result = $this->executeQuery($sql, [
+            ':id_entidad' => $id_entidad,
+        ]);
+
+        if ($result->rowCount() > 0) {
+            return $result->fetch(PDO::FETCH_ASSOC)['descripcion3'];
+        }
+        return null;
+    }
+
     public function getRegistro($idRegistro)
     {
         $options = $this->executeQuery("
