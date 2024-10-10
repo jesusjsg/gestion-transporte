@@ -22,8 +22,6 @@ if ($data->rowCount() == 1) {
 
         $municipioOrigen = $generalController->getRuralById($origenCode);
         $municipioDestino = $generalController->getRuralById($destinoCode);
-    } else {
-
     }
 }
 ?>
