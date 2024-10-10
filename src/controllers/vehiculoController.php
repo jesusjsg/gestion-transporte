@@ -317,8 +317,8 @@ class vehiculoController extends uniqueModel
             return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
-        if ($this->verifyData('[A-Za-z0-9]{7,8}', $placa)) {
-            return $this->errorHandler('La placa solo puede contener números con un rango de 7 a 8 digitos.');
+        if ($this->verifyData('[A-Za-z0-9]{4,8}', $placa)) {
+            return $this->errorHandler('La placa solo puede contener un rango de 7 a 8 digitos.');
         }
 
         if (!empty($linkGps)) {
@@ -327,9 +327,11 @@ class vehiculoController extends uniqueModel
             }
         }
 
-        $checkPlaca = $this->executeQuery("SELECT id_vehiculo FROM vehiculos WHERE id_vehiculo = '$placa'");
-        if ($checkPlaca->rowCount() > 0) {
-            return $this->errorHandler('La placa del vehículo se encuentra registrada.');
+        if ($data['id_vehiculo'] != $placa) {
+            $checkPlaca = $this->executeQuery("SELECT id_vehiculo FROM vehiculos WHERE id_vehiculo = '$placa'");
+            if ($checkPlaca->rowCount() > 0) {
+                return $this->errorHandler('La placa del vehículo se encuentra registrada.');
+            }
         }
 
         $vehiculoDataUpdate = [
@@ -471,7 +473,7 @@ class vehiculoController extends uniqueModel
             "condition_value" => $placa,
         ];
 
-        if ($this->updateData('conductores', $vehiculoDataUpdate, $condition)) {
+        if ($this->updateData('vehiculos', $vehiculoDataUpdate, $condition)) {
             if ($placa == isset($_SESSION['id_vehiculo'])) {
                 $_SESSION['id_vehiculo'] = $placa;
             }
