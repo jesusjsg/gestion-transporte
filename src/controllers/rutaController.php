@@ -90,6 +90,7 @@ class rutaController extends uniqueModel
                     }
                 }
                 $row['opciones'] = '
+                        <a href="'.URL.'ruta/editar/'.$row['id_ruta'].'/" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square m-0 p-0"></i></a>
                         <form class="form-ajax d-inline" action="' . URL . 'ajax/ruta" method="post" autocomplete="off">
                             <input type="hidden" name="model_ruta" value="delete" />
                             <input type="hidden" name="id-ruta" value="' . $row['id_ruta'] . '" />
@@ -108,7 +109,7 @@ class rutaController extends uniqueModel
     {
         $idRuta = $this->cleanString($_POST['id-ruta']);
 
-        $data = $this->executeQuery("SELECT * FROM vehiculos WHERE id_ruta='$idRuta'");
+        $data = $this->executeQuery("SELECT * FROM rutas WHERE id_ruta='$idRuta'");
 
         if ($data->rowCount() <= 0) {
             return $this->errorHandler('No hemos encontrado la ruta en el sistema.');
@@ -133,10 +134,11 @@ class rutaController extends uniqueModel
             return $this->errorHandler('Los kilometros deben ser un número entero.');
         }
 
-        $checkRutaCode = $this->executeQuery("SELECT id_ruta FROM rutas WHERE id_ruta = '$rutaCode'");
-
-        if ($checkRutaCode->rowCount() > 0) {
-            return $this->errorHandler('El código de la ruta ' . $rutaCode . ' ya se encuentra registrado.');
+        if ($data['id_ruta'] != $rutaCode) {
+            $checkRutaCode = $this->executeQuery("SELECT id_ruta FROM rutas WHERE id_ruta = '$rutaCode'");
+            if ($checkRutaCode->rowCount() > 0) {
+                return $this->errorHandler('El código de la ruta ' . $rutaCode . ' ya se encuentra registrado.');
+            }
         }
 
         $rutaDataUpdate = [
@@ -180,7 +182,7 @@ class rutaController extends uniqueModel
 
             return $this->successHandler(
                 'reload',
-                'La ruta (' . ucwords($rutaCode) . ') ha sido actualizada correctamente.',
+                'La ruta (' . $rutaCode . ') ha sido actualizada correctamente.',
                 'Ruta actualizada',
             );
         } else {
