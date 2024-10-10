@@ -33,7 +33,7 @@ if ($data->rowCount() == 1) {
     $data = $data->fetch();
 }
 
-$municipioName = $generalController->getMunicipioById($data['id_municipio'])
+$municipioName = $generalController->getEstadoById($data['id_municipio'])
 ?>
 
 <main class="app-content">
@@ -52,7 +52,7 @@ $municipioName = $generalController->getMunicipioById($data['id_municipio'])
                     <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                 </div>
                 <div class="tile-footer"></div>
-                <input type="hidden" name="id-municipio" id="id-municipio" />
+                <input type="hidden" name="id-municipio" id="id-municipio" value="<?=$data['id_municipio']?>" />
                 <input type="hidden" name="model_vehiculo" value="update" />
                 <input type="hidden" name="id-vehiculo" value="<?=$data['id_vehiculo']?>">
                 <div class="col-md-2">
@@ -79,7 +79,7 @@ $municipioName = $generalController->getMunicipioById($data['id_municipio'])
                 </div>
                 <div class="col-md-2">
                     <label for="unidad-negocio" class="form-label">Unidad</label>
-                    <select class="form-select" name="propiedad">
+                    <select class="form-select" name="unidad-negocio">
                         <option selected disabled>Unidad negocio</option>
                         <?php foreach ($unidadNegocio as $key): ?>
                             <option value="<?=$key['id_entidad']?>"<?=($key['id_entidad'] == $data['unidad_negocio']) ? 'selected' : '';?>><?=$key['descripcion1']?></option>

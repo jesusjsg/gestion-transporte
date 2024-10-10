@@ -12,7 +12,7 @@ $data = $rutaController->selectData('Primary', 'rutas', 'id_ruta', $id);
 if ($data->rowCount() == 1) {
     $data = $data->fetch();
 
-    /* $idRuta = $data['id_ruta'];
+    $idRuta = $data['id_ruta'];
 
     $municipioCodes = $rutaController->getRutaCodes($idRuta);
 
@@ -20,11 +20,11 @@ if ($data->rowCount() == 1) {
         $origenCode = $municipioCodes['codigo_origen'];
         $destinoCode = $municipioCodes['codigo_destino'];
 
-        $municipioOrigen = $generalController->getMunicipioById($origenCode);
-        $municipioDestino = $generalController->getMunicipioById($destinoCode);
+        $municipioOrigen = $generalController->getRuralById($origenCode);
+        $municipioDestino = $generalController->getRuralById($destinoCode);
     } else {
 
-    } */
+    }
 }
 ?>
 
@@ -46,15 +46,15 @@ if ($data->rowCount() == 1) {
                 <div class="tile-footer"></div>
                 <input type="hidden" name="model_ruta" value="update" />
                 <input type="hidden" name="id-ruta" value="<?=$data['id_ruta']?>" />
-                <input type="hidden" name="codigo-origen" />
-                <input type="hidden" name="codigo-destino"  />
+                <input type="hidden" name="codigo-origen" id="codigo-origen" value="<?=$origenCode?>" />
+                <input type="hidden" name="codigo-destino" id="codigo-destino" value="<?=$destinoCode?>" />
                 <div class="col-md-4">
-                    <label for="origen" class="form-lael">Origen</label>
-                    <input type="text" class="form-control" name="origen" id="origen" value="<?=$data['origen']?>" />
+                    <label for="origen" class="form-label">Origen</label>
+                    <input type="text" class="form-control" name="origen" id="origen" value="<?=$municipioOrigen?>" />
                 </div>
                 <div class="col-md-4">
                     <label for="destino" class="form-label">Destino</label>
-                    <input type="text" class="form-control" name="destino" id="destino" value="<?=$data['destino']?>" />
+                    <input type="text" class="form-control" name="destino" id="destino" value="<?=$municipioDestino?>" />
                 </div>
                 <div class="col-md-4">
                     <label for="kilometros" class="form-label">Kilometros</label>
