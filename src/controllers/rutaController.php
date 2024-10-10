@@ -105,7 +105,89 @@ class rutaController extends uniqueModel
     }
 
     public function updateRuta()
-    {}
+    {
+        $idRuta = $this->cleanString($_POST['id-ruta']);
+
+        $data = $this->executeQuery("SELECT * FROM vehiculos WHERE id_ruta='$idRuta'");
+
+        if ($data->rowCount() <= 0) {
+            return $this->errorHandler('No hemos encontrado la ruta en el sistema.');
+        } else {
+            $data = $data->fetch();
+        }
+
+        $OriginCode = $this->cleanString($_POST['codigo-origen']);
+        $DestinyCode = $this->cleanString($_POST['codigo-destino']);
+        $rutaCode = trim($OriginCode . '-' . $DestinyCode);
+        $origen = trim($this->cleanString($_POST['origen']));
+        $destino = trim($this->cleanString($_POST['destino']));
+        $rutaName = trim($origen . '-' . $destino);
+        $kilometros = $this->cleanString($_POST['kilometros']);
+
+        if (empty($origen) || empty($destino) || empty($kilometros)) {
+            return $this->errorHandler('Todos los campos son obligatorios.');
+        }
+
+        $kilometros = filter_var($kilometros, FILTER_VALIDATE_INT);
+        if ($kilometros === false || $kilometros < 0) {
+            return $this->errorHandler('Los kilometros deben ser un número entero.');
+        }
+
+        $checkRutaCode = $this->executeQuery("SELECT id_ruta FROM rutas WHERE id_ruta = '$rutaCode'");
+
+        if ($checkRutaCode->rowCount() > 0) {
+            return $this->errorHandler('El código de la ruta ' . $rutaCode . ' ya se encuentra registrado.');
+        }
+
+        $rutaDataUpdate = [
+            [
+                'field_name_database' => 'id_ruta',
+                'field_name_form' => 'codigoRuta',
+                'field_value' => $rutaCode,
+            ],
+            [
+                'field_name_database' => 'nombre_ruta',
+                'field_name_form' => 'nombreRuta',
+                'field_value' => $rutaName,
+            ],
+            [
+                'field_name_database' => 'origen',
+                'field_name_form' => 'origen',
+                'field_value' => $origen,
+            ],
+            [
+                'field_name_database' => 'destino',
+                'field_name_form' => 'destino',
+                'field_value' => $destino,
+            ],
+            [
+                'field_name_database' => 'kilometros',
+                'field_name_form' => 'kilometros',
+                'field_value' => $kilometros,
+            ],
+        ];
+
+        $condition = [
+            'condition_field' => 'id_ruta',
+            'condition_marker' => 'id_ruta',
+            'condition_value' => $rutaCode
+        ];
+
+        if ($this->updateData('rutas', $rutaDataUpdate, $condition)) {
+            if ($rutaCode == isset($_SESSION['id_ruta'])) {
+                $_SESSION['id_ruta'] = $rutaCode;
+            }
+
+            return $this->successHandler(
+                'reload',
+                'La ruta (' . ucwords($rutaCode) . ') ha sido actualizada correctamente.',
+                'Ruta actualizada',
+            );
+        } else {
+            return $this->errorHandler('No se pudo actualizar la ruta.');
+        }
+
+    }
 
     public function deleteRuta()
     {
@@ -152,6 +234,18 @@ class rutaController extends uniqueModel
 
         } catch (Exception $error) {
             error_log('Error totales rutas: ' . $error->getMessage());
+        }
+    }
+
+    public function getRutaCodes($idRuta)
+    {
+        $codes = explode('-', $idRuta);
+
+        if (count($codes) == 2) {
+            return [
+                'codigo_origen' => trim($codes[0]),
+                'codigo_destino' => trim($codes[1]), 
+            ];
         }
     }
 }
