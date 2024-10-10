@@ -27,7 +27,7 @@ class generalController extends doubleModel
             return $this->errorHandler('El código de registro y entidad deben ser números enteros.');
         }
 
-        if ($this->verifyData('[a-zA-Z .,]{0,255}', $primeraDescripcion) || $this->verifyData('[a-zA-Z .,]{0,255}', $segundaDescripcion) || $this->verifyData('[a-zA-Z ]{0,255}', $terceraDescripcion)) {
+        if ($this->verifyData('[a-zA-Z0-9$@.\-]{0,10000}', $primeraDescripcion) || $this->verifyData('[a-zA-Z0-9$@.\-]{0,10000}', $segundaDescripcion) || $this->verifyData('[a-zA-Z ]{0,255}', $terceraDescripcion)) {
             return $this->errorHandler('Las descripciones no permiten caracteres especiales.');
         }
 
@@ -99,6 +99,7 @@ class generalController extends doubleModel
                     }
                 }
                 $row['opciones'] = '
+                        <a href="'.URL.'general/editar/'.$row['id_registro'].'/'.$row['id_entidad'].'/" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square m-0 p-0"></i></a>
                         <form class="form-ajax d-inline" action="' . URL . 'ajax/general" method="post" autocomplete="off">
                             <input type="hidden" name="model_general" value="delete" />
                             <input type="hidden" name="id-registro" value="' . $row['id_registro'] . '" />
@@ -115,7 +116,104 @@ class generalController extends doubleModel
     }
 
     public function updateGeneral()
-    {}
+    {
+        $idRegistro = $this->cleanString($_POST['id-registro']);
+        $idEntidad = $this->cleanString($_POST['id-entidad']);
+
+        $data = $this->executeQuery("SELECT * FROM general WHERE id_registro = '$idRegistro' AND id_entidad = '$idEntidad'");
+
+        if ($data->rowCount() <= 0) {
+            return $this->errorHandler('No hemos encontrado el registro en el sistema.');
+        } else {
+            $data = $data->fetch();
+        }
+
+        $codigoRegistro = intval($this->cleanString($_POST['codigo-registro']));
+        $codigoEntidad = intval($this->cleanString($_POST['codigo-entidad']));
+        $primeraDescripcion = trim($this->cleanString($_POST['primera-descripcion']));
+        $segundaDescripcion = trim($this->cleanString($_POST['segunda-descripcion']));
+        $terceraDescripcion = trim($this->cleanString($_POST['tercera-descripcion']));
+        $valor = $this->cleanString($_POST['valor']);
+
+        if ($codigoRegistro == '' || $codigoEntidad == '') {
+            return $this->errorHandler('El código de registro y entidad son obligatorios.');
+        }
+
+        if (!is_int($codigoRegistro) || !is_int($codigoEntidad) || $codigoRegistro < 0 || $codigoEntidad < 0) {
+            return $this->errorHandler('El código de registro y entidad deben ser números enteros.');
+        }
+
+        if ($this->verifyData('[a-zA-Z0-9$@.\-]{0,10000}', $primeraDescripcion) || $this->verifyData('[a-zA-Z0-9$@.\-]{0,10000}', $segundaDescripcion) || $this->verifyData('[a-zA-Z0-9$@.\-]{0,10000}', $terceraDescripcion)) {
+            return $this->errorHandler('Las descripciones no permiten caracteres especiales.');
+        }
+
+        if (!is_numeric($valor)) {
+            return $this->errorHandler('El valor debe ser un valor numérico.');
+        }
+
+        if ($data['id_registro'] != $codigoRegistro || $data['id_entidad'] != $codigoEntidad) {
+            $checkRegistro = $this->executeQuery("SELECT id_registro, id_entidad FROM general WHERE id_registro = '$codigoRegistro' AND id_entidad = '$codigoEntidad'");
+            if ($checkRegistro->rowCount() > 0) {
+                return $this->errorHandler('La entidad y el registro ya se encuentran registrados.');
+            }
+        }
+
+        $generalDataUpdate = [
+            [
+                'field_name_database' => 'id_registro',
+                'field_name_form' => 'id_registro',
+                'field_value' => $codigoRegistro,
+            ],
+            [
+                'field_name_database' => 'id_entidad',
+                'field_name_form' => 'id_entidad',
+                'field_value' => $codigoEntidad,
+            ],
+            [
+                'field_name_database' => 'descripcion1',
+                'field_name_form' => 'descripcion1',
+                'field_value' => $primeraDescripcion,
+            ],
+            [
+                'field_name_database' => 'descripcion2',
+                'field_name_form' => 'descripcion2',
+                'field_value' => $segundaDescripcion,
+            ],
+            [
+                'field_name_database' => 'descripcion3',
+                'field_name_form' => 'descripcion3',
+                'field_value' => $terceraDescripcion,
+            ]
+        ];
+
+        $condition = [
+            [
+                'condition_field' => 'id_registro',
+                'condition_marker' => 'id_registro',
+                'condition_value' => $codigoRegistro,
+            ],
+            [
+                'condition_field' => 'id_entidad',
+                'condition_marker' => 'id_entidad',
+                'condition_value' => $codigoEntidad,
+            ]
+        ];
+
+        if ($this->updateData('general', $generalDataUpdate, $condition)) {
+            if ($codigoRegistro == isset($_SESSION['id_registro'])) {
+                $_SESSION['id_entidad'] = $codigoEntidad;
+            }
+
+            return $this->successHandler(
+                'reload',
+                'La entidad ' . $codigoRegistro . '-' . $codigoEntidad . ' ha sido actualizada correctamente.',
+                'Entidad actualizada', 
+            );
+        } else {
+            return $this->errorHandler('No se pudo actualizar la entidad.');
+        }
+        
+    }
 
     public function deleteGeneral()
     {
