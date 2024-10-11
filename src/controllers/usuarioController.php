@@ -23,11 +23,11 @@ class usuarioController extends uniqueModel
             return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
-        if ($this->verifyData("[a-zA-Z0-9]{3,40}", $username)) {
+        if ($this->verifyData("^[a-zA-Z0-9]{3,40}$", $username)) {
             return $this->errorHandler('El usuario solo puede contener letras y números.');
         }
 
-        if ($this->verifyData("[a-zA-Z0-9$@.\-]{6,100}", $passwordOne) || $this->verifyData("[a-zA-Z0-9$@.\-]{6,100}", $passwordTwo)) {
+        if ($this->verifyData("^[a-zA-Z0-9$@.\-]{6,100}$", $passwordOne) || $this->verifyData("^[a-zA-Z0-9$@.\-]{6,100}$", $passwordTwo)) {
             return $this->errorHandler('La contraseña deben tener entre 6 y 100 caracteres.');
         }
 
@@ -140,11 +140,11 @@ class usuarioController extends uniqueModel
             return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
-        if ($this->verifyData('[a-zA-Z0-9]{3,40}', $username)) {
+        if ($this->verifyData('^[a-zA-Z0-9]{3,40}$', $username)) {
             return $this->errorHandler('El usuario solo puede contener letras y números.');
         }
         if (!empty($passwordOne) || !empty($passwordTwo)) {
-            if ($this->verifyData('[a-zA-Z0-9$.\-]{6,100}', $passwordOne) || $this->verifyData('[a-zA-Z0-9$.\-]{6,100}', $passwordTwo)) {
+            if ($this->verifyData('^[a-zA-Z0-9$.\-]{6,100}$', $passwordOne) || $this->verifyData('^[a-zA-Z0-9$.\-]{6,100}$', $passwordTwo)) {
                 return $this->errorHandler('Las contraseñas deben tener entre 6 y 100 caracteres.');
             }
     

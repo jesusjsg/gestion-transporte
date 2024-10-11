@@ -29,19 +29,19 @@ class conductorController extends uniqueModel
             return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
-        if ($this->verifyData('[0-9]{8}', $ficha)) {
+        if ($this->verifyData('^[0-9]{8}$', $ficha)) {
             return $this->errorHandler('La ficha del conductor solo puede contener números.');
         }
 
-        if ($this->verifyData('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,255}', $fullname)) {
+        if ($this->verifyData('^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 ]{10,255}$', $fullname)) {
             return $this->errorHandler('El nombre y apellido solo puede contener caracteres.');
         }
 
-        if ($this->verifyData('[0-9]{8}', $cedula)) {
+        if ($this->verifyData('^[0-9]{8}$', $cedula)) {
             return $this->errorHandler('La cédula del conductor solo puede contener números.');
         }
 
-        if ($this->verifyData('[0-9]{11}', $telefono)) {
+        if ($this->verifyData('^[0-9]{11}$', $telefono)) {
             return $this->errorHandler('El teléfono del conductor solo puede contener números.');
         }
 
@@ -222,15 +222,15 @@ class conductorController extends uniqueModel
             return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
-        if ($this->verifyData('[0-9]{8}', $ficha)) {
+        if ($this->verifyData('^[0-9]{8}$', $ficha)) {
             return $this->errorHandler('La ficha del conductor solo puede contener números.');
         }
 
-        if ($this->verifyData('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,255}', $fullname)) {
+        if ($this->verifyData('[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{10,255}', $fullname)) {
             return $this->errorHandler('El nombre y apellido solo puede contener caracteres.');
         }
 
-        if ($this->verifyData('[0-9]{4,8}', $cedula)) {
+        if ($this->verifyData('^[0-9]{4,8}$', $cedula)) {
             return $this->errorHandler('La cédula del conductor solo puede contener números.');
         }
 

@@ -143,7 +143,9 @@ class generalController extends doubleModel
             return $this->errorHandler('El código de registro y entidad deben ser números enteros.');
         }
 
-        if ($this->verifyData('[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 /]{0,1000}', $primeraDescripcion) || $this->verifyData('[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 /]{0,1000}', $segundaDescripcion) || $this->verifyData('[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 /]{0,1000}', $terceraDescripcion)) {
+        if ($this->verifyData('^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 /]{0,255}$', $primeraDescripcion) || 
+            $this->verifyData('^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 /]{0,255}$', $segundaDescripcion) ||
+            $this->verifyData('^[a-zA-ZáéíóúÁÉÍÓÚñÑ0-9 /]{0,255}$', $terceraDescripcion)) {
             return $this->errorHandler('Las descripciones no permiten caracteres especiales.');
         }
 

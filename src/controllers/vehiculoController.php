@@ -43,7 +43,7 @@ class vehiculoController extends uniqueModel
             return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
-        if ($this->verifyData('[A-Za-z0-9]{7,8}', $placa)) {
+        if ($this->verifyData('^[A-Za-z0-9]{7,8}$', $placa)) {
             return $this->errorHandler('La placa solo puede contener números con un rango de 7 a 8 digitos.');
         }
 
@@ -317,7 +317,7 @@ class vehiculoController extends uniqueModel
             return $this->errorHandler('Todos los campos son obligatorios.');
         }
 
-        if ($this->verifyData('[A-Za-z0-9]{4,8}', $placa)) {
+        if ($this->verifyData('^[A-Za-z0-9]{4,8}$', $placa)) {
             return $this->errorHandler('La placa solo puede contener un rango de 7 a 8 digitos.');
         }
 
@@ -481,7 +481,7 @@ class vehiculoController extends uniqueModel
             return $this->successHandler(
                 'reload',
                 'El vehículo (' . ucwords($placa) . ') ha sido actualizado correctamente.',
-                'Conductor actualizado',
+                'Vehículo actualizado',
             );
         } else {
             return $this->errorHandler('No se pudo actualizar el vehículo.');
@@ -527,12 +527,12 @@ class vehiculoController extends uniqueModel
             LIMIT 5
         ";
         
-        $suggetions = $this->executeQuery($sql, [':term' => $term]);
+        $suggestions = $this->executeQuery($sql, [':term' => $term]);
         $data = [];
 
-        if ($suggetions->rowCount() > 0) {
-            while ($row = $suggetions->fetch(PDO::FETCH_ASSOC)) {
-                $data[] = $row;
+        if ($suggestions->rowCount() > 0) {
+            while ($row = $suggestions->fetch(PDO::FETCH_ASSOC)) {
+                $data[] = $row['id_vehiculo'];
             }
         }
         return json_encode($data);
