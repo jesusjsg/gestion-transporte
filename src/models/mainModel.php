@@ -75,10 +75,10 @@ class mainModel
 
     protected function verifyData($filter, $string)
     {
-        if (preg_match("/^" . $filter . "$/", $string)) {
-            return false;
-        } else {
+        if (preg_match("/^" . preg_quote($filter, '/') . "$/", $string)) {
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -112,4 +112,5 @@ class mainModel
         ]);
         exit();
     }
+
 }
