@@ -4,4 +4,3 @@ composer.lock
 db
 .env
 env
-.htaccess
