@@ -1,4 +1,20 @@
-export function Row(listLength, numberMovements){
+export function rowsDatatable(fieldId){
+    $(fieldId).DataTable({
+        "responsive": true,
+        "paging": false,
+        "searching": false,
+        "ordering": false,
+        "info": false,
+    })
+}
+
+export function createRow(){
+    
+}
+
+
+
+/* export function Row(listLength, numberMovements){
     return `
         <div class="movements">
             <div class="row g-3 align-items-center">
@@ -26,4 +42,4 @@ export function Row(listLength, numberMovements){
             </div>
         </div>
     `
-}
+} */

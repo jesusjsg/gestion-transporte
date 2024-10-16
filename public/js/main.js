@@ -3,7 +3,7 @@ import { autocompleteCliente, autocompleteConductor, autocompleteMunicipio, auto
 import { AJAX_TABLES, AJAX_AUTOCOMPLETE } from "./apiAjax.js";
 import { alertHandler ,alertSimple } from "./alertMessages.js";
 import { getWeekends } from "./weekends.js";
-import { Row } from "./components/Row.js";
+import { rowsDatatable } from "./components/Row.js";
 
 const forms = document.querySelectorAll('.form-ajax')
 
@@ -14,6 +14,7 @@ const tableUsuario = document.querySelector('#table-usuario')
 const tableGeneral = document.querySelector('#table-general')
 const tableVehiculo = document.querySelector('#table-vehiculo')
 const tableRuta = document.querySelector('#table-ruta')
+const tableMovements = document.querySelector('#table-movements')
 
 // autocomplete municipio elements
 const origen = document.querySelector('#origen')
@@ -38,9 +39,10 @@ const countSundays = document.querySelector('#cantidad-domingos')
 
 // movements elements
 const movementsButton = document.querySelector('#add-row')
-const rowsContainer = document.querySelector('#add-movements')
+/* const rowsContainer = document.querySelector('#add-movements')
+const tableMovements = document.querySelector('#table-movements')
 let numberMovements = 1
-let listLength = 1
+let listLength = 1 */
 
 
 
@@ -51,7 +53,7 @@ function main(){
 
     startDate?.addEventListener('change', calculateWeekends)
     endDate?.addEventListener('change', calculateWeekends)
-    movementsButton?.addEventListener('click', renderRows)
+    //movementsButton?.addEventListener('click', renderRows)
 }
 
 function renderTables(){ // render all tables
@@ -61,6 +63,7 @@ function renderTables(){ // render all tables
     initVehiculoTable()
     initRutaTable()
     initViajeTable()
+    initMovimientoTable()
 }
 
 function renderAutocomplete(){
@@ -87,7 +90,9 @@ function renderAutocomplete(){
     })
 }
 
-function renderRows(){
+
+
+/* function renderRows(){
     const newRow = Row(listLength++, numberMovements++)
     rowsContainer.insertAdjacentHTML('beforeend', newRow)
 
@@ -108,7 +113,7 @@ function updateRow(){
         const badgeCount = row.querySelector('.badge')
         badgeCount.textContent = `N° ${index + 1}`
     })
-}
+} */
 
 function calculateWeekends(){
     const start = dayjs(startDate.value)
@@ -215,5 +220,11 @@ function initViajeTable(){
         {'data': 'opciones', 'className': 'dt-center'}
     ])
 }
+
+function initMovimientoTable(){
+    rowsDatatable(tableMovements)
+}
+
+
 
 document.addEventListener('DOMContentLoaded', main)
