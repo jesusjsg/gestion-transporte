@@ -135,23 +135,17 @@ $tasaCambio = $generalController->getTasa()
                 <table class="table table-striped" id="table-movements" style="width: 100%;">
                     <thead>
                         <tr>
-                            <td>Nº movimientos</td>
-                            <td>Origen</td>
-                            <td>Destino</td>
-                            <td>Ruta</td>
-                            <td>KM</td>
+                            <td></td>
+                            <td>Nº</td>
+                            <td style="width: 40%;">Origen</td>
+                            <td style="width: 40%;">Destino</td>
+                            <td style="width: 10%;">Ruta</td>
+                            <td style="width: 10%;">KM</td>
                             <td></td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td><input type="text" class="form-control form-control-sm" name="origen[]"></td>
-                            <td><input type="text" class="form-control form-control-sm" name="destino[]"></td>
-                            <td><input type="text" class="form-control form-control-sm" name="codigo-ruta[]"></td>
-                            <td><input type="text" class="form-control form-control-sm" name="kilometros-movimiento[]"></td>
-                            <td></td>
-                        </tr>
+                        <!-- rows dynamically added -->
                     </tbody>
                 </table>
                 <div class="tile-footer"></div>
