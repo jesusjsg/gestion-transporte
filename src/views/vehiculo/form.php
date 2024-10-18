@@ -43,7 +43,7 @@
                 <input type="hidden" name="model_vehiculo" value="register">
                 <div class="col-md-2">
                     <label for="placa" class="form-label">Placa</label>
-                    <input type="text" class="form-control" name="placa" />
+                    <input type="text" class="form-control" name="placa" autofocus />
                 </div>
                 <div class="col-md-2">
                     <label for="tipo-vehiculo" class="form-label">Tipo</label>

@@ -40,7 +40,7 @@ if ($data->rowCount() == 1) {
                 <input type="hidden" name="id-conductor" value="<?= $data['id_conductor']; ?>" />
                 <div class="col-md-2">
                     <label for="ficha-conductor" class="form-label">Ficha</label>
-                    <input type="text" class="form-control" name="ficha-conductor" min="8" max="8" value="<?= $data['id_conductor']; ?>" />
+                    <input type="text" class="form-control" name="ficha-conductor" min="8" max="8" value="<?= $data['id_conductor']; ?>" autofocus />
                 </div>
                 <div class="col-md-3">
                     <label for="name-conductor" class="form-label">Nombre y apellido</label>

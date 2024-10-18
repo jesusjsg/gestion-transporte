@@ -28,7 +28,7 @@ $tipoNomina = $generalController->getRegistro($registros['nominas']);
                 <input type="hidden" name="model_conductor" value="register" />
                 <div class="col-md-2">
                     <label for="ficha-conductor" class="form-label">Ficha</label>
-                    <input type="text" class="form-control" name="ficha-conductor" min="8" max="8" />
+                    <input type="text" class="form-control" name="ficha-conductor" min="8" max="8" autofocus/>
                 </div>
                 <div class="col-md-3">
                     <label for="name-conductor" class="form-label">Nombre y apellido</label>

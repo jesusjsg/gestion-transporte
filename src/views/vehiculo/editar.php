@@ -57,7 +57,7 @@ $municipioName = $generalController->getEstadoById($data['id_municipio'])
                 <input type="hidden" name="id-vehiculo" value="<?=$data['id_vehiculo']?>">
                 <div class="col-md-2">
                     <label for="placa" class="form-label">Placa</label>
-                    <input type="text" class="form-control" name="placa" value="<?=$data['id_vehiculo']?>" />
+                    <input type="text" class="form-control" name="placa" value="<?=$data['id_vehiculo']?>" autofocus />
                 </div>
                 <div class="col-md-2">
                     <label for="tipo-vehiculo" class="form-label">Tipo</label>

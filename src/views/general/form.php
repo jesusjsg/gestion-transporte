@@ -17,7 +17,7 @@
                 <input type="hidden" name="model_general" value="register" />
                 <div class="col-md-1">
                     <label for="codigo-registro" class="form-label">Registro</label>
-                    <input type="text" class="form-control" name="codigo-registro" />
+                    <input type="text" class="form-control" name="codigo-registro" autofocus />
                 </div>
                 <div class="col-md-1">
                     <label for="codigo-entidad" class="form-label">Entidad</label>

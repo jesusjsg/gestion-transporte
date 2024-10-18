@@ -19,7 +19,7 @@
                 <input type="hidden" name="codigo-destino" id="codigo-destino" />
                 <div class="col-md-4">
                     <label for="origen" class="form-label">Origen</label>
-                    <input type="text" class="form-control" name="origen" id="origen" />
+                    <input type="text" class="form-control" name="origen" id="origen" autofocus />
                 </div>
                 <div class="col-md-4">
                     <label for="destino" class="form-label">Destino</label>

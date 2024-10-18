@@ -34,7 +34,7 @@ if ($data->rowCount() == 1) {
                 <input type="hidden" name="id-entidad" value="<?=$data['id_entidad']?>" />
                 <div class="col-md-1">
                     <label for="codigo-registro" class="form-label">Registro</label>
-                    <input type="text" class="form-control" name="codigo-registro" value="<?=$data['id_registro']?>" />
+                    <input type="text" class="form-control" name="codigo-registro" value="<?=$data['id_registro']?>" autofocus/>
                 </div>
                 <div class="col-md-1">
                     <label for="codigo-entidad" class="form-label">Entidad</label>

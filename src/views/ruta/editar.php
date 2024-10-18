@@ -48,7 +48,7 @@ if ($data->rowCount() == 1) {
                 <input type="hidden" name="codigo-destino" id="codigo-destino" value="<?=$destinoCode?>" />
                 <div class="col-md-4">
                     <label for="origen" class="form-label">Origen</label>
-                    <input type="text" class="form-control" name="origen" id="origen" value="<?=$municipioOrigen?>" />
+                    <input type="text" class="form-control" name="origen" id="origen" value="<?=$municipioOrigen?>" autofocus />
                 </div>
                 <div class="col-md-4">
                     <label for="destino" class="form-label">Destino</label>

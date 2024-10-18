@@ -23,7 +23,7 @@
                 <input type="hidden" name="model_user" value="register" />
                 <div class="col-md-3">
                     <label for="fullname" class="form-label">Nombre y apellido</label>
-                    <input type="text" class="form-control" name="fullname" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,255}" maxlength="255"/>
+                    <input type="text" class="form-control" name="fullname" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{3,255}" maxlength="255" autofocus />
                 </div>
                 <div class="col-md-3">
                     <label for="user" class="form-label">Usuario</label>
