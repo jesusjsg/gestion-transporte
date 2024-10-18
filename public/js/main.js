@@ -3,7 +3,7 @@ import { autocompleteCliente, autocompleteConductor, autocompleteMunicipio, auto
 import { AJAX_TABLES, AJAX_AUTOCOMPLETE } from "./apiAjax.js";
 import { alertHandler ,alertSimple } from "./alertMessages.js";
 import { getWeekends } from "./weekends.js";
-import { rowsDatatable } from "./components/Row.js";
+import { rowsDatatable, addRow, deleteRow } from "./components/Row.js";
 
 const forms = document.querySelectorAll('.form-ajax')
 
@@ -38,11 +38,17 @@ const countSaturdays = document.querySelector('#cantidad-sabados')
 const countSundays = document.querySelector('#cantidad-domingos')
 
 // movements elements
-const movementsButton = document.querySelector('#add-row')
+const origenClass = $('.origen')
+const destinoClass = $('.destino')
+const idOrigenClass = $('.id-origen')
+const idDestinoClass = document.querySelector('.id-destino')
 /* const rowsContainer = document.querySelector('#add-movements')
 const tableMovements = document.querySelector('#table-movements')
 let numberMovements = 1
 let listLength = 1 */
+const addMovementsButton = document.querySelector('#add-row')
+const removeMovementsButton = document.querySelector('#remove-row')
+
 
 
 
@@ -53,7 +59,8 @@ function main(){
 
     startDate?.addEventListener('change', calculateWeekends)
     endDate?.addEventListener('change', calculateWeekends)
-    //movementsButton?.addEventListener('click', renderRows)
+    addMovementsButton?.addEventListener('click', addRow)
+    removeMovementsButton?.addEventListener('click', removeRow)
 }
 
 function renderTables(){ // render all tables
@@ -88,10 +95,23 @@ function renderAutocomplete(){
         ajaxUrl: AJAX_AUTOCOMPLETE.cliente,
         hiddenInput: clienteCode,
     })
+
+    autocompleteMunicipio({
+        inputName: origenClass.last(),
+        ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
+        hiddenInput: idOrigenClass.last(),
+    });
+
+    autocompleteMunicipio({
+        inputName: destinoClass.last(),
+        ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
+        hiddenInput: idDestinoClass,
+    })
 }
 
-
-
+function removeRow(){
+    
+}
 /* function renderRows(){
     const newRow = Row(listLength++, numberMovements++)
     rowsContainer.insertAdjacentHTML('beforeend', newRow)
