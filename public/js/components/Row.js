@@ -1,45 +1,50 @@
+let table
+
 export function rowsDatatable(fieldId){
-    $(fieldId).DataTable({
+    table = $(fieldId).DataTable({
         "responsive": true,
         "paging": false,
         "searching": false,
         "ordering": false,
         "info": false,
+        columnDefs: [
+            {
+                className: 'reorder',
+                render: () => '≡',
+                targets: 0
+            },
+            { orderable: false, targets: '_all' }
+        ],
+        order: [[0, 'asc']],
+        rowReorder: {
+            dataSrc: 1
+        }
     })
 }
 
-export function createRow(){
-    
+export function addRow(){
+    const count = table.rows().count() + 1
+    const newRow = `
+        <tr>
+            <td></td>
+            <td>${count}</td>
+            <td>
+                <input type="text" class="form-control form-control-sm origen" name="origen[]" />
+                <input type="hidden" class="id-origen" name="id-origen[]" />
+            </td>
+            <td>
+                <input type="text" class="form-control form-control-sm destino" name="destino[]" />
+                <input type="hidden" class="id-destino" name="id-destino[]" />    
+            </td>    
+            <td><input type="text" class="form-control form-control-sm codigo-ruta" name="codigo-ruta[]" /></td>
+            <td><input type="text" class="form-control form-control-sm" name="kilometros-movimiento[]" /></td>
+            <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="bi bi-x-lg m-0 p-0"></i></button></td>
+        </tr>
+    `
+    table.row.add($(newRow)).draw()
 }
 
-
-
-/* export function Row(listLength, numberMovements){
-    return `
-        <div class="movements">
-            <div class="row g-3 align-items-center">
-                <div class="hidden">
-                    <input type="hidden" name="numero-movimiento[]" />
-                </div>
-                <div class="col-md-1">
-                    <span class="badge text-bg-secondary">N° ${listLength}</span>
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="origen[]" placeholder="Ingrese el origen" />
-                </div>
-                <div class="col-md-4">
-                    <input type="text" class="form-control" name="destino[]" placeholder="Ingrese el destino" />
-                </div>
-                <div class="col-md-1">
-                    <input type="text" class="form-control block-input" name="codigo-ruta[]" placeholder="Ruta" disabled />
-                </div>
-                <div class=col-md-1>
-                    <input type="text" class="form-control block-input" name="kilometros-movimiento[]" placeholder="Km" disabled />
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-danger remove-row" id="delete-row-${numberMovements}">X</button>
-                </div>        
-            </div>
-        </div>
-    `
-} */
+export function deleteRow(button, table){
+    const row = $(button).closest('tr')
+    table.row(row).remove().draw()
+}
