@@ -17,8 +17,23 @@ export function rowsDatatable(fieldId){
         ],
         order: [[0, 'asc']],
         rowReorder: {
-            dataSrc: 1
-        }
+            dataSrc: 1,
+            //editor: editor
+        },
+        select: true
+    })
+
+    table.on('row-reorder.dt', function(event, diff, edit){
+        diff.forEach(function(change){
+            let newIndex = change.newPosition
+            let oldIndex = change.oldPosition
+            let newData = table.row(newIndex).data()
+
+            newData.order = newIndex + 1
+
+            table.row(newIndex).data(newData)
+        })
+        updateRowsReorder()
     })
 }
 
@@ -42,9 +57,18 @@ export function addRow(){
         </tr>
     `
     table.row.add($(newRow)).draw()
+    updateRowsReorder()
 }
 
 export function deleteRow(button, table){
     const row = $(button).closest('tr')
     table.row(row).remove().draw()
+}
+
+function updateRowsReorder(){
+    table.rows().every(function(rowIndex){
+        const data = this.data()
+        data.order = rowIndex + 1
+        this.data(data)
+    })
 }

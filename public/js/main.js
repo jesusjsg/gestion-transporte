@@ -165,63 +165,69 @@ function calculateWeekends(){
 }
 
 function initConductorTable(){
-    getDatatable(tableConductor, AJAX_TABLES.conductor, [ // conductor table
+    const title = 'Conductores registrados'
+    getDatatable(tableConductor, AJAX_TABLES.conductor, title, [ // conductor table
         {'data': 'id_conductor'},
         {'data': 'nombre_conductor'},
         {'data': 'cedula_conductor'},
         {'data': 'telefono_conductor'},
         {'data': 'id_vehiculo'},
         {'data': 'tipo_nomina'},
-        {'data': 'opciones', 'className': 'dt-center'}
+        {'data': 'opciones', 'className': 'dt-center noExport'}
     ])
 }
 
 function initUsuarioTable(){
-    getDatatable(tableUsuario, AJAX_TABLES.usuario, [ // usuario table
+    const title = 'Usuarios registrados'
+    getDatatable(tableUsuario, AJAX_TABLES.usuario, title, [
         {'data': 'nombre_apellido'},
         {'data': 'nombre_usuario'},
         {'data': 'nombre_rol', 'className':'dt-center'},
-        {'data': 'opciones', 'className':'dt-center'},
+        {'data': 'opciones', 'className':'dt-center noExport'},
     ])
 }
 
 function initGeneralTable(){
-    getDatatable(tableGeneral, AJAX_TABLES.general, [ // general table
+    const title = 'Entidades registrados'
+    getDatatable(tableGeneral, AJAX_TABLES.general, title, [ // general table
         {'data': 'id_registro'},
         {'data': 'id_entidad'},
         {'data': 'descripcion1'},
         {'data': 'descripcion2'},
         {'data': 'descripcion3'},
         {'data': 'valor', 'className':'dt-right'},
-        {'data': 'opciones', 'className':'dt-center'}
+        {'data': 'opciones', 'className':'dt-center noExport'}
     ])
 }
 
 function initVehiculoTable(){
-    getDatatable(tableVehiculo, AJAX_TABLES.vehiculo, [ // vehiculo table
+    const title = 'Vehiculos registrados'
+    getDatatable(tableVehiculo, AJAX_TABLES.vehiculo, title, [ // vehiculo table
         {'data': 'id_vehiculo'},
         {'data': 'tipo_vehiculo'},
         {'data': 'propiedad'},
         {'data': 'marca'},
         {'data': 'uso'},
         {'data': 'estatus_vehiculo', 'className': 'dt-center'},
-        {'data': 'opciones', 'className': 'dt-center'}
+        {'data': 'opciones', 'className': 'dt-center noExport'}
     ])
 }
 
 function initRutaTable(){
-    getDatatable(tableRuta, AJAX_TABLES.ruta, [ // ruta table
+    const title = 'Rutas registradas'
+    getDatatable(tableRuta, AJAX_TABLES.ruta, title, [ // ruta table
         {'data': 'id_ruta'},
         {'data': 'nombre_ruta'},
         {'data': 'origen'},
         {'data': 'destino'},
         {'data': 'kilometros'},
-        {'data': 'opciones', 'className': 'dt-center'}
+        {'data': 'opciones', 'className': 'dt-center noExport'}
     ])
 }
 
 function initViajeTable(){
-    getDatatable(tableViaje, AJAX_TABLES.viaje, [
+    const title = 'Viajes registrados'
+    getDatatable(tableViaje, AJAX_TABLES.viaje, title, [
         {'data': 'id_conductor'},
         {'data': 'id_vehiculo'},
         {'data': 'id_tipo_operacion'},
@@ -237,7 +243,7 @@ function initViajeTable(){
         {'data': 'monto_usd'},
         {'data': 'monto_ves'},
         {'data': 'total_kilometros'},
-        {'data': 'opciones', 'className': 'dt-center'}
+        {'data': 'opciones', 'className': 'dt-center noExport'}
     ])
 }
 

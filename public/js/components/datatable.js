@@ -1,6 +1,6 @@
 import { alertHandler } from "../alertMessages.js"
 
-export function getDatatable(fieldId, url, columns){
+export function getDatatable(fieldId, url, title, columns){
     $(fieldId).DataTable({
         "aProcessing": true,
         "aServerside": true,
@@ -32,17 +32,18 @@ export function getDatatable(fieldId, url, columns){
         buttons: [
             {
                 extend: 'excelHtml5',
+                title: title, 
                 text: 'Excel <i class="bi bi-file-earmark-excel"></i>',
                 className: 'btn btn-success btn-sm',
                 exportOptions: {
-                    columns: ':all'
+                    columns: ':visible:not(.noExport), :hidden'
                 }
             }
         ],
         'columns': columns,
         'responsive': true,
         'bDestroy': true,
-        'iDisplayLength': 15,
+        'iDisplayLength': 10,
         'order': [[0, 'asc']],
     })
 }
