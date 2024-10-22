@@ -36,9 +36,6 @@
     
                 <li><a class="app-menu__item" href="<?= URL; ?>general/"><i class="app-menu__icon bi bi-info-circle-fill"></i>
                     <span class="app-menu__label">General</span></a></li>
-                
-                <li><a class="app-menu__item" href="<?= URL; ?>nomina/"><i class="app-menu__icon bi bi-file-text"></i>
-                    <span class="app-menu__label">Nóminas</span></a></li>
     
                 <li class="treeview"><a class="app-menu__item" href="#" data-toggle="treeview"><i class="app-menu__icon bi bi-card-text"></i>
                     <span class="app-menu__label">Reportes</span><i class="treeview-indicator bi bi-chevron-right"></i></a>

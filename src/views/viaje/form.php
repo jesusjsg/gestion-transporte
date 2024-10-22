@@ -124,7 +124,7 @@ $tasaCambio = $generalController->getTasa()
         <div class="tile-body">
             <form class="row g-3 form-ajax" action="" method="post" autocomplete="off">
                 <div class="d-grip gap-2 d-md-flex justify-content-between">
-                    <h3 class="fw-light">Agregar movimientos</h3>
+                    <h3 class="fw-light">Movimientos del viaje</h3>
                     <div>
                         <button type="button" class="btn btn-primary btn-sm" id="add-row">Agregar fila<i class="bi bi-plus-circle ms-1"></i></button>
                         <button type="reset" class="btn btn-secondary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
