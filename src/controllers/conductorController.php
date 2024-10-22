@@ -370,7 +370,7 @@ class conductorController extends uniqueModel
             WHERE nombre_conductor
             LIKE :term
             ORDER BY nombre_conductor ASC
-            LIMIT 10
+            LIMIT 5
             
         ";
         $suggetions = $this->executeQuery($sql, [':term' => $term]);

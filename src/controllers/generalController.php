@@ -255,7 +255,7 @@ class generalController extends doubleModel
             AND CONCAT(descripcion1, ' | ', descripcion2, ' - ', descripcion3)
             LIKE :term
             ORDER BY estado_nombre_municipio ASC
-            LIMIT 10
+            LIMIT 5
         ";
 
         $suggetions = $this->executeQuery($sql, [':term' => $term]);
@@ -362,7 +362,7 @@ class generalController extends doubleModel
             AND id_entidad > 0
             AND descripcion1 LIKE :term 
             ORDER BY descripcion1 ASC 
-            LIMIT 10
+            LIMIT 5
         ";
 
         $suggetions = $this->executeQuery($sql, [':term' => $term]);
