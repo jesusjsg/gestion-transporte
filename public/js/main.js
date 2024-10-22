@@ -3,7 +3,7 @@ import { autocompleteCliente, autocompleteConductor, autocompleteMunicipio, auto
 import { AJAX_TABLES, AJAX_AUTOCOMPLETE } from "./apiAjax.js";
 import { alertHandler ,alertSimple } from "./alertMessages.js";
 import { getWeekends } from "./weekends.js";
-import { rowsDatatable, addRow, deleteRow } from "./components/Row.js";
+import { rowsDatatable, addRow } from "./components/Row.js";
 
 const forms = document.querySelectorAll('.form-ajax')
 
@@ -38,17 +38,11 @@ const countSaturdays = document.querySelector('#cantidad-sabados')
 const countSundays = document.querySelector('#cantidad-domingos')
 
 // movements elements
-const origenClass = $('.origen')
+/* const origenClass = $('.origen')
 const destinoClass = $('.destino')
 const idOrigenClass = $('.id-origen')
-const idDestinoClass = document.querySelector('.id-destino')
-/* const rowsContainer = document.querySelector('#add-movements')
-const tableMovements = document.querySelector('#table-movements')
-let numberMovements = 1
-let listLength = 1 */
+const idDestinoClass = $('.id-destino') */
 const addMovementsButton = document.querySelector('#add-row')
-const removeMovementsButton = document.querySelector('#remove-row')
-
 
 
 
@@ -60,7 +54,6 @@ function main(){
     startDate?.addEventListener('change', calculateWeekends)
     endDate?.addEventListener('change', calculateWeekends)
     addMovementsButton?.addEventListener('click', addRow)
-    removeMovementsButton?.addEventListener('click', removeRow)
 }
 
 function renderTables(){ // render all tables
@@ -78,6 +71,14 @@ function renderAutocomplete(){
     autocompletePlaca(vehiculo, AJAX_AUTOCOMPLETE.placaVehiculo)
     autocompleteConductor(conductor, AJAX_AUTOCOMPLETE.conductor, conductorCode, vehiculo)
 
+    // Inicializa el autocompletado para los campos de origen y destino en cada fila
+
+    autocompleteCliente({
+        inputName: cliente,
+        ajaxUrl: AJAX_AUTOCOMPLETE.cliente,
+        hiddenInput: clienteCode,
+    })
+
     autocompleteMunicipio({
         inputName: origen,
         ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
@@ -89,51 +90,25 @@ function renderAutocomplete(){
         ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
         hiddenInput: destinoCode,
     })
+}
 
-    autocompleteCliente({
-        inputName: cliente,
-        ajaxUrl: AJAX_AUTOCOMPLETE.cliente,
-        hiddenInput: clienteCode,
-    })
+
+export function initializeNewRowAutocomplete(rowIndex) {
+    const origenInput = $(`#origen-${rowIndex}`);
+    const destinoInput = $(`#destino-${rowIndex}`);
 
     autocompleteMunicipio({
-        inputName: origenClass.last(),
+        inputName: origenInput,
         ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
-        hiddenInput: idOrigenClass.last(),
+        hiddenInput: `#id-origen-${rowIndex}`
     });
 
     autocompleteMunicipio({
-        inputName: destinoClass.last(),
+        inputName: destinoInput,
         ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
-        hiddenInput: idDestinoClass,
-    })
+        hiddenInput: `#id-destino-${rowIndex}`
+    });
 }
-
-function removeRow(){
-    
-}
-/* function renderRows(){
-    const newRow = Row(listLength++, numberMovements++)
-    rowsContainer.insertAdjacentHTML('beforeend', newRow)
-
-    const deleteRowButton = document.querySelector(`#delete-row-${numberMovements - 1}`)
-    deleteRowButton?.addEventListener('click', deleteRow)
-}
-
-function deleteRow(event){
-    const row = event.target.closest('.movements')
-    row.remove()
-    updateRow()
-    listLength--
-}
-
-function updateRow(){
-    const rows = document.querySelectorAll('.movements .row')
-    rows.forEach((row, index) => {
-        const badgeCount = row.querySelector('.badge')
-        badgeCount.textContent = `N° ${index + 1}`
-    })
-} */
 
 function calculateWeekends(){
     const start = dayjs(startDate.value)
@@ -158,7 +133,7 @@ function calculateWeekends(){
                 icon: 'error',
                 title: 'Ocurrió un error',
                 text: 'La fecha de inicio debe ser anterior a la fecha de cierre.'
-            }
+            } 
             alertSimple(alertInfo)
         }
     }
