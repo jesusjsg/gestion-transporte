@@ -42,6 +42,7 @@ export function autocompleteMunicipio({inputName, ajaxUrl, hiddenInput}){
                 }
             })
         },
+        minLength: 2,
         select: function(event, ui){
             $(inputName).val(ui.item.label)
             $(hiddenInput).val(ui.item.id)
@@ -77,6 +78,7 @@ export function autocompleteCliente({inputName, ajaxUrl, hiddenInput}){
                 }
             })
         },
+        minLength: 2,
         select: function(event, ui){
             $(inputName).val(ui.item.label)
             $(hiddenInput).val(ui.item.id)
@@ -115,6 +117,7 @@ export function autocompleteConductor(inputName, url, ...other){
                 }
             })
         },
+        minLength: 2,
         select: function(event, ui){
             $(inputName).val(ui.item.label)
             if(other.length > 0){
