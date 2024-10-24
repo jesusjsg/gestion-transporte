@@ -34,18 +34,19 @@ export function addRow(){
             <td></td>
             <td>${count}</td>
             <td>
-                <input type="text" class="form-control form-control-sm origen" name="origen[]" id="origen-${count}"/>
+                <input type="text" class="form-control form-control-sm origen" name="origen[]" id="origen-${count}" />
                 <input type="hidden" class="id-origen" name="id-origen[]" id="id-origen-${count}" />
             </td>
             <td>
                 <input type="text" class="form-control form-control-sm destino" name="destino[]" id="destino-${count}" />
-                <input type="hidden" class="id-destino" name="id-destino[]" id="id-destino-${count}" />    
+                <input type="hidden" class="id-destino" name="id-destino[]" id="id-destino-${count}" value="" />    
             </td>    
-            <td><input type="text" class="form-control form-control-sm codigo-ruta" name="codigo-ruta[]" /></td>
+            <td><input type="text" class="form-control form-control-sm codigo-ruta" name="codigo-ruta[]" id="id-ruta-${count}" value="" /></td>
             <td><input type="text" class="form-control form-control-sm" name="kilometros-movimiento[]" /></td>
             <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="bi bi-x-lg m-0 p-0"></i></button></td>
         </tr>
     `
+    console.log(count)
     table.row.add($(newRow)).draw()
     initializeNewRowAutocomplete(count)
 }

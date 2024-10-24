@@ -71,8 +71,6 @@ function renderAutocomplete(){
     autocompletePlaca(vehiculo, AJAX_AUTOCOMPLETE.placaVehiculo)
     autocompleteConductor(conductor, AJAX_AUTOCOMPLETE.conductor, conductorCode, vehiculo)
 
-    // Inicializa el autocompletado para los campos de origen y destino en cada fila
-
     autocompleteCliente({
         inputName: cliente,
         ajaxUrl: AJAX_AUTOCOMPLETE.cliente,
@@ -94,21 +92,64 @@ function renderAutocomplete(){
 
 
 export function initializeNewRowAutocomplete(rowIndex) {
-    const origenInput = $(`#origen-${rowIndex}`);
-    const destinoInput = $(`#destino-${rowIndex}`);
+    const origenInput = document.querySelector(`#origen-${rowIndex}`)
+    const destinoInput = document.querySelector(`#destino-${rowIndex}`);
+    const idOrigenInput = document.querySelector(`#id-origen-${rowIndex}`)
+    const idDestinoInput = document.querySelector(`#id-destino-${rowIndex}`)
+    console.log(origenInput)
+    console.log(destinoInput)
+    console.log(idOrigenInput.value)
+    console.log(idDestinoInput.value)
+    console.log(rowIndex)
 
     autocompleteMunicipio({
         inputName: origenInput,
         ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
-        hiddenInput: `#id-origen-${rowIndex}`
+        hiddenInput: idOrigenInput
     });
 
     autocompleteMunicipio({
         inputName: destinoInput,
         ajaxUrl: AJAX_AUTOCOMPLETE.municipio,
-        hiddenInput: `#id-destino-${rowIndex}`
+        hiddenInput: idDestinoInput
     });
+
+    idOrigenInput.addEventListener?.('change', () => {
+        console.log(rowIndex)
+        console.log(idOrigenInput)
+        concatCodes(rowIndex)
+    })
+        
+    idDestinoInput.addEventListener?.('change', () => {
+        console.log(rowIndex)
+        console.log(idDestinoInput)
+        concatCodes(rowIndex)
+    })
+
+    concatCodes(rowIndex)
 }
+
+function concatCodes(rowIndex) {
+    const idOrigenInput = document.querySelector(`#id-origen-${rowIndex}`);
+    const idDestinoInput = document.querySelector(`#id-destino-${rowIndex}`);
+    const idRutaInput = document.querySelector(`#id-ruta-${rowIndex}`);
+
+    if (idOrigenInput && idDestinoInput) {
+        const idOrigenValue = idOrigenInput.value;
+        const idDestinoValue = idDestinoInput.value;
+
+        console.log('ID Origen:', idOrigenValue);
+        console.log('ID Destino:', idDestinoValue);
+
+        if (idOrigenValue && idDestinoValue) {
+            idRutaInput.value = `${idOrigenValue}-${idDestinoValue}`;
+            console.log('ID Ruta:', idRutaInput.value);
+        } else {
+            idRutaInput.value = '';
+        }
+    }
+}
+
 
 function calculateWeekends(){
     const start = dayjs(startDate.value)
