@@ -216,15 +216,18 @@ class rutaController extends uniqueModel
 
     public function getKilometers($rutaCode)
     {
-        $rutaKilometers = $this->executeQuery("SELECT kilometros FROM rutas WHERE id_ruta = '$rutaCode");
-        $values = [];
-
-        if ($rutaKilometers->rowCount() > 0) {
-            while ($row = $rutaKilometers->fetch(PDO::FETCH_ASSOC)) {
-                $values[] = $row['kilometros'];
+        try {
+            $rutaKilometers = $this->executeQuery("SELECT kilometros FROM rutas WHERE id_ruta = '$rutaCode'");
+    
+            if ($rutaKilometers->rowCount() > 0) {
+                $row = $rutaKilometers->fetch(PDO::FETCH_ASSOC);
+                return $row['kilometros'];
             }
+            return null;
+            
+        } catch (Exception $error) {
+            error_log('Error get kilometers: ', $error->getMessage());
         }
-        return $values;
     }
 
     public function totalRutas()
