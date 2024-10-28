@@ -45,7 +45,7 @@ export function autocompleteMunicipio({inputName, ajaxUrl, hiddenInput}){
         minLength: 2,
         select: function(event, ui){
             $(inputName).val(ui.item.label)
-            $(hiddenInput).val(ui.item.id)
+            $(hiddenInput).val(ui.item.id).trigger('change')
             $(inputName).val(ui.item.municipio)
             return false
         },
