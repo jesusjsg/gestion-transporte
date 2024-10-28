@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="<?= $_ENVl['DB_CHARSET']; ?>">
+    <meta charset="<?= $_ENV['DB_CHARSET']; ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="<?= URL; ?>public/img/main/clover-logo-tab.ico">
     <title><?= APP_NAME; ?></title>
