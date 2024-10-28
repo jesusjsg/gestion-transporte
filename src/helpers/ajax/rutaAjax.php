@@ -26,7 +26,11 @@ if (isset($_POST['model_ruta'])) {
     $estadoMunicipio = new generalController();
     echo $estadoMunicipio->getMunicipios($_GET['term']);
 
-} else {
+} elseif (isset($_GET['action']) && $_GET['action'] == 'get_kilometers') {
+    $kilometers = new rutaController();
+    echo $kilometers->getKilometers($_GET['id_ruta']);
+
+}else {
     session_destroy();
     header('Location: ' . URL);
 }
