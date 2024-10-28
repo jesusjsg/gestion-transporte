@@ -252,7 +252,7 @@ function initRutaTable(){
 function initViajeTable(){
     const title = 'Viajes registrados'
     getDatatable(tableViaje, AJAX_TABLES.viaje, title, [
-        {'data': 'id_conductor'},
+        {'data': 'nombre_conductor'},
         {'data': 'id_vehiculo'},
         {'data': 'id_tipo_operacion'},
         {'data': 'id_tipo_carga'},
@@ -261,12 +261,10 @@ function initViajeTable(){
         {'data': 'nombre_ruta'},
         {'data': 'fecha_inicio'},
         {'data': 'fecha_cierre'},
+        {'data': 'nro_nomina'},
         {'data': 'sabados'},
         {'data': 'domingos'},
         {'data': 'feriados'},
-        {'data': 'monto_usd'},
-        {'data': 'monto_ves'},
-        {'data': 'total_kilometros'},
         {'data': 'opciones', 'className': 'dt-center noExport'}
     ])
 }
