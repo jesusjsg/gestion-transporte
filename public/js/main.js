@@ -1,6 +1,6 @@
 import { getDatatable } from "./components/datatable.js";
 import { autocompleteCliente, autocompleteConductor, autocompleteMunicipio, autocompletePlaca } from "./components/autocomplete.js";
-import { AJAX_TABLES, AJAX_AUTOCOMPLETE } from "./apiAjax.js";
+import { AJAX_TABLES, AJAX_AUTOCOMPLETE, AJAX_KILOMETERS } from "./apiAjax.js";
 import { alertHandler ,alertSimple } from "./alertMessages.js";
 import { getWeekends } from "./weekends.js";
 import { rowsDatatable, addRow } from "./components/Row.js";
@@ -96,11 +96,6 @@ export function initializeNewRowAutocomplete(rowIndex) {
     const destinoInput = document.querySelector(`#destino-${rowIndex}`);
     const idOrigenInput = document.querySelector(`#id-origen-${rowIndex}`)
     const idDestinoInput = document.querySelector(`#id-destino-${rowIndex}`)
-    console.log(origenInput)
-    console.log(destinoInput)
-    console.log(idOrigenInput.value)
-    console.log(idDestinoInput.value)
-    console.log(rowIndex)
 
     autocompleteMunicipio({
         inputName: origenInput,
@@ -114,15 +109,11 @@ export function initializeNewRowAutocomplete(rowIndex) {
         hiddenInput: idDestinoInput
     });
 
-    idOrigenInput.addEventListener?.('change', () => {
-        console.log(rowIndex)
-        console.log(idOrigenInput)
+    $(idOrigenInput).on('change', () => {
         concatCodes(rowIndex)
     })
         
-    idDestinoInput.addEventListener?.('change', () => {
-        console.log(rowIndex)
-        console.log(idDestinoInput)
+    $(idDestinoInput).on('change', () => {
         concatCodes(rowIndex)
     })
 
@@ -130,25 +121,42 @@ export function initializeNewRowAutocomplete(rowIndex) {
 }
 
 function concatCodes(rowIndex) {
-    const idOrigenInput = document.querySelector(`#id-origen-${rowIndex}`);
-    const idDestinoInput = document.querySelector(`#id-destino-${rowIndex}`);
-    const idRutaInput = document.querySelector(`#id-ruta-${rowIndex}`);
+    const idOrigenInput = document.querySelector(`#id-origen-${rowIndex}`)
+    const idDestinoInput = document.querySelector(`#id-destino-${rowIndex}`)
+    const idRutaInput = document.querySelector(`#id-ruta-${rowIndex}`)
 
     if (idOrigenInput && idDestinoInput) {
-        const idOrigenValue = idOrigenInput.value;
-        const idDestinoValue = idDestinoInput.value;
-
-        console.log('ID Origen:', idOrigenValue);
-        console.log('ID Destino:', idDestinoValue);
+        const idOrigenValue = idOrigenInput.value
+        const idDestinoValue = idDestinoInput.value
 
         if (idOrigenValue && idDestinoValue) {
-            idRutaInput.value = `${idOrigenValue}-${idDestinoValue}`;
-            console.log('ID Ruta:', idRutaInput.value);
+            idRutaInput.value = `${idOrigenValue}-${idDestinoValue}`
         } else {
-            idRutaInput.value = '';
+            idRutaInput.value = ''
         }
+
+        getKilometers(idRutaInput.value, rowIndex)
     }
 }
+
+function getKilometers(idRuta, rowIndex) {
+    $.ajax({
+        url: AJAX_KILOMETERS.ruta,
+        type: 'get',
+        data: {id_ruta: idRuta},
+        success: function(response) {
+            if (response !== null) {
+                document.querySelector(`#kilometros-movimiento-${rowIndex}`).value = response
+            } else {
+                document.querySelector(`#kilometros-movimiento-${rowIndex}`).value = ''
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('Ajax error: ', errorThrown)
+        }
+    })
+}
+
 
 
 function calculateWeekends(){
