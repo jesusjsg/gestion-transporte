@@ -4,6 +4,8 @@ export function getDatatable(fieldId, url, title, columns){
     $(fieldId).DataTable({
         "aProcessing": true,
         "aServerside": true,
+        "paging": true,
+        "deferRender": true,
         language: {
             'processing': 'Procesando...',
             'lengthMenu': 'Mostrar registros _MENU_',
@@ -27,6 +29,9 @@ export function getDatatable(fieldId, url, title, columns){
         'ajax': {
             'url': url,
             'dataSrc':'',
+            'error': function(xhr, error, thrown) {
+                console.error('Error to load data: ', error)
+            }
         },
         dom: 'Bfrtip',
         buttons: [
@@ -38,6 +43,12 @@ export function getDatatable(fieldId, url, title, columns){
                 exportOptions: {
                     columns: ':visible:not(.noExport), :hidden'
                 }
+            }
+        ],
+        "columnDefs": [
+            { 
+                "targets": -1,
+                "orderable": false
             }
         ],
         'columns': columns,
