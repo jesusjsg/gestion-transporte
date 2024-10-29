@@ -29,9 +29,6 @@
                                 <th>Inicio</th>
                                 <th>Cierre</th>
                                 <th>Nómina</th>
-                                <th>Sabados</th>
-                                <th>Domingos</th>
-                                <th>Feriados</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
