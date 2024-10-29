@@ -254,17 +254,14 @@ function initViajeTable(){
     getDatatable(tableViaje, AJAX_TABLES.viaje, title, [
         {'data': 'nombre_conductor'},
         {'data': 'id_vehiculo'},
-        {'data': 'id_tipo_operacion'},
-        {'data': 'id_tipo_carga'},
+        {'data': 'tipo_operacion'},
+        {'data': 'tipo_carga'},
         {'data': 'aviso'},
-        {'data': 'id_cliente'},
-        {'data': 'nombre_ruta'},
+        {'data': 'cliente'},
+        {'data': 'id_ruta'},
         {'data': 'fecha_inicio'},
         {'data': 'fecha_cierre'},
         {'data': 'nro_nomina'},
-        {'data': 'sabados'},
-        {'data': 'domingos'},
-        {'data': 'feriados'},
         {'data': 'opciones', 'className': 'dt-center noExport'}
     ])
 }
