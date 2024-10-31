@@ -17,6 +17,10 @@ if (isset($_POST['model_viaje'])) {
         echo $viaje->deleteViaje();
     }
 
+    if ($_POST['model_viaje'] == 'update') {
+        echo $viaje->updateViaje();
+    }
+
 } elseif (isset($_GET['action']) && $_GET['action'] == 'load_viaje') {
     $viaje = new viajeController();
     echo $viaje->tableViaje();
