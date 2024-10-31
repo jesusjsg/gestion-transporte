@@ -13,6 +13,7 @@ class mainModel
     private $user;
     private $pass;
     private $charset;
+    private $connection;
 
 
     public function __construct() {
@@ -21,20 +22,23 @@ class mainModel
         $this->user = $_ENV['DB_USER'];
         $this->pass = $_ENV['DB_PASSWORD'];
         $this->charset = $_ENV['DB_CHARSET'];
+        $this->connection = null;
     }
 
     protected function conection(): PDO
     { //Funcion para la conexión a la base de datos
-        try {
-            $connection = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db, $this->user, $this->pass);
-            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $connection->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, $this->charset);
-
-            return $connection;
-        } catch (PDOException $error) {
-            error_log('Error en la conexión a la base de datos: ' . $error->getMessage());
-            throw new Exception('Error en la conexión a la base de datos');
+        if ($this->connection === null) {
+            try {
+                $this->connection = new PDO('mysql:host=' . $this->host . ';dbname=' . $this->db, $this->user, $this->pass);
+                $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $this->connection->setAttribute(PDO::MYSQL_ATTR_INIT_COMMAND, $this->charset);
+    
+            } catch (PDOException $error) {
+                error_log('Error en la conexión a la base de datos: ' . $error->getMessage());
+                throw new Exception('Error en la conexión a la base de datos');
+            }
         }
+        return $this->connection;
     }
 
     protected function executeQuery($query, $params = [])
@@ -93,7 +97,9 @@ class mainModel
     protected function errorHandler($text, $title = 'Ocurrió un error'): string
     {
         error_log('Error: ' . $text);
-        return json_encode([
+        header('Content-Type: application/json');
+
+        echo json_encode([
             'type' => 'simple',
             'icon' => 'error',
             'title' => $title,
@@ -102,14 +108,22 @@ class mainModel
         exit();
     }
 
-    protected function successHandler($type, $text, $title = 'Registro exitoso'): string
+    protected function successHandler($type, $text, $title = 'Registro exitoso', $redirectUrl = null): string
     {
-        return json_encode([
+        header('Content-Type: application/json');
+
+        $response = [
             'type' => $type,
             'icon' => 'success',
             'title' => $title,
             'text' => $text,
-        ]);
+        ];
+
+        if ($redirectUrl) {
+            $response['redirectUrl'] = $redirectUrl;
+        }
+
+        echo json_encode($response);
         exit();
     }
 
