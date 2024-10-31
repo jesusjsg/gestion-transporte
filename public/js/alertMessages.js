@@ -90,5 +90,21 @@ export function alertSimple(alert){
                 }
             })
             break
+        case 'redirect':
+            swalWithBootstrapButtons.fire(configAlert)
+            .then((result) => {
+                if (result.isConfirmed) {
+                    const redirectUrl = alert.redirectUrl
+
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl
+                    } else {
+                        console.error('Hace falta la redireccion en el json.')
+                    }
+                }
+            })
+            break
+
+
     }
 }
