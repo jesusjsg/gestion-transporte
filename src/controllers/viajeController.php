@@ -103,7 +103,13 @@ class viajeController extends uniqueModel
         $saveViaje = $this->saveData('viajes', $viajeDataLog);
 
         if ($saveViaje->rowCount() == 1) {
-            return $this->successHandler('simple', 'El viaje ha sido registrado correctamente.');
+            $idViaje = $this->conection()->lastInsertId();
+            return $this->successHandler(
+                'redirect',
+                'El viaje se ha registrado correctamente.',
+                'Registro exitoso',
+                URL . 'viaje/editar/' . $idViaje
+            );
         } else {
             return $this->errorHandler('Hubo un problema al registrar el viaje.');
         }
