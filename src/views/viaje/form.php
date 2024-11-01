@@ -18,7 +18,7 @@ $tasaCambio = $generalController->getTasa()
         <h1 class="fw-light mb-3"><i class="bi bi-cursor-fill me-2"></i>Agregar viaje</h1>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="bi bi-cursor-fill"></i></li>
-            <li class="breadcrumb-item"><a class="text-decoration-none " href="<?=URL;?>viaje/">Viajes registrados</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="<?=URL;?>viaje/">Viajes registrados</a></li>
         </ul>
     </div>
     <div class="tile">
@@ -73,7 +73,7 @@ $tasaCambio = $generalController->getTasa()
                 </div>
                 <div class="col-md-1">
                     <label for="aviso" class="form-label">Aviso</label>
-                    <input type="text" class="form-control" name="aviso" id="aviso" />
+                    <input type="text" class="form-control" name="aviso" />
                 </div>
                 <div class="col-md-4">
                     <label for="cliente" class="form-label">Cliente</label>
