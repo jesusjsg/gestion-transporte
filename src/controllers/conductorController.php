@@ -400,4 +400,20 @@ class conductorController extends uniqueModel
         }
     }
 
+    public function getNameConductor($id)
+    {
+        try {
+            $sql = "SELECT nombre_conductor FROM conductores WHERE id_conductor = :id_conductor";
+            $result = $this->executeQuery($sql, [':id_conductor' => $id]);
+
+            if ($result->rowCount() > 0) {
+                return $result->fetch(PDO::FETCH_ASSOC)['nombre_conductor'];
+            }
+            return null;
+
+        } catch (Exception $error) {
+            error_log('Ocurrio un error al obtener el nombre del conductor: ' . $error->getMessage());
+        }
+    }
+
 }
