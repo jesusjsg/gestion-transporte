@@ -391,4 +391,14 @@ class generalController extends doubleModel
         }
         return null;
     }
+
+    public function getNameCliente($id)
+    {
+        $sql = "SELECT descripcion1 FROM general WHERE id_registro = 7 AND id_entidad = :id_entidad";
+        $result = $this->executeQuery($sql, [':id_entidad' => $id]);
+
+        if ($result->rowCount() > 0) {
+            return $result->fetch(PDO::FETCH_ASSOC)['descripcion1'];
+        }
+    }
 }
