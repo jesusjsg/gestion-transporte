@@ -164,7 +164,7 @@ class viajeController extends uniqueModel
                 }
 
                 $row['opciones'] = '
-                        <a href="'.URL.'viajes/editar/'.$row['id_viaje'].'/" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square m-0 p-0"></i></a>
+                        <a href="'.URL.'viaje/editar/'.$row['id_viaje'].'/" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square m-0 p-0"></i></a>
                         <form class="form-ajax d-inline" action="'.URL.'ajax/viaje" method="post" autocomplete="off">
                             <input type="hidden" name="model_viaje" value="delete" />
                             <input type="hidden" name="id-viaje" value="'.$row['id_viaje'].'" />
