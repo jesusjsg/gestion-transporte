@@ -1,6 +1,6 @@
 import { getDatatable } from "./components/datatable.js";
 import { autocompleteCliente, autocompleteConductor, autocompleteMunicipio, autocompletePlaca } from "./components/autocomplete.js";
-import { AJAX_TABLES, AJAX_AUTOCOMPLETE, AJAX_KILOMETERS } from "./apiAjax.js";
+import { AJAX_TABLES, AJAX_AUTOCOMPLETE, AJAX_KILOMETERS} from "./apiAjax.js";
 import { alertHandler ,alertSimple } from "./alertMessages.js";
 import { getWeekends } from "./weekends.js";
 import { rowsDatatable, addRow } from "./components/Row.js";
@@ -37,11 +37,6 @@ const endDate = document.querySelector('#fecha-cierre')
 const countSaturdays = document.querySelector('#cantidad-sabados')
 const countSundays = document.querySelector('#cantidad-domingos')
 
-// movements elements
-/* const origenClass = $('.origen')
-const destinoClass = $('.destino')
-const idOrigenClass = $('.id-origen')
-const idDestinoClass = $('.id-destino') */
 const addMovementsButton = document.querySelector('#add-row')
 
 
@@ -157,13 +152,11 @@ function getKilometers(idRuta, rowIndex) {
     })
 }
 
-
-
 function calculateWeekends(){
     const start = dayjs(startDate.value)
     const end = dayjs(endDate.value)
 
-    if(start & end){
+    if(start.isValid() && end.isValid()){
         if(start.isBefore(end) || start.isSame(end)){
             const weekends = getWeekends({
                 startDate: start,
@@ -176,14 +169,6 @@ function calculateWeekends(){
 
             countSaturdays.value = totalSaturdays
             countSundays.value = totalSundays
-        }else{
-            const alertInfo = {
-                type: 'simple',
-                icon: 'error',
-                title: 'Ocurrió un error',
-                text: 'La fecha de inicio debe ser anterior a la fecha de cierre.'
-            } 
-            alertSimple(alertInfo)
         }
     }
 }
