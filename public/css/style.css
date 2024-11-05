@@ -79,9 +79,9 @@ img {
     width: 3rem;
 }
 
-.block-input{
+input.block-input[readonly] {
     cursor: not-allowed;
-    background-color: #c5c1c1;
+    background-color: #EBEBE4 !important;
 }
 
 .logo-header{
