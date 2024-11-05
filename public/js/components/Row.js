@@ -32,7 +32,10 @@ export function addRow(){
     const newRow = `
         <tr>
             <td></td>
-            <td>${count}</td>
+            <td>
+                ${count}
+                <input type="hidden" name="nro-movimiento[]" value="${count}" />
+            </td>
             <td>
                 <input type="text" class="form-control form-control-sm origen" name="origen[]" id="origen-${count}" />
                 <input type="hidden" class="id-origen" name="id-origen[]" id="id-origen-${count}" />
