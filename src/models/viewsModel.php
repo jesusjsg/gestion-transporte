@@ -15,6 +15,7 @@ class viewsModel
         'viaje' => 'viajeAjax',
         'general' => 'generalAjax',
         'ruta' => 'rutaAjax',
+        'movimientos' => 'movimientosAjax',
     ];
 
     protected function getViewsModel($folder, string $view)
