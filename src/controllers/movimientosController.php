@@ -102,7 +102,13 @@ class movimientosController extends uniqueModel
 
     public function tableMovimientos()
     {
-        $getTableMovimientos = $this->executeQuery(
+        $idViaje = isset($_GET['id_viaje']) ? intval($_GET['id_viaje']) : null;
+
+        if ($idViaje === null) {
+            return json_encode(['error' => 'ID del viaje no especificado']);
+        }
+
+        $query = 
             "SELECT
                 m.id_viaje,
                 m.id_movimiento,
@@ -110,8 +116,11 @@ class movimientosController extends uniqueModel
                 m.movimientos_km
             FROM
                 movimientos AS m
-            "
-        );
+            WHERE
+                m.id_viaje = :id_viaje";
+
+        $getTableMovimientos = $this->executeQuery($query, ['id_viaje' => $idViaje]);
+
         $data = [];
         $count = 1;
 
@@ -120,26 +129,26 @@ class movimientosController extends uniqueModel
                 $row['input_html'] = '
                     <tr>
                         <td></td>
-                        <td>' . $count . '
-                            <input type="hidden" name="nro-movimiento[]" value="' . $count . '" />
+                        <td>'.$count.'
+                            <input type="hidden" name="nro-movimiento[]" value="'.$count.'" />
                         </td>
                         <td>
-                            <input type="text" class="form-control form-control-sm origen" name="origen[]" id="origen-' . $count . '" value="' . $row['id_movimiento'] . '" />
-                            <input type="hidden" class="id-origen" name="id-origen[]" id="id-origen-' . $count . '" />
+                            <input type="text" class="form-control form-control-sm origen" name="origen[]" id="origen-'.$count.'" />
+                            <input type="hidden" class="id-origen" name="id-origen[]" id="id-origen-'.$count.'" />
                         </td>
                         <td>
-                            <input type="text" class="form-control form-control-sm destino" name="destino[]" id="destino-' . $count . '" value="' . $row['id_ruta'] . '" />
-                            <input type="hidden" class="id-destino" name="id-destino[]" id="id-destino-' . $count . '" />
+                            <input type="text" class="form-control form-control-sm destino" name="destino[]" id="destino-'.$count.'" />
+                            <input type="hidden" class="id-destino" name="id-destino[]" id="id-destino-'.$count.'" />
                         </td>
-                        <td><input type="text" class="form-control form-control-sm codigo-ruta" name="codigo-ruta[]" id="id-ruta-' . $count . '" value="' . $row['id_ruta'] . '" /></td>
-                        <td><input type="text" class="form-control form-control-sm" name="kilometros-movimiento[]" id="kilometros-movimiento-' . $count . '" value="' . $row['movimientos_km'] . '" /></td>
+                        <td><input type="text" class="form-control form-control-sm codigo-ruta block-input" name="codigo-ruta[]" id="id-ruta-'.$count.'" value="'.$row['id_ruta'] . '" readOnly /></td>
+                        <td><input type="text" class="form-control form-control-sm block-input" name="kilometros-movimiento[]" id="kilometros-movimiento-'.$count.'" value="'.$row['movimientos_km'].'" readOnly /></td>
                         <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="bi bi-x-lg m-0 p-0"></i></button></td>
                     </tr>';
                 $count++;
                 $data[] = $row;
             }
         }
-        return json_encode($data);
+        return json_encode(['data' => $data]);
     }
 
     public function updateMovimientos()
