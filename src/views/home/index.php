@@ -215,7 +215,9 @@
                 <div class="tile">
                     <h3 class="tile-title">Prueba 1</h3>
                     <div class="ratio ratio-16x9">
-                        <div id="salesChart"></div>
+                        <div id="salesChart">
+                            <canvas id="viajesChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -33,10 +33,10 @@ if ($data->rowCount() == 1) {
 
 <main class="app-content">
     <div class="app-title align-items-center">
-        <h1 class="fw-light mb-3"><i class="bi bi-cursor-fill"></i>Editar viaje</h1>
+        <h1 class="fw-light mb-3"><i class="bi bi-cursor-fill me-2"></i>Editar viaje</h1>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="bi bi-cursor-fill"></i></li>
-            <li class="breadcrumb-item text-decoration-none"><a href="<?=URL;?>viaje/">Viajes registrados</a></li>
+            <li class="breadcrumb-item"><a class="text-decoration-none" href="<?=URL;?>viaje/">Viajes registrados</a></li>
         </ul>
     </div>
     <div class="tile">
@@ -48,11 +48,12 @@ if ($data->rowCount() == 1) {
                 </div>
                 <div class="tile-footer"></div>
                 <input type="hidden" name="model_viaje" value="update" />
+                <input type="hidden" name="nro-viaje" value="<?=$data['id_viaje']?>"  />
                 <input type="hidden" name="ficha-conductor" id="ficha-conductor" value="<?=$data['id_conductor']?>" />
                 <input type="hidden" name="codigo-cliente" id="codigo-cliente" value="<?=$data['id_cliente']?>" />
                 <div class="col-md-2">
                     <label for="nombre-conductor" class="form-label">Nombre y apellido</label>
-                    <input type="text" class="form-control" id="nombre-conductor" value="<?=$nombreConductor?>" autofocus />
+                    <input type="text" class="form-control" id="nombre-conductor" value="<?=$nombreConductor?>" />
                 </div>
                 <div class="col-md-1">
                     <label for="placa-vehiculo" class="form-label">Placa</label>
@@ -136,8 +137,8 @@ if ($data->rowCount() == 1) {
                 </div>
                 <div class="tile-footer"></div>
                 <input type="hidden" name="model_movimientos" value="register" />
-                <input type="hidden" name="nro-viaje" value="<?=$data['id_viaje']?>">
-                <input type="hidden" name="tasa-cambio" value="<?=$data['tasa_cambio']?>">
+                <input type="hidden" name="nro-viaje" value="<?=$data['id_viaje']?>"  />
+                <input type="hidden" name="tasa-cambio" value="<?=$data['tasa_cambio']?>" />
                 <table class="table table-striped" id="table-movements" style="width: 100%;">
                     <thead>
                         <tr>
@@ -154,7 +155,6 @@ if ($data->rowCount() == 1) {
                         <!-- rows dynamically added -->
                     </tbody>
                 </table>
-                <div class="tile-footer"></div>
             </form>
         </div>
     </div>

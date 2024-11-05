@@ -97,11 +97,11 @@ $tasaCambio = $generalController->getTasa()
                 </div>
                 <div class="col-md-1">
                     <label for="cantidad-sabados" class="form-label">Sábados</label>
-                    <input type="text" class="form-control block-input" name="cantidad-sabados" id="cantidad-sabados" />
+                    <input type="text" class="form-control block-input" name="cantidad-sabados" id="cantidad-sabados" readonly />
                 </div>
                 <div class="col-md-1">
                     <label for="cantidad-domingos" class="form-label">Domingos</label>
-                    <input type="text" class="form-control block-input" name="cantidad-domingos" id="cantidad-domingos" />
+                    <input type="text" class="form-control block-input" name="cantidad-domingos" id="cantidad-domingos" readonly />
                 </div>
                 <div class="tile-footer"></div>
             </form>
