@@ -97,6 +97,11 @@ class viajeController extends uniqueModel
                 'field_name_database' => 'feriados',
                 'field_name_form' => ':feriados',
                 'field_value' => $feriados,
+            ],
+            [
+                'field_name_database' => 'tasa_cambio',
+                'field_name_form' => ':tasa_cambio',
+                'field_value' => $tasaCambio,
             ]
         ];
 
