@@ -102,12 +102,59 @@ if ($data->rowCount() == 1) {
                 </div>
                 <div class="col-md-1">
                     <label for="cantidad-sabados" class="form-label">Sábados</label>
-                    <input type="text" class="form-control" name="cantidad-sabados" id="cantidad-sabados" value="<?=$data['sabados']?>" />
+                    <input type="text" class="form-control block-input" name="cantidad-sabados" id="cantidad-sabados" value="<?=$data['sabados']?>" disabled />
                 </div>
                 <div class="col-md-1">
                     <label for="cantidad-domingos" class="form-label">Domingos</label>
-                    <input type="text" class="form-control" name="cantidad-domingos" id="cantidad-domingos" value="<?=$data['domingos']?>" />
+                    <input type="text" class="form-control block-input" name="cantidad-domingos" id="cantidad-domingos" value="<?=$data['domingos']?>" disabled />
                 </div>
+                <div class="col-md-1">
+                    <label for="total-kilometros" class="form-label">KM</label>
+                    <input type="text" class="form-control block-input" name="kilometros" value="<?=$data['total_kilometros']?>" disabled />
+                </div>
+                <div class="col-md-1">
+                    <label for="total-usd" class="form-label">USD</label>
+                    <input type="text" class="form-control block-input" name="monto-usd" value="<?=$data['monto_usd']?>" disabled />
+                </div>
+                <div class="col-md-1">
+                    <label for="total-ves" class="form-label">VES</label>
+                    <input type="text" class="form-control block-input" name="monto-ves" value="<?=$data['monto_ves']?>" disabled />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="tile">
+        <div class="tile-body">
+            <form class="row g-3 form-ajax" action="<?=URL?>ajax/movimientos" method="post" autocomplete="off">
+                <div class="d-grip gap-2 d-md-flex justify-content-between">
+                    <h3 class="fw-light">Movimientos del viaje</h3>
+                    <div>
+                        <button type="button" class="btn btn-primary btn-sm" id="add-row">Agregar fila<i class="bi bi-plus-circle ms-1"></i></button>
+                        <button type="reset" class="btn btn-secondary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
+                        <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
+                    </div>
+                </div>
+                <div class="tile-footer"></div>
+                <input type="hidden" name="model_movimientos" value="register" />
+                <input type="hidden" name="nro-viaje" value="<?=$data['id_viaje']?>">
+                <input type="hidden" name="tasa-cambio" value="<?=$data['tasa_cambio']?>">
+                <table class="table table-striped" id="table-movements" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>Nº</td>
+                            <td style="width: 40%;">Origen</td>
+                            <td style="width: 40%;">Destino</td>
+                            <td style="width: 10%;">Ruta</td>
+                            <td style="width: 10%;">KM</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- rows dynamically added -->
+                    </tbody>
+                </table>
+                <div class="tile-footer"></div>
             </form>
         </div>
     </div>

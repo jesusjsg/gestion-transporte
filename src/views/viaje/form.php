@@ -103,54 +103,6 @@ $tasaCambio = $generalController->getTasa()
                     <label for="cantidad-domingos" class="form-label">Domingos</label>
                     <input type="text" class="form-control block-input" name="cantidad-domingos" id="cantidad-domingos" />
                 </div>
-                <div class="col-md-1">
-                    <label for="main-ruta" class="form-label">Ruta</label>
-                    <input type="text" class="form-control block-input" disabled />
-                </div>
-                <div class="col-md-1">
-                    <label for="total-kilometros" class="form-label">KM</label>
-                    <input type="text" class="form-control block-input" id="total-kilometros" disabled />
-                </div>
-                <div class="col-md-1">
-                    <label for="monto-usd" class="form-label">USD</label>
-                    <input type="text" class="form-control block-input" id="monto-usd" disabled />
-                </div>
-                <div class="col-md-1">
-                    <label for="monto-ves" class="form-label">VES</label>
-                    <input type="text" class="form-control block-input" id="monto-ves" disabled />
-                </div>
-                <div class="tile-footer"></div>
-            </form>
-        </div>
-    </div>
-    <div class="tile">
-        <div class="tile-body">
-            <form class="row g-3 form-ajax" action="" method="post" autocomplete="off">
-                <div class="d-grip gap-2 d-md-flex justify-content-between">
-                    <h3 class="fw-light">Movimientos del viaje</h3>
-                    <div>
-                        <button type="button" class="btn btn-primary btn-sm" id="add-row">Agregar fila<i class="bi bi-plus-circle ms-1"></i></button>
-                        <button type="reset" class="btn btn-secondary btn-sm">Limpiar<i class="bi bi-archive ms-1"></i></button>
-                        <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
-                    </div>
-                </div>
-                <div class="tile-footer"></div>
-                <table class="table table-striped" id="table-movements" style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <td></td>
-                            <td>Nº</td>
-                            <td style="width: 40%;">Origen</td>
-                            <td style="width: 40%;">Destino</td>
-                            <td style="width: 10%;">Ruta</td>
-                            <td style="width: 10%;">KM</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- rows dynamically added -->
-                    </tbody>
-                </table>
                 <div class="tile-footer"></div>
             </form>
         </div>
