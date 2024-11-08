@@ -23,7 +23,7 @@ class loginController extends mainModel
             $checkUser = $this->executeQuery("SELECT * FROM usuarios WHERE nombre_usuario = '$username'");
             if ($checkUser->rowCount() === 1) {
                 $checkUser = $checkUser->fetch(PDO::FETCH_ASSOC);
-                if ($checkUser['contraseña'] == $password) {
+                if ($checkUser['password'] == $password) {
 
                     $_SESSION['id'] = $checkUser['id_usuario'];
                     $_SESSION['name'] = $checkUser['nombre_apellido'];
@@ -45,8 +45,11 @@ class loginController extends mainModel
     public function closeSesion()
     {
         session_destroy();
-        header('Location: ' . URL);
-        exit();
+        if(headers_sent()){
+            echo "<script> window.location.href='".URL."'; </script>";
+        }else{
+            header("Location: " . URL);
+        };
     }
 
     private function errorAlert($message)
