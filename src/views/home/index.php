@@ -208,27 +208,4 @@
             </div>
         </div>
     <?php endif; ?>
-
-    <?php if($role === 1 || $role === 2) : ?>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="tile">
-                    <h3 class="tile-title">Prueba 1</h3>
-                    <div class="ratio ratio-16x9">
-                        <div id="salesChart">
-                            <canvas id="viajesChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="tile">
-                    <h3 class="tile-title">Prueba 2</h3>
-                    <div class="ratio ratio-16x9">
-                        <div id="salesChart"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
 </main>
