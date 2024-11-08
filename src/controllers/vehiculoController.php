@@ -37,6 +37,9 @@ class vehiculoController extends uniqueModel
         $activoSapUno = $this->cleanString($_POST['activo-uno']);
         $activoSapDos = $this->cleanString($_POST['activo-dos']);
         $activoSapTres = $this->cleanString($_POST['activo-tres']);
+        $observacion = $this->cleanString($_POST['observacion']);
+        $falla = $this->cleanString($_POST['falla']);
+        $monto = $this->cleanString($_POST['monto']);
 
         // Validaciones de los campos de tipo texto
         if (empty($placa) || empty($tipoVehiculo) || empty($serialCarroceria) || empty($serialMotor) || empty($modelo)) {
@@ -189,6 +192,21 @@ class vehiculoController extends uniqueModel
                 'field_name_form' => ':sap3',
                 'field_value' => $activoSapTres,
             ],
+            [
+                'field_name_database' => 'observacion',
+                'field_name_form' => ':observacion',
+                'field_value' => $observacion,
+            ],
+            [
+                'field_name_database' => 'falla',
+                'field_name_form' => ':falla',
+                'field_value' => $falla,
+            ],
+            [
+                'field_name_database' => 'monto',
+                'field_name_form' => ':monto',
+                'field_value' => $monto,
+            ]
         ];
 
         $saveVehiculo = $this->saveData('vehiculos', $vehiculoDataLog);
@@ -209,7 +227,7 @@ class vehiculoController extends uniqueModel
                     vehiculos.propiedad,
                     vehiculos.marca,
                     vehiculos.uso,
-                    vehiculos.estatus_vehiculo,
+                    estatus.id_entidad AS estatus_vehiculo,
                     tipoVehiculo.descripcion1 AS tipo_vehiculo,
                     propiedad.descripcion1 AS propiedad,
                     marca.descripcion1 AS marca,
@@ -223,39 +241,30 @@ class vehiculoController extends uniqueModel
                     general AS marca ON vehiculos.marca = marca.id_entidad AND marca.id_registro = 12
                 LEFT JOIN
                     general AS usoVehiculo ON vehiculos.uso = usoVehiculo.id_entidad AND usoVehiculo.id_registro = 14
+                LEFT JOIN
+                    general AS estatus ON vehiculos.estatus_vehiculo = estatus.id_entidad AND estatus.id_registro = 17
                 "
         );
         $data = [];
 
-        $dateColumns = [
-            'vencimiento_poliza',
-            'vencimiento_racda',
-            'vencimiento_sanitario',
-            'vencimiento_rotc',
-            'fecha_fumigacion',
-            'fecha_impuesto',
+        $estatusBadges = [
+            1 => ['class' => 'bg-success', 'text' => 'Activo'],
+            2 => ['class' => 'bg-danger', 'text' => 'Inactivo'],
+            3 => ['class' => 'bg-warning', 'text' => 'Mantenimiento'],
+            4 => ['class' => 'bg-info', 'text' => 'Desconocido'],
         ];
 
         if ($getTableVehiculo->rowCount() > 0) {
             while ($row = $getTableVehiculo->fetch(PDO::FETCH_ASSOC)) {
-                foreach ($dateColumns as $column) {
-                    if (!empty($row[$column])) {
-                        $row[$column] = $this->formatDate($row[$column]);
-                    }
-                }
-
                 foreach ($row as $key => $value) {
                     if (empty($value)) {
                         $row[$key] = '<span class="badge text-bg-secondary">No definido</span>';
                     }
                 }
 
-                if ($row['estatus_vehiculo'] == 1) {
-                    $row['estatus_vehiculo'] = '<span class="badge bg-success text-bg-success">Activo</span>';
+                $estatus = $estatusBadges[$row['estatus_vehiculo']] ?? ['class' => 'bg-secondary', 'text' => 'Desconocido'];
 
-                } elseif ($row['estatus_vehiculo'] == 2) {
-                    $row['estatus_vehiculo'] = '<span class="badge bg-danger text-bg-danger">Inactivo</span>';
-                }
+                $row['estatus_vehiculo'] = '<span class="badge ' . $estatus['class'] . '">' . $estatus['text'] . '</span>';
 
                 $row['opciones'] = '
                         <a href="'.URL.'vehiculo/editar/'.$row['id_vehiculo'].'/" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square m-0 p-0"></i></a>
@@ -305,6 +314,9 @@ class vehiculoController extends uniqueModel
         $activoSapUno = $this->cleanString($_POST['activo-uno']);
         $activoSapDos = $this->cleanString($_POST['activo-dos']);
         $activoSapTres = $this->cleanString($_POST['activo-tres']);
+        $observacion = $this->cleanString($_POST['observacion']);
+        $falla = $this->cleanString($_POST['falla']);
+        $monto = $this->cleanString($_POST['monto']);
         
         $vencimientoPoliza = !empty($_POST['vencimiento-cedula']) ? $this->cleanString($_POST['vencimiento-cedula']) : null;
         $vencimientoRacda = !empty($_POST['vencimiento-racda']) ? $this->cleanString($_POST['vencimiento-racda']) : null;
@@ -465,6 +477,21 @@ class vehiculoController extends uniqueModel
                 'field_name_form' => 'sap3',
                 'field_value' => $activoSapTres,
             ],
+            [
+                'field_name_database' => 'observacion',
+                'field_name_form' => 'observacion',
+                'field_value' => $observacion,
+            ],
+            [
+                'field_name_database' => 'falla',
+                'field_name_form' => 'falla',
+                'field_value' => $falla,
+            ],
+            [
+                'field_name_database' => 'monto',
+                'field_name_form' => 'monto',
+                'field_value' => $monto,
+            ]
         ];
 
         $condition = [
