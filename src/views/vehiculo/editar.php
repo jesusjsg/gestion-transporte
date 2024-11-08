@@ -14,6 +14,7 @@ $registros = [
     'uso' => 14,
     'bolipuertos' => 15,
     'gps' => 16,
+    'estatus' => 17,
 ];
 
 $tipoVehiculo = $generalController->getRegistro($registros['tipoVehiculo']);
@@ -24,6 +25,7 @@ $numeroEjes = $generalController->getRegistro($registros['numeroEjes']);
 $uso = $generalController->getRegistro($registros['uso']);
 $bolipuertos = $generalController->getRegistro($registros['bolipuertos']);
 $gps = $generalController->getRegistro($registros['gps']);
+$estatus = $generalController->getRegistro($registros['estatus']);
 
 $id = $vehiculoController->cleanString($url[2]);
 
@@ -52,7 +54,7 @@ $municipioName = $generalController->getEstadoById($data['id_municipio'])
                     <button type="submit" class="btn btn-success btn-sm">Actualizar<i class="bi bi-floppy ms-1"></i></button>
                 </div>
                 <div class="tile-footer"></div>
-                <input type="hidden" name="id-municipio" id="id-municipio" value="<?=$data['id_municipio']?>" />
+                <input type="hidden" name="id-municipio" id="codigo-origen" value="<?=$data['id_municipio']?>" />
                 <input type="hidden" name="model_vehiculo" value="update" />
                 <input type="hidden" name="id-vehiculo" value="<?=$data['id_vehiculo']?>">
                 <div class="col-md-2">
@@ -192,8 +194,9 @@ $municipioName = $generalController->getEstadoById($data['id_municipio'])
                     <label for="estatus-vehiculo" class="form-label">Estatus</label>
                     <select class="form-select" name="estatus-vehiculo">
                         <option selected disabled>Estatus</option>
-                        <option value="1" <?=($data['estatus_vehiculo'] == 1) ? 'selected' : '';?>>Activo</option>
-                        <option value="2" <?=($data['estatus_vehiculo'] == 2) ? 'selected' : '';?>>Inactivo</option>
+                        <?php foreach ($estatus as $key) : ?>
+                            <option value="<?=$key['id_entidad']?>"<?=($key['id_entidad'] == $data['estatus_vehiculo']) ? 'selected' : ''; ?> ><?=$key['descripcion1']?></option>
+                        <?php endforeach ?>
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -211,6 +214,18 @@ $municipioName = $generalController->getEstadoById($data['id_municipio'])
                 <div class="col-md-2">
                     <label for="activo-tres" class="form-label">Activo SAP 3</label>
                     <input type="text" class="form-control" name="activo-tres" value="<?=$data['activo_tres']?>"/>
+                </div>
+                <div class="col-md-2">
+                    <label for="monto" class="form-label">Monto</label>
+                    <input type="text" class="form-control" name="monto" value="<?=$data['monto']?>"/>
+                </div>
+                <div class="col-md-4">
+                    <label for="observacion" class="form-label">Obervación</label>
+                    <textarea name="observacion" id="observacion" class="form-control"><?=$data['observacion']?></textarea>
+                </div>
+                <div class="col-md-4">
+                    <label for="falla" class="form-label">Falla</label>
+                    <textarea name="falla" id="falla" class="form-control"><?=$data['falla']?></textarea>
                 </div>
                 <div class="tile-footer"></div>
             </form>

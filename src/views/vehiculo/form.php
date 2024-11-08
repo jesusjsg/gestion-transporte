@@ -11,6 +11,7 @@
         'uso' => 14,
         'bolipuertos' => 15,
         'gps' => 16,
+        'estatus' => 17,
     ];
 
     $tipoVehiculo = $generalController->getRegistro($registros['tipoVehiculo']);
@@ -21,6 +22,7 @@
     $uso = $generalController->getRegistro($registros['uso']);
     $bolipuertos = $generalController->getRegistro($registros['bolipuertos']);
     $gps = $generalController->getRegistro($registros['gps']);
+    $estatus = $generalController->getRegistro($registros['estatus']);
 ?>
 
 <main class="app-content">
@@ -39,11 +41,11 @@
                     <button type="submit" class="btn btn-success btn-sm">Guardar<i class="bi bi-floppy ms-1"></i></button>
                 </div>
                 <div class="tile-footer"></div>
-                <input type="hidden" name="id-municipio" id="id-municipio" />
+                <input type="hidden" name="id-municipio" id="codigo-origen" />
                 <input type="hidden" name="model_vehiculo" value="register">
                 <div class="col-md-2">
                     <label for="placa" class="form-label">Placa</label>
-                    <input type="text" class="form-control" name="placa" autofocus />
+                    <input type="text" class="form-control" name="placa" id="placa" pattern="[A-Za-z0-9]+" title="Solo letras y números permitidos" autofocus />
                 </div>
                 <div class="col-md-2">
                     <label for="tipo-vehiculo" class="form-label">Tipo</label>
@@ -123,11 +125,11 @@
                 </div>
                 <div class="col-md-3">
                     <label for="serial-carroceria" class="form-label">Serial C.</label>
-                    <input type="text" class="form-control" name="serial-carroceria" />
+                    <input type="text" class="form-control" name="serial-carroceria" pattern="[A-Za-z0-9]+" title="Solo letras y números permitidos" />
                 </div>
                 <div class="col-md-3">
                     <label for="serial-motor" class="form-label">Serial M.</label>
-                    <input type="text" class="form-control" name="serial-motor" />
+                    <input type="text" class="form-control" name="serial-motor" pattern="[A-Za-z0-9]+" title="Solo letras y números permitidos" />
                 </div>
                 <div class="col-md-2">
                     <label for="numero-ejes" class="form-label">Ejes</label>
@@ -146,7 +148,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="capacidad-carga" class="form-label">Carga</label>
-                    <input type="text" class="form-control" name="capacidad-carga" />
+                    <input type="text" class="form-control" name="capacidad-carga" pattern="[0-9]+" title="Solo números permitidos" />
                 </div>
                 <div class="col-md-2">
                     <label for="uso-vehiculo" class="form-label">Uso</label>
@@ -217,7 +219,7 @@
                         ?>
                     </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="link-gps" class="form-label">Link GPS</label>
                     <input type="text" class="form-control" name="link-gps" />
                 </div>
@@ -225,8 +227,15 @@
                     <label for="estatus-vehiculo" class="form-label">Estatus</label>
                     <select class="form-select" name="estatus-vehiculo">
                         <option selected disabled>Estatus</option>
-                        <option value="1">Activo</option>
-                        <option value="2">Inactivo</option>
+                        <?php
+                            if(!empty($estatus)) {
+                                foreach($estatus as $key) {
+                                    echo '<option value="'.$key['id_entidad'].'">'.$key['descripcion1'].'</option>';
+                                }
+                            } else {
+                                echo '<option disabled>No hay datos registrados</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -244,6 +253,18 @@
                 <div class="col-md-2">
                     <label for="activo-tres" class="form-label">Activo SAP 3</label>
                     <input type="text" class="form-control" name="activo-tres" />
+                </div>
+                <div class="col-md-2">
+                    <label for="monto" class="form-label">Monto</label>
+                    <input type="text" class="form-control" name="monto" pattern="^\d+(\.\d{1,2})?$" title="Solo números decimales permitidos" />
+                </div>
+                <div class="col-md-4">
+                    <label for="observacion" class="form-label">Obervación</label>
+                    <textarea name="observacion" id="observacion" class="form-control"></textarea>
+                </div>
+                <div class="col-md-4">
+                    <label for="falla" class="form-label">Falla</label>
+                    <textarea name="falla" id="falla" class="form-control"></textarea>
                 </div>
                 <div class="tile-footer"></div>
             </form>
