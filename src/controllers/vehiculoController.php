@@ -40,6 +40,7 @@ class vehiculoController extends uniqueModel
         $observacion = $this->cleanString($_POST['observacion']);
         $falla = $this->cleanString($_POST['falla']);
         $monto = $this->cleanString($_POST['monto']);
+        $monto = empty($monto) ? null : $monto;
 
         // Validaciones de los campos de tipo texto
         if (empty($placa) || empty($tipoVehiculo) || empty($serialCarroceria) || empty($serialMotor) || empty($modelo)) {
@@ -248,10 +249,9 @@ class vehiculoController extends uniqueModel
         $data = [];
 
         $estatusBadges = [
-            1 => ['class' => 'bg-success', 'text' => 'Activo'],
-            2 => ['class' => 'bg-danger', 'text' => 'Inactivo'],
-            3 => ['class' => 'bg-warning', 'text' => 'Mantenimiento'],
-            4 => ['class' => 'bg-info', 'text' => 'Desconocido'],
+            1 => ['class' => 'bg-success', 'text' => 'Disponible'],
+            2 => ['class' => 'bg-warning', 'text' => 'No Disponible'],
+            3 => ['class' => 'bg-danger', 'text' => 'Inactivo'],
         ];
 
         if ($getTableVehiculo->rowCount() > 0) {
@@ -317,7 +317,7 @@ class vehiculoController extends uniqueModel
         $observacion = $this->cleanString($_POST['observacion']);
         $falla = $this->cleanString($_POST['falla']);
         $monto = $this->cleanString($_POST['monto']);
-        
+        $monto = empty($monto) ? null : $monto;
         $vencimientoPoliza = !empty($_POST['vencimiento-cedula']) ? $this->cleanString($_POST['vencimiento-cedula']) : null;
         $vencimientoRacda = !empty($_POST['vencimiento-racda']) ? $this->cleanString($_POST['vencimiento-racda']) : null;
         $vencimientoSanitario = !empty($_POST['vencimiento-sanitario']) ? $this->cleanString($_POST['vencimiento-sanitario']) : null;
