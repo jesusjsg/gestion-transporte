@@ -7,6 +7,7 @@ export const AJAX_TABLES = {
     vehiculo: `${BASE_URL}ajax/vehiculo?action=load_vehiculos`,
     ruta: `${BASE_URL}ajax/ruta?action=load_ruta`,
     usuario: `${BASE_URL}ajax/usuarios?action=load_users`,
+    movimientos: `${BASE_URL}ajax/movimientos?action=load_movimientos`,
 };
 
 export const AJAX_AUTOCOMPLETE = {
