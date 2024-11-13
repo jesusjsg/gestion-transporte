@@ -134,14 +134,14 @@ class movimientosController extends uniqueModel
                         </td>
                         <td>
                             <input type="text" class="form-control form-control-sm origen" name="origen[]" id="origen-'.$count.'" />
-                            <input type="hidden" class="id-origen" name="id-origen[]" id="id-origen-'.$count.'" />
+                            <input type="hidden" class="id-origen" name="id-origen[]" id="id-origen-'.$count.'" value="'.$count.'" />
                         </td>
                         <td>
                             <input type="text" class="form-control form-control-sm destino" name="destino[]" id="destino-'.$count.'" />
-                            <input type="hidden" class="id-destino" name="id-destino[]" id="id-destino-'.$count.'" />
+                            <input type="hidden" class="id-destino" name="id-destino[]" id="id-destino-'.$count.'" value="'.$count.'" />
                         </td>
-                        <td><input type="text" class="form-control form-control-sm codigo-ruta block-input" name="codigo-ruta[]" id="id-ruta-'.$count.'" value="'.$row['id_ruta'] . '" readOnly /></td>
-                        <td><input type="text" class="form-control form-control-sm block-input" name="kilometros-movimiento[]" id="kilometros-movimiento-'.$count.'" value="'.$row['movimientos_km'].'" readOnly /></td>
+                        <td><input type="text" class="form-control form-control-sm codigo-ruta block-input" name="codigo-ruta[]" id="id-ruta-'.$count.'" readOnly /></td>
+                        <td><input type="text" class="form-control form-control-sm block-input" name="kilometros-movimiento[]" id="kilometros-movimiento-'.$count.'" readOnly /></td>
                         <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="bi bi-x-lg m-0 p-0"></i></button></td>
                     </tr>';
                 $count++;
