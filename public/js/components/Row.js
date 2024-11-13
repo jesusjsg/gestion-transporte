@@ -26,7 +26,7 @@ export function rowsDatatable(fieldId){
         },
     })
 
-    /* $.ajax({
+    $.ajax({
         url: AJAX_TABLES.movimientos,
         method: 'get',
         data: { 'id_viaje': idViaje },
@@ -34,14 +34,16 @@ export function rowsDatatable(fieldId){
         success: function(response) {
             if (response.data) {
                 response.data.forEach(row => {
+                    const count = table.rows().count()
                     table.row.add($(row.input_html)).draw();
+                    initializeNewRowAutocomplete(count)
                 })
             }
         },
         error: function(error) {
             console.error('Error al cargar los datos: ', error)
         }
-    }) */
+    })
 
     $(fieldId).on('click', '.remove-row', function() {
         deleteRow(this);
