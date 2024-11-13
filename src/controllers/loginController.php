@@ -23,7 +23,7 @@ class loginController extends mainModel
             $checkUser = $this->executeQuery("SELECT * FROM usuarios WHERE nombre_usuario = '$username'");
             if ($checkUser->rowCount() === 1) {
                 $checkUser = $checkUser->fetch(PDO::FETCH_ASSOC);
-                if ($checkUser['password'] == $password) {
+                if ($checkUser['contraseña'] == $password) {
 
                     $_SESSION['id'] = $checkUser['id_usuario'];
                     $_SESSION['name'] = $checkUser['nombre_apellido'];
