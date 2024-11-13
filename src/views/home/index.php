@@ -20,7 +20,7 @@
 <main class="app-content">
     <div class="app-title">
         <div>
-            <h1 class="fw-light">
+            <h1 class="fw-light text-capitalize">
                 <i class="bi bi-house-fill me-2"></i>
                 Bienvenido, <?= $fullname; ?>
             </h1>
