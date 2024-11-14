@@ -34,7 +34,7 @@ export function rowsDatatable(fieldId){
         success: function(response) {
             if (response.data) {
                 response.data.forEach(row => {
-                    const count = table.rows().count()
+                    const count = table.rows().count() + 1
                     table.row.add($(row.input_html)).draw();
                     initializeNewRowAutocomplete(count)
                 })
