@@ -243,10 +243,12 @@ function initViajeTable(){
         {'data': 'tipo_carga'},
         {'data': 'aviso'},
         {'data': 'cliente'},
-        {'data': 'id_ruta'},
+        {'data': 'ruta'},
         {'data': 'fecha_inicio'},
         {'data': 'fecha_cierre'},
-        {'data': 'nro_nomina'},
+        {'data': 'km'},
+        {'data': 'usd'},
+        {'data': 'ves'},
         {'data': 'opciones', 'className': 'dt-center noExport'}
     ])
 }
