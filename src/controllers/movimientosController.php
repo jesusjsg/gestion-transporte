@@ -24,6 +24,8 @@ class movimientosController extends doubleModel
         }
 
         $totalKilometros = 0;
+        $firstOrigen = null;
+        $lastDestino = null;
 
         foreach ($codigoRutas as $index => $codigoRuta) {
             $origen = $this->cleanString($origenes[$index]);
@@ -119,8 +121,19 @@ class movimientosController extends doubleModel
             }
 
             $totalKilometros += $kilometrosMovimiento;
+
+            // Establecer el primer origen en la primera iteración
+            if ($index == 0) {
+                $firstOrigen = $origen;
+            }
+
+            // Establecer el último destino en la última iteración
+            if ($index == count($codigoRutas) - 1) {
+                $lastDestino = $destino;
+            }
         }
-        // Actualizar datos del viaje
+
+        $rutaId = $firstOrigen . '-' . $lastDestino;
         $montoUsd = $this->getUsd($totalKilometros);
         $montoVes = $this->getVes($montoUsd, $tasaCambio);
 
@@ -139,6 +152,21 @@ class movimientosController extends doubleModel
                 'field_name_database' => 'monto_ves',
                 'field_name_form' => 'monto_ves',
                 'field_value' => $montoVes,
+            ],
+            [
+                'field_name_database' => 'id_ruta',
+                'field_name_form' => 'ruta',
+                'field_value' => $rutaId,
+            ],
+            [
+                'field_name_database' => 'origen',
+                'field_name_form' => 'origen',
+                'field_value' => $origen,
+            ],
+            [
+                'field_name_database' => 'destino',
+                'field_name_form' => 'destino',
+                'field_value' => $destino,
             ]
         ];
 
