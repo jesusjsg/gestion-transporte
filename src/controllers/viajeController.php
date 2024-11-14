@@ -131,10 +131,12 @@ class viajeController extends uniqueModel
                 b.descripcion1 AS tipo_carga,
                 v.aviso,
                 c.descripcion1 AS cliente,
-                v.id_ruta,
+                r.nombre_ruta AS ruta,
                 v.fecha_inicio,
                 v.fecha_cierre,
-                v.nro_nomina
+                v.total_kilometros AS km,
+                v.monto_usd AS usd,
+                v.monto_ves AS ves
             FROM 
                 viajes AS v
             INNER JOIN
@@ -145,6 +147,8 @@ class viajeController extends uniqueModel
                 general AS c ON c.id_registro = 7 AND c.id_entidad = v.id_cliente
             INNER JOIN
                 conductores AS d ON d.id_conductor = v.id_conductor
+            INNER JOIN
+                rutas AS r ON r.id_ruta = v.id_ruta
             "
         );
         $data = [];
