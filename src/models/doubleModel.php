@@ -106,4 +106,28 @@ class doubleModel extends mainModel
         $sql->execute();
         return $sql;
     }
+
+    protected function checkExists($table, $conditions)
+    {
+        $query = "SELECT 1 FROM $table WHERE ";
+        $count = 0;
+
+        foreach ($conditions as $condition) {
+            if ($count > 0) {
+                $query .= " AND ";
+            }
+            $query .= $condition['condition_field'] . " = :" . $condition['condition_marker'];
+            $count++;
+        }
+
+        $sql = $this->conection()->prepare($query);
+
+        foreach ($conditions as $condition) {
+            $sql->bindParam(':' . $condition['condition_marker'], $condition['condition_value']);
+        }
+
+        $sql->execute();
+
+        return $sql->fetchColumn() ? true : false;
+    }
 }
