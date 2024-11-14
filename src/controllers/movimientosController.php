@@ -4,9 +4,10 @@ namespace src\controllers;
 
 use PDO;
 use Exception;
-use src\models\uniqueModel;
+use src\controllers\generalController;
+use src\models\doubleModel;
 
-class movimientosController extends uniqueModel
+class movimientosController extends doubleModel
 {
     public function registerMovimientos()
     {
@@ -14,6 +15,8 @@ class movimientosController extends uniqueModel
         $tasaCambio = $this->cleanString($_POST['tasa-cambio']);
         $numeroMovimientos = $_POST['nro-movimiento'];
         $codigoRutas = $_POST['codigo-ruta'];
+        $origenes = $_POST['id-origen'];
+        $destinos = $_POST['id-destino'];
         $kilometrosMovimientos = $_POST['kilometros-movimiento'];
 
         if (count($codigoRutas) !== count($kilometrosMovimientos)) {
@@ -23,45 +26,101 @@ class movimientosController extends uniqueModel
         $totalKilometros = 0;
 
         foreach ($codigoRutas as $index => $codigoRuta) {
+            $origen = $this->cleanString($origenes[$index]);
+            $destino = $this->cleanString($destinos[$index]);
             $numeroMovimiento = $this->cleanString($numeroMovimientos[$index]);
             $kilometrosMovimiento = $this->cleanString($kilometrosMovimientos[$index]);
 
-            if (empty($codigoRuta) || empty($kilometrosMovimiento)) {
-                return $this->errorHandler('Es obligatorio la ruta y el kilometraje del viaje.');
+            $existsCondition = [
+                [
+                    'condition_field' => 'id_viaje',
+                    'condition_marker' => 'id_viaje',
+                    'condition_value' => $numeroViaje,
+                ],
+                [
+                    'condition_field' => 'id_movimiento',
+                    'condition_marker' => 'id_movimiento',
+                    'condition_value' => $numeroMovimiento,
+                ]
+            ];
+    
+            $existsQuery = $this->checkExists('movimientos', $existsCondition);
+    
+            if ($existsQuery) {
+                // Actualizar si ya existe
+                $updateDataLog = [
+                    [
+                        'field_name_database' => 'id_ruta',
+                        'field_name_form' => 'id_ruta',
+                        'field_value' => $codigoRuta,
+                    ],
+                    [
+                        'field_name_database' => 'movimientos_km',
+                        'field_name_form' => 'km',
+                        'field_value' => $kilometrosMovimiento,
+                    ],
+                    [
+                        'field_name_database' => 'origen',
+                        'field_name_form' => 'origen',
+                        'field_value' => $origen,
+                    ],
+                    [
+                        'field_name_database' => 'destino',
+                        'field_name_form' => 'destino',
+                        'field_value' => $destino,
+                    ]
+                ];
+    
+                $updateMovimientos = $this->updateData('movimientos', $updateDataLog, $existsCondition);
+    
+                if (!$updateMovimientos) {
+                    return $this->errorHandler('Hubo un problema al actualizar los movimientos.');
+                }
+            } else {
+                    // Insertar si no existe
+                $insertDataLog = [
+                    [
+                        'field_name_database' => 'id_viaje',
+                        'field_name_form' => ':id_viaje',
+                        'field_value' => $numeroViaje,
+                    ],
+                    [
+                        'field_name_database' => 'id_movimiento',
+                        'field_name_form' => ':id_movimiento',
+                        'field_value' => $numeroMovimiento,
+                    ],
+                    [
+                        'field_name_database' => 'id_ruta',
+                        'field_name_form' => ':id_ruta',
+                        'field_value' => $codigoRuta,
+                    ],
+                    [
+                        'field_name_database' => 'movimientos_km',
+                        'field_name_form' => ':km',
+                        'field_value' => $kilometrosMovimiento,
+                    ],
+                    [
+                        'field_name_database' => 'origen',
+                        'field_name_form' => ':origen',
+                        'field_value' => $origen,
+                    ],
+                    [
+                        'field_name_database' => 'destino',
+                        'field_name_form' => ':destino',
+                        'field_value' => $destino,
+                    ]
+                ];
+
+                $insertMovimientos = $this->saveData('movimientos', $insertDataLog);
+
+                if ($insertMovimientos->rowCount() !== 1) {
+                    return $this->errorHandler('Hubo un problema al registrar los movimientos.');
+                }
             }
 
             $totalKilometros += $kilometrosMovimiento;
-
-            $movimientoDataLog = [
-                [
-                    'field_name_database' => 'id_viaje',
-                    'field_name_form' => ':id_viaje',
-                    'field_value' => $numeroViaje,
-                ],
-                [
-                    'field_name_database' => 'id_movimiento',
-                    'field_name_form' => ':id_movimiento',
-                    'field_value' => $numeroMovimiento,
-                ],
-                [
-                    'field_name_database' => 'id_ruta',
-                    'field_name_form' => ':id_ruta',
-                    'field_value' => $codigoRuta,
-                ],
-                [
-                    'field_name_database' => 'movimientos_km',
-                    'field_name_form' => ':km',
-                    'field_value' => $kilometrosMovimiento,
-                ]
-            ];
-
-            $saveMovimientos = $this->saveData('movimientos', $movimientoDataLog);
-
-            if ($saveMovimientos->rowCount() !== 1) {
-                return $this->errorHandler('Hubo un problema al registrar los movimientos.');
-            }
         }
-
+        // Actualizar datos del viaje
         $montoUsd = $this->getUsd($totalKilometros);
         $montoVes = $this->getVes($montoUsd, $tasaCambio);
 
@@ -84,15 +143,17 @@ class movimientosController extends uniqueModel
         ];
 
         $condition = [
-            'condition_field' => 'id_viaje',
-            'condition_marker' => 'id_viaje',
-            'condition_value' => $numeroViaje,
+            [
+                'condition_field' => 'id_viaje',
+                'condition_marker' => 'id_viaje',
+                'condition_value' => $numeroViaje,
+            ]
         ];
 
         if ($this->updateData('viajes', $viajeUpdateLog, $condition)) {
             return $this->successHandler(
                 'reload',
-                'Los movimientos se agregaron correctamente.',
+                'Los movimientos se registraron/actualizaron correctamente.'
             );
         } else {
             return $this->errorHandler('Hubo un problema al registrar los movimientos.');
@@ -102,6 +163,7 @@ class movimientosController extends uniqueModel
 
     public function tableMovimientos()
     {
+        $municipio = new generalController();
         $idViaje = isset($_GET['id_viaje']) ? intval($_GET['id_viaje']) : null;
 
         if ($idViaje === null) {
@@ -113,7 +175,9 @@ class movimientosController extends uniqueModel
                 m.id_viaje,
                 m.id_movimiento,
                 m.id_ruta,
-                m.movimientos_km
+                m.movimientos_km,
+                m.origen,
+                m.destino
             FROM
                 movimientos AS m
             WHERE
@@ -133,12 +197,12 @@ class movimientosController extends uniqueModel
                             <input type="hidden" name="nro-movimiento[]" value="'.$count.'" />
                         </td>
                         <td>
-                            <input type="text" class="form-control form-control-sm origen" name="origen[]" id="origen-'.$count.'" />
-                            <input type="hidden" class="id-origen" name="id-origen[]" id="id-origen-'.$count.'" value="'.$count.'" />
+                            <input type="text" class="form-control form-control-sm origen" name="origen[]" id="origen-'.$count.'" value="'.$municipio->getMunicipioById($row['origen']).'"/>
+                            <input type="hidden" class="id-origen" name="id-origen[]" id="id-origen-'.$count.'" value="'.$row['origen'].'" />
                         </td>
                         <td>
-                            <input type="text" class="form-control form-control-sm destino" name="destino[]" id="destino-'.$count.'" />
-                            <input type="hidden" class="id-destino" name="id-destino[]" id="id-destino-'.$count.'" value="'.$count.'" />
+                            <input type="text" class="form-control form-control-sm destino" name="destino[]" id="destino-'.$count.'" value="'.$municipio->getMunicipioById($row['destino']).'" />
+                            <input type="hidden" class="id-destino" name="id-destino[]" id="id-destino-'.$count.'" value="'.$row['destino'].'" />
                         </td>
                         <td><input type="text" class="form-control form-control-sm codigo-ruta block-input" name="codigo-ruta[]" id="id-ruta-'.$count.'" readOnly /></td>
                         <td><input type="text" class="form-control form-control-sm block-input" name="kilometros-movimiento[]" id="kilometros-movimiento-'.$count.'" readOnly /></td>
@@ -153,7 +217,17 @@ class movimientosController extends uniqueModel
 
     public function updateMovimientos()
     {
+        $numeroViaje = $this->cleanString($_POST['nro-viaje']);
+        $tasaCambio = $this->cleanString($_POST['tasa-cambio']);
+        $numeroMovimientos = $_POST['nro-movimiento'];
+        $codigoRutas = $_POST['codigo-ruta'];
+        $origenes = $_POST['id-origen'];
+        $destinos = $_POST['id-destino'];
+        $kilometrosMovimientos = $_POST['kilometros-movimiento'];
 
+        if (count($codigoRutas) !== count($kilometrosMovimientos)) {
+            return $this->errorHandler('La cantidad de rutas y kilómetros no coincide.');
+        }
     }
 
     public function deleteMovimientos()
