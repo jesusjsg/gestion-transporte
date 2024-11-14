@@ -28,7 +28,9 @@
                                 <th>Ruta</th>
                                 <th>Inicio</th>
                                 <th>Cierre</th>
-                                <th>Nómina</th>
+                                <th>KM</th>
+                                <th>USD</th>
+                                <th>VES</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>

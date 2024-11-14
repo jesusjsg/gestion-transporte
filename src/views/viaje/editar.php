@@ -110,6 +110,10 @@ if ($data->rowCount() == 1) {
                     <input type="text" class="form-control block-input" name="cantidad-domingos" id="cantidad-domingos" value="<?=$data['domingos']?>" disabled />
                 </div>
                 <div class="col-md-1">
+                    <label for="ruta" class="form-label">Ruta</label>
+                    <input type="text" class="form-control block-input" name="ruta" id="ruta" value="<?=$data['id_ruta']?>" disabled>
+                </div>
+                <div class="col-md-1">
                     <label for="total-kilometros" class="form-label">KM</label>
                     <input type="text" class="form-control block-input" name="kilometros" value="<?=$data['total_kilometros']?>" disabled />
                 </div>
