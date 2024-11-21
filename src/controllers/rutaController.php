@@ -66,10 +66,54 @@ class rutaController extends uniqueModel
         $saveRuta = $this->saveData('rutas', $rutaDataLog);
 
         if ($saveRuta->rowCount() == 1) {
-            return $this->successHandler(
-                'reload', 
-                'La ruta ha sido registrada correctamente.'
-            );
+            if ($origen !== $destino) {
+                $invertedRutaCode = trim($DestinyCode . '-' . $OriginCode);
+                $invertedRutaName = trim($destino . '-' . $origen);
+
+                $rutaDataLogInverted = [
+                    [
+                        'field_name_database' => 'id_ruta',
+                        'field_name_form' => ':codigoRuta',
+                        'field_value' => $invertedRutaCode,
+                    ],
+                    [
+                        'field_name_database' => 'nombre_ruta',
+                        'field_name_form' => ':nombreRuta',
+                        'field_value' => $invertedRutaName,
+                    ],
+                    [
+                        'field_name_database' => 'origen',
+                        'field_name_form' => ':origen',
+                        'field_value' => $destino,
+                    ],
+                    [
+                        'field_name_database' => 'destino',
+                        'field_name_form' => ':destino',
+                        'field_value' => $origen,
+                    ],
+                    [
+                        'field_name_database' => 'kilometros',
+                        'field_name_form' => ':kilometros',
+                        'field_value' => $kilometros,
+                    ],
+                ];
+
+                $saveInvertedRuta = $this->saveData('rutas', $rutaDataLogInverted);
+
+                if ($saveInvertedRuta->rowCount() == 1) {
+                    return $this->successHandler(
+                        'reload',
+                        'Las rutas han sido registradas correctamente.'
+                    );
+                } else {
+                    return $this->errorHandler('Hubo un problema al registrar la ruta inversa.');
+                }
+            } else {
+                return $this->successHandler(
+                    'reload',
+                    'La ruta ha sido registrada correctamente.'
+                );
+            }
         } else {
             return $this->errorHandler('Hubo un problema al registrar la ruta.');
         }
