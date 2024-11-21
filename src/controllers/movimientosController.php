@@ -232,9 +232,9 @@ class movimientosController extends doubleModel
                             <input type="text" class="form-control form-control-sm destino" name="destino[]" id="destino-'.$count.'" value="'.$municipio->getMunicipioById($row['destino']).'" />
                             <input type="hidden" class="id-destino" name="id-destino[]" id="id-destino-'.$count.'" value="'.$row['destino'].'" />
                         </td>
-                        <td><input type="text" class="form-control form-control-sm codigo-ruta block-input" name="codigo-ruta[]" id="id-ruta-'.$count.'" readOnly /></td>
-                        <td><input type="text" class="form-control form-control-sm block-input" name="kilometros-movimiento[]" id="kilometros-movimiento-'.$count.'" readOnly /></td>
-                        <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="bi bi-x-lg m-0 p-0"></i></button></td>
+                        <td><input type="text" class="form-control form-control-sm codigo-ruta block-input" name="codigo-ruta[]" id="id-ruta-'.$count.'" readOnly tabindex="-1" /></td>
+                        <td><input type="text" class="form-control form-control-sm block-input" name="kilometros-movimiento[]" id="kilometros-movimiento-'.$count.'" readOnly tabindex="-1" /></td>
+                        <td><button type="button" class="btn btn-danger btn-sm remove-row" tabindex=-1><i class="bi bi-x-lg m-0 p-0"></i></button></td>
                     </tr>';
                 $count++;
                 $data[] = $row;
