@@ -67,13 +67,14 @@ export function addRow() {
                 <input type="text" class="form-control form-control-sm destino" name="destino[]" id="destino-${count}" />
                 <input type="hidden" class="id-destino" name="id-destino[]" id="id-destino-${count}" value="" />    
             </td>    
-            <td><input type="text" class="form-control form-control-sm codigo-ruta block-input" name="codigo-ruta[]" id="id-ruta-${count}" readOnly /></td>
-            <td><input type="text" class="form-control form-control-sm movimientos block-input" name="kilometros-movimiento[]" id="kilometros-movimiento-${count}" readOnly /></td>
-            <td><button type="button" class="btn btn-danger btn-sm remove-row"><i class="bi bi-x-lg m-0 p-0"></i></button></td>
+            <td><input type="text" class="form-control form-control-sm codigo-ruta block-input" name="codigo-ruta[]" id="id-ruta-${count}" readOnly tabindex="-1" /></td>
+            <td><input type="text" class="form-control form-control-sm movimientos block-input" name="kilometros-movimiento[]" id="kilometros-movimiento-${count}" readOnly tabindex="-1" /></td>
+            <td><button type="button" class="btn btn-danger btn-sm remove-row" tabindex=-1><i class="bi bi-x-lg m-0 p-0"></i></button></td>
         </tr>
     `;
     table.row.add($(newRow)).draw();
     initializeNewRowAutocomplete(count);
+    $(`#origen-${count}`).focus();
 }
 
 function deleteRow(button) {
