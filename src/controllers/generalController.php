@@ -3,12 +3,10 @@
 namespace src\controllers;
 
 use PDO;
-use Exception;
 use src\models\doubleModel;
 
 class generalController extends doubleModel
 {
-
     public function registerGeneral()
     {
 

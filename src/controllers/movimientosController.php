@@ -78,6 +78,7 @@ class movimientosController extends doubleModel
                 if (!$updateMovimientos) {
                     return $this->errorHandler('Hubo un problema al actualizar los movimientos.');
                 }
+
             } else {
                     // Insertar si no existe
                 $insertDataLog = [
@@ -260,7 +261,26 @@ class movimientosController extends doubleModel
 
     public function deleteMovimientos()
     {
-        
+        $idViaje = $_POST['id_viaje'];
+        $numeroMovimiento = $_POST['nro-movimiento'];
+
+        $dataLog = $this->executeQuery("SELECT * FROM movimientos WHERE id_viaje = $idViaje AND id_movimiento = $numeroMovimiento");
+        if ($dataLog->rowCount() > 0) {
+            return $this->errorHandler('No hemos encontrado el movimiento en el sistema.');
+        } else {
+            $dataLog = $dataLog->fetch();
+        }
+
+        $dataLog = $this->deleteData('general', $idViaje, $numeroMovimiento);
+        if ($dataLog->rowCount() == 1) {
+            return $this->successHandler(
+                'reload',
+                'El movimiento ha sido eliminado correctamente.',
+                'Movimiento eliminado',
+            );
+        } else {
+            return $this->errorHandler('No se pudo eliminar el movimiento.');
+        }
     }
 
     public function getUsd($kilometros)
